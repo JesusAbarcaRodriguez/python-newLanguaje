@@ -131,7 +131,10 @@ border-color: rgb(39, 93, 211);</string>
                 <item>
                  <widget class="QTextEdit" name="textEdit_2">
                   <property name="enabled">
-                   <bool>false</bool>
+                   <bool>true</bool>
+                  </property>
+                  <property name="verticalScrollBarPolicy">
+                    <enum>Qt::ScrollBarAsNeeded</enum>
                   </property>
                   <property name="styleSheet">
                     <string>color: black;</string>
