@@ -1,5 +1,5 @@
 from PyQt5 import uic
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QDialog,QMainWindow
 from PyQt5.QtWidgets import QInputDialog, QLineEdit
 from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtWidgets import QMessageBox
@@ -15,18 +15,8 @@ class MainView(QMainWindow):
         self.btn_execute.clicked.connect(self.execute_code)
         self.btn_new.clicked.connect(self.open_new_dialog)
         self.btn_options.clicked.connect(self.show_options_menu)
-        self.btn_reserved_words.clicked.connect(self.show_reserved_words_dialog)
-
-
-    def show_reserved_words_dialog(self):
-        dialog = ReservedWordsDialog(self)
-        if dialog.exec_() == QDialog.Accepted:
-            selected_word = dialog.get_selected_word()
-            if selected_word:
-                self.textEdit.append(selected_word)
     def show_options_menu(self):
         options_menu = QMenu(self)
-
         reserved_words_action = QAction("Palabras reservadas", self)
         syntax_menu = QMenu("Sintaxis", self)
         control_action = QAction("Control", self)
@@ -45,7 +35,6 @@ class MainView(QMainWindow):
         options_menu.addAction(data_types_action)
         options_menu.addAction(load_file_action)
         selected_action = options_menu.exec_(self.btn_options.mapToGlobal(self.btn_options.rect().bottomLeft()))
-
         if selected_action == reserved_words_action:
             self.generate_code_for_reserved_words()
         elif selected_action == control_action:
@@ -55,15 +44,14 @@ class MainView(QMainWindow):
         # ... (similarly for other actions)
 
     # ... (other methods)
-
     def generate_code_for_reserved_words(self):
         code = "Tu código para palabras reservadas\n"
         final_code = self.textEdit.toPlainText() + code
         self.textEdit.setPlainText(final_code)
-
     def generate_code_for_control_syntax(self):
         code = "Tu código para sintaxis de control"
-        self.textEdit.setPlainText(code)
+        final_code = self.textEdit.toPlainText() + code
+        self.textEdit.setPlainText(final_code)
     def open_file_dialog(self):
         options = QFileDialog.Options()
         options |= QFileDialog.ReadOnly
