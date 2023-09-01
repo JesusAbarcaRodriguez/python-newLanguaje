@@ -1,16 +1,66 @@
 from PyQt5 import uic
-from PyQt5.QtWidgets import QDialog,QMainWindow
+from PyQt5.QtWidgets import QDialog,QMainWindow,QListWidgetItem
 from PyQt5.QtWidgets import QInputDialog, QLineEdit
 from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtWidgets import QAction, QMenu
 from functions.readCode import verify_syntax
+
+class DataTypesDialog(QDialog):
+    def __init__(self, parent=None):
+        super(DataTypesDialog, self).__init__(parent)
+        uic.loadUi("view/dataType.ui", self)
+
+        self.btn_select.clicked.connect(self.select_data_type)
+
+        self.initialize_data_types()
+
+    def initialize_data_types(self):
+        data_types = ["int", "float", "string", "bool"]
+        for data_type in data_types:
+            item = QListWidgetItem(data_type)
+            self.listWidget.addItem(item)
+
+    def select_data_type(self):
+        selected_item = self.listWidget.currentItem()
+        if selected_item:
+            selected_data_type = selected_item.text()
+            main_window = self.parent()
+            main_window.add_data_type_to_text_edit(selected_data_type)
+            self.close()
+
+class ReservedWordsDialog(QDialog):
+    def __init__(self, parent=None):
+        super(ReservedWordsDialog, self).__init__(parent)
+
+        uic.loadUi("view/reservedWord.ui", self)
+
+        self.btn_select.clicked.connect(self.select_reserved_word)
+
+        self.initialize_reserved_words()
+
+    def initialize_reserved_words(self):
+        reserved_words = ["if", "else", "while", "for"]  # Agrega más palabras aquí
+        for word in reserved_words:
+            item = QListWidgetItem(word)
+            self.listWidget.addItem(item)
+
+    def select_reserved_word(self):
+        selected_item = self.listWidget.currentItem()
+        if selected_item:
+            selected_word = selected_item.text()
+            main_window = self.parent()
+            main_window.add_reserved_word_to_text_edit(selected_word)  # Llamada a un método en MainView
+            self.close()
+
+
 class MainView(QMainWindow):
 
     def __init__(self):  # this
         super(MainView, self).__init__()
         uic.loadUi("view/view.ui", self)
-
+        self.data_types_dialog = None
+        self.reserved_words_dialog = None
         self.btn_exit.clicked.connect(self.close_window)
         self.btn_execute.clicked.connect(self.execute_code)
         self.btn_new.clicked.connect(self.open_new_dialog)
@@ -41,13 +91,33 @@ class MainView(QMainWindow):
             self.generate_code_for_control_syntax()
         elif selected_action == load_file_action:
             self.open_file_dialog()
+        elif selected_action == data_types_action:
+            self.generate_code_for_data_types()
         # ... (similarly for other actions)
 
     # ... (other methods)
+    def generate_code_for_data_types(self):
+        try:
+            if not self.data_types_dialog:
+                self.data_types_dialog = DataTypesDialog(self)
+            self.data_types_dialog.exec_()
+        except Exception as e:
+            print(f"Error in generate_code_for_data_types: {e}")
+    def add_data_type_to_text_edit(self, data_type):
+        current_text = self.textEdit.toPlainText()
+        new_text = f"{current_text} {data_type}"
+        self.textEdit.setPlainText(new_text)
     def generate_code_for_reserved_words(self):
-        code = "Tu código para palabras reservadas\n"
-        final_code = self.textEdit.toPlainText() + code
-        self.textEdit.setPlainText(final_code)
+        try:
+            if not self.reserved_words_dialog:
+                self.reserved_words_dialog = ReservedWordsDialog(self)
+            self.reserved_words_dialog.exec_()
+        except Exception as e:
+            print(f"Error in generate_code_for_reserved_words: {e}")
+    def add_reserved_word_to_text_edit(self, reserved_word):
+        current_text = self.textEdit.toPlainText()
+        new_text = f"{current_text} {reserved_word}"
+        self.textEdit.setPlainText(new_text)
     def generate_code_for_control_syntax(self):
         code = "Tu código para sintaxis de control"
         final_code = self.textEdit.toPlainText() + code
