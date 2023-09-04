@@ -62,7 +62,7 @@ class MainView(QMainWindow):
         self.data_types_dialog = None
         self.reserved_words_dialog = None
         self.btn_exit.clicked.connect(self.close_window)
-        self.btn_execute.clicked.connect(self.execute_code)
+        self.btn_compile.clicked.connect(self.execute_code)
         self.btn_new.clicked.connect(self.open_new_dialog)
         self.btn_options.clicked.connect(self.show_options_menu)
     def show_options_menu(self):
@@ -147,8 +147,7 @@ class MainView(QMainWindow):
         self.close()
     def execute_code(self):
         code = self.textEdit.toPlainText()
-        self.textEdit_2.setPlainText(code)
-        verify_syntax(code)
+        self.textEdit_2.setPlainText(verify_syntax(code))
     def open_new_dialog(self):
         text, ok = QInputDialog.getText(self, 'New File', 'Enter file name:')
         if ok and text:
