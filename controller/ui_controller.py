@@ -40,23 +40,25 @@ class ReservedWordsDialog(QDialog):
         self.initialize_reserved_words()
 
     def initialize_reserved_words(self):
-        reserved_words = ["if", "else", "while", "for"]  # Agrega más palabras aquí
-        for word in reserved_words:
-            item = QListWidgetItem(word)
-            self.listWidget.addItem(item)
-
+        self.reserved_words = {
+            "MIENTRAS": "MIENTRAS i<10 INICIO … i : i + 1;FIN",
+            "DE": "DE i=0…variable INICIO … $Acá se va a ejecutar el bucle de 0 hasta el valor de la variable$ FIN",
+            "CUANDO": "CUANDO i<10 INICIO … i : i + 1;FIN",
+            "SINO": "SINO INICIO … i : i + 1;FIN"
+        }
+        self.listWidget.addItems(self.reserved_words.keys())
     def select_reserved_word(self):
         selected_item = self.listWidget.currentItem()
         if selected_item:
             selected_word = selected_item.text()
             main_window = self.parent()
-            main_window.add_reserved_word_to_text_edit(selected_word)  # Llamada a un método en MainView
+            main_window.add_reserved_word_to_text_edit(self.reserved_words.get(selected_word, ""))  # Llamada a un método en MainView
             self.close()
 
 
 class MainView(QMainWindow):
 
-    def __init__(self):  # this
+    def __init__(self):
         super(MainView, self).__init__()
         uic.loadUi("view/view.ui", self)
         self.data_types_dialog = None
