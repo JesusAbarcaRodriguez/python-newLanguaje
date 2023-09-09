@@ -4,8 +4,7 @@ from PyQt5.QtWidgets import QInputDialog, QLineEdit
 from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtWidgets import QAction, QMenu
-from functions.readCode import verify_syntax
-
+from functions.read_code import read_code
 class DataTypesDialog(QDialog):
     def __init__(self, parent=None):
         super(DataTypesDialog, self).__init__(parent)
@@ -16,7 +15,7 @@ class DataTypesDialog(QDialog):
         self.initialize_data_types()
 
     def initialize_data_types(self):
-        data_types = ["int", "float", "string", "bool"]
+        data_types = ["\n ENTERO", "\n FLOTANTE", "\n CADENA", "\n CARACTER", "\n NULO"]
         for data_type in data_types:
             item = QListWidgetItem(data_type)
             self.listWidget.addItem(item)
@@ -41,10 +40,9 @@ class ReservedWordsDialog(QDialog):
 
     def initialize_reserved_words(self):
         self.reserved_words = {
-            "MIENTRAS": "MIENTRAS i<10 INICIO … i : i + 1;FIN",
-            "DE": "DE i=0…variable INICIO … $Acá se va a ejecutar el bucle de 0 hasta el valor de la variable$ FIN",
-            "CUANDO": "CUANDO i<10 INICIO … i : i + 1;FIN",
-            "SINO": "SINO INICIO … i : i + 1;FIN"
+            "MIENTRAS": "\n MIENTRAS i<10 INICIO \n … i : i + 1; \n FIN",
+            "DE": "\n DE i=0…variable INICIO \n … $Acá se va a ejecutar el bucle de 0 hasta el valor de la variable$ \n FIN",
+            "CUANDO": "\n CUANDO i<10 INICIO \n … i : i + 1; \n FIN \n  SINO INICIO \n … i : i + 1; \n FIN",
         }
         self.listWidget.addItems(self.reserved_words.keys())
     def select_reserved_word(self):
@@ -149,7 +147,7 @@ class MainView(QMainWindow):
         self.close()
     def execute_code(self):
         code = self.textEdit.toPlainText()
-        self.textEdit_2.setPlainText(verify_syntax(code))
+        self.textEdit_2.setPlainText(read_code(code))
     def open_new_dialog(self):
         text, ok = QInputDialog.getText(self, 'New File', 'Enter file name:')
         if ok and text:
