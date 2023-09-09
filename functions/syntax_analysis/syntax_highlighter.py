@@ -1,16 +1,16 @@
 from PyQt5.QtCore import Qt, QRegExp
-from PyQt5.QtGui import QSyntaxHighlighter, QTextDocument, QTextCharFormat  # Añade QTextCharFormat aquí
+from PyQt5.QtGui import QSyntaxHighlighter, QColor, QTextCharFormat  # Añade QTextCharFormat aquí
 
 
 class SyntaxHighlighter(QSyntaxHighlighter):
     def __init__(self, parent=None):
         super(SyntaxHighlighter, self).__init__(parent)
         self.highlighting_rules = []
-
+        mi_color_personalizado2 = QColor(255, 124, 0)
         keyword_formatBlue = QTextCharFormat()
         keyword_formatOrange = QTextCharFormat()
         keyword_formatBlue.setForeground(Qt.blue)
-        keyword_formatOrange.setForeground(Qt.darkYellow)
+        keyword_formatOrange.setForeground(mi_color_personalizado2)
 
         keywords = ["ENTERO", "FLOTANTE","BOOLEANO", "CADENA", "CARACTER"]  # Agrega aquí más palabras clave si es necesario
         for keyword in keywords:

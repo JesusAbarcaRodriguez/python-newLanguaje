@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QInputDialog, QLineEdit
 from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtWidgets import QAction, QMenu
-from controller.syntax_highlighter import SyntaxHighlighter
+from functions.syntax_analysis.syntax_highlighter import SyntaxHighlighter
 from functions.read_code import read_code
 class DataTypesDialog(QDialog):
     def __init__(self, parent=None):
