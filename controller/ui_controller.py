@@ -1,9 +1,10 @@
 from PyQt5 import uic
-from PyQt5.QtWidgets import QDialog,QMainWindow,QListWidgetItem
+from PyQt5.QtWidgets import QDialog,QMainWindow,QListWidgetItem, QTextEdit
 from PyQt5.QtWidgets import QInputDialog, QLineEdit
 from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtWidgets import QAction, QMenu
+from controller.syntax_highlighter import SyntaxHighlighter
 from functions.read_code import read_code
 class DataTypesDialog(QDialog):
     def __init__(self, parent=None):
@@ -65,6 +66,8 @@ class MainView(QMainWindow):
         self.btn_compile.clicked.connect(self.execute_code)
         self.btn_new.clicked.connect(self.open_new_dialog)
         self.btn_options.clicked.connect(self.show_options_menu)
+        self.textEdit = self.findChild(QTextEdit, "textEdit")
+        self.highlighter = SyntaxHighlighter(self.textEdit.document())
     def show_options_menu(self):
         options_menu = QMenu(self)
         reserved_words_action = QAction("Palabras reservadas", self)
