@@ -17,6 +17,8 @@ patterns = [
     (r'MIENTRAS', 'MIENTRAS'),
     (r'\$(.*?)\$', 'COMENTARIO'),
     (r'FIN', 'FIN'),
+    (r'(ENTERO|BOOLEANO|FLOTANTE|CADENA|CARACTER)\[(\d+)\]\[(\d+)\]', 'TIPO_DATO_MATRIZ'),
+    (r'(ENTERO|BOOLEANO|FLOTANTE|CADENA|CARACTER)\[(\d+)\]', 'TIPO_DATO_VECTOR'),
     (r'ENTERO|BOOLEANO |FLOTANTE|CADENA|CARACTER', 'TIPO_DATO'),
     (r'[+\-*/]', 'OPERADOR_ARITMETICO'),
     (r'[=!<>]', 'OPERADOR_COMPARACION'),

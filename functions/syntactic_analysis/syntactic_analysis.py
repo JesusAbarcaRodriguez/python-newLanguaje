@@ -1,75 +1,150 @@
 from collections import deque
-tokens_to_verify_identificador = {"TIPO_DATO", "FUNCION", "CUANDO", "MIENTRAS", "DE","OPERADOR_COMPARACION","RANGO","OPERADOR_LOGICO_AND","OPERADOR_LOGICO_OR","OPERADOR_ARITMETICO"}
-tokens_inicio_final ={"INCIO","FINAL"}
+tokens_to_verify_identificador = {"TIPO_DATO", "FUNCION", "CUANDO", "MIENTRAS", "DE","OPERADOR_COMPARACION","RANGO","OPERADOR_LOGICO_AND","OPERADOR_LOGICO_OR","OPERADOR_ARITMETICO","INCIO"}
+tokens_inicio_final ={"INICIO","FIN"}
+tokens_to_verify_num = {'ASIGNACION', 'RANGO' , 'DE' , 'CUANDO','MIENTRAS','OPERADOR_LOGICO_AND','OPERADOR_LOGICO_OR','OPERADOR_ARITMETICO','OPERADOR_COMPARACION'}
 tokens_num_entero_flotante ={"NUMERO_ENTERO","NUMERO_FLOTANTE","IDENTIFICADOR"}
 tokens_cadena_caracter = {"CADENA_LITERAL","CARACTER"}
 def syntactic_analysis(tokens):
     pila_data_type= deque()
     pila_block= deque()
     pila_if_else= deque()
+    pila_verify_inicio_fin = deque()
     for token in tokens:
         if token[0] == 'TIPO_DATO':
             pila_data_type.append(token)
         elif token[0] == 'IDENTIFICADOR':
             if top(pila_data_type)[0] in tokens_to_verify_identificador:
-                pila_data_type.pop()
                 pila_data_type.append(token)
+            else:
+                return f"Error sintactico en {token[1]}"
         elif token[0] == 'FIN_DE_INSTRUCCION':
-            if top(pila_data_type)[0] in tokens_num_entero_flotante or top(pila_data_type)[0] in tokens_cadena_caracter:
-                pila_data_type.pop()
+            if top(pila_data_type)[0] in tokens_num_entero_flotante or top(pila_data_type)[0] in tokens_cadena_caracter or top(pila_data_type)[0] == 'PARENTESIS_DER':
+                pila_data_type.append(token)
+            else:
+                return f"Error sintactico en {token[1]}"
         elif token[0] == 'FUNCION':
             if top(pila_data_type)[0] == 'TIPO_DATO':
-                pila_data_type.pop()
                 pila_data_type.append(token)
+                pila_verify_inicio_fin.append(token)
+            else:
+                return f"Error sintactico en {token[1]}"
         elif token[0] == 'PARENTESIS_IZQ':
             if top(pila_data_type)[0] == 'IDENTIFICADOR':
-                pila_data_type.pop()
                 pila_data_type.append(token)
+            else:
+                return f"Error sintactico en {token[1]}"
         elif token[0] == 'PARENTESIS_DER':
             if top(pila_data_type)[0] == 'PARENTESIS_IZQ' or top(pila_data_type)[0] == 'IDENTIFICADOR':
-                pila_data_type.pop()
                 pila_data_type.append(token)
+            else:
+                return f"Error sintactico en {token[1]}"
         elif token[0] == 'INICIO':
             if top(pila_data_type)[0] == 'PARENTESIS_DER' or top(pila_data_type)[0] in tokens_num_entero_flotante:
                 pila_block.append(token)
-                pila_data_type.pop()
-        elif token[0] == 'FIN':
-            top_block = top(pila_block)
-            if top_block and top_block[0] == 'INICIO' or top(pila_data_type)[0] == 'FIN_DE_INSTRUCCION':
-                if pila_data_type:
-                    pila_data_type.pop()
-                pila_block.append(token)
             else:
-                pila_block.append(token)
+                return f"Error sintactico en {token[1]}"
+        elif token[0] == 'FIN':
+            if  top(pila_block)[0] in tokens_inicio_final or top(pila_data_type)[0] == 'FIN_DE_INSTRUCCION':
+                    pila_block.append(token)
+                    pila_data_type.append(token)
+            else:
+                return f"Error sintactico en {token[1]}"
         elif token[0] == 'CUANDO':
             if top(pila_block)[0] in tokens_inicio_final or top(pila_data_type)[0]:
                 pila_if_else.append(token)
                 pila_data_type.append(token)
+                pila_verify_inicio_fin.append(token)
+            else:
+                return f"Error sintactico en {token[1]}"
         elif token[0] == 'OPERADOR_COMPARACION':
             if top(pila_data_type)[0] in tokens_num_entero_flotante:
-                pila_data_type.pop()
                 pila_data_type.append(token)
+            else:
+                return f"Error sintactico en {token[1]}"
         elif token[0] == 'SINO':
             if top(pila_if_else)[0] == 'CUANDO':
-                pila_if_else.pop()
-                
+                pila_verify_inicio_fin.append(token)
+            else:
+                return f"Error sintactico en {token[1]}"
         elif token[0] == 'MIENTRAS':
             if top(pila_block)[0] in tokens_inicio_final or top(pila_data_type)[0] == 'FIN_DE_INSTRUCCION':
-                pila_data_type.clear()
                 pila_data_type.append(token)
-        
+                pila_verify_inicio_fin.append(token)
+            else:
+                return f"Error sintactico en {token[1]}"
         elif token[0] == 'RANGO':
             if top(pila_data_type)[0] in tokens_num_entero_flotante:
-                pila_data_type.pop()
                 pila_data_type.append(token)
+            else:
+                return f"Error sintactico en {token[1]}"
         elif token[0] == 'DE':
             if top(pila_block)[0] in tokens_inicio_final or top(pila_data_type)[0] == 'FIN_DE_INSTRUCCION':
-                pila_data_type.clear()
-                pila_data_type.append(token)        
+                pila_data_type.append(token)
+                pila_verify_inicio_fin.append(token)
+            else:
+                return f"Error sintactico en {token[1]}"
+        elif token[0] == 'OPERADOR_LOGICO_AND':
+            if(top(pila_data_type)[0] in tokens_num_entero_flotante or top(pila_data_type)[0] in tokens_cadena_caracter):
+                pila_data_type.append(token)
+            else:
+                return f"Error sintactico en {token[1]}"
+        elif token[0] == 'OPERADOR_LOGICO_OR':
+            if(top(pila_data_type)[0] in tokens_num_entero_flotante or top(pila_data_type)[0] in tokens_cadena_caracter):
+                pila_data_type.append(token)
+            else:
+                return f"Error sintactico en {token[1]}"
+        elif token[0] == 'OPERADOR_ARITMETICO':
+            if(top(pila_data_type)[0] in tokens_num_entero_flotante):
+                pila_data_type.append(token)
+            else:
+                return f"Error sintactico en {token[1]}"
+        elif token[0] == 'CADENA_LITERAL':
+            if(top(pila_data_type)[0] == 'ASIGNACION'):
+                pila_data_type.append(token)
+            else:
+                return f"Error sintactico en {token[1]}"
+        elif token[0] == 'CARACTER':
+            if(top(pila_data_type)[0] == 'ASIGNACION'):
+                pila_data_type.append(token)
+            else:
+                return f"Error sintactico en {token[1]}"
+        elif token[0] == 'ASIGNACION':
+            if(top(pila_data_type)[0] == 'IDENTIFICADOR'):
+                pila_data_type.append(token)
+            else:
+                return f"Error sintactico en {token[1]}"
+        elif token[0] == 'PROCEDIMIENTO':
+                pila_data_type.append(token)
+                pila_verify_inicio_fin.append(token)
+        elif token[0] == 'TIPO_DATO_VECTOR':
+                pila_data_type.append(token)
+        elif token[0] == 'TIPO_DATO_MATRIZ':
+            pila_data_type.append(token)
+        elif token[0] == 'NUMERO_ENTERO':
+            if(top(pila_data_type)[0]  in tokens_to_verify_num):
+                pila_data_type.append(token)
+            else:
+                return f"Error sintactico en {token[1]}"
+        elif token[0] == 'NUMERO_FLOTANTE':
+            if(top(pila_data_type)[0] in tokens_to_verify_num):
+                pila_data_type.append(token)
+            else:
+                return f"Error sintactico en {token[1]}"
         else:
             return "Error sintactico"
-    return "Codigo correcto"    
-    
+    pila_size_block = len(pila_block)//2
+    pila_verify_inicio_fin_size = len(pila_verify_inicio_fin)
+    if pila_size_block != pila_verify_inicio_fin_size:
+        return "Error sintactico en el inicio o final del bloque"
+    count_inicio = pila_block.count(('INICIO', 'INICIO'))
+    count_final = pila_block.count(('FIN', 'FIN'))
+    count_de = pila_data_type.count(('DE', 'DE'))
+    count_rango = pila_data_type.count(('RANGO', '...'))
+    if count_de != count_rango:
+        return "Error sintactico en la declaracion de DE y Rango"
+    if count_inicio != count_final:
+        return "Error sintactico en el inicio o final del bloque"
+    return "Codigo correcto"
 def top(pila):
     if not pila:
         return (r' ', ' ')  # Devuelve None si la pila está vacía
