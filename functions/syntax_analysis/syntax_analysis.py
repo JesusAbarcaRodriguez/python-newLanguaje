@@ -13,6 +13,7 @@ patterns = [
     (r'LEER', 'LEER'),
     (r';', 'FIN_DE_INSTRUCCION'),
     (r'CUANDO', 'CUANDO'),
+    (r'SINO', 'SINO'),
     (r'MIENTRAS', 'MIENTRAS'),
     (r'\$(.*?)\$', 'COMENTARIO'),
     (r'FIN', 'FIN'),
@@ -29,10 +30,11 @@ patterns = [
     (r'[a-zA-Z_]\w*', 'IDENTIFICADOR'),
     (r'\d+\.\d+', 'NUMERO_FLOTANTE'),
     (r'\d+', 'NUMERO_ENTERO'),
+    (r'\.\.\.', 'RANGO')
 ]
 
 def syntax_analysis(code):
-    syntax_analysis_obj = SyntaxAnalysisObj(False,"")
+    syntax_analysis_obj = SyntaxAnalysisObj(False,"",[])
     while code:
         for pattern, token_type in patterns:
             match = re.match(pattern, code)
