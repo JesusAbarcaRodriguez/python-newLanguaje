@@ -52,7 +52,7 @@ def syntactic_analysis(tokens):
             else:
                 return f"Error sintactico en {token[1]}"
         elif token[0] == 'CUANDO':
-            if top(pila_block)[0] in tokens_inicio_final or top(pila_data_type)[0]:
+            if top(pila_block)[0] in tokens_inicio_final or top(pila_data_type)[0] or top(pila_block)[0] =='FIN_DE_INSTRUCCION':
                 pila_if_else.append(token)
                 pila_data_type.append(token)
                 pila_verify_inicio_fin.append(token)
