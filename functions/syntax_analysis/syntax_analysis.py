@@ -8,6 +8,7 @@ patterns = [
     (r'FUNCION', 'FUNCION'),
     (r'PROCEDIMIENTO', 'PROCEDIMIENTO'),
     (r'INICIO', 'INICIO'),
+    (r'PRINCIPAL', 'PRINCIPAL'),
     (r'DE', 'DE'),
     (r'ESCRIBIR', 'ESCRIBIR'),
     (r'LEER', 'LEER'),
