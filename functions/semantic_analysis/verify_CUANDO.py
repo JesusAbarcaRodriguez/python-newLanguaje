@@ -18,28 +18,44 @@ def verify_CUANDO(principal,i,tokens):
     return result
 def evaluate_logic_expression(logic_variables, logic_operators):
     index = 0
-    result = None
-    all_true = True  # Bandera para la operación AND
-    while index < len(logic_operators):
-        operator = logic_operators[index]
-
-        if operator == '=':
-            result = logic_variables[index] == logic_variables[index + 1]
+    bool_operations = []
+    isAnd = False
+    isOr = False
+    while index < len(logic_operators) + len(logic_variables):
+        if index < len(logic_operators):
+            operator = logic_operators[index]
+        elif operator == '=':
+            if logic_variables[index] == logic_variables[index+1]:
+                bool_operations.append(True)
+                index += 1
+            else:
+                bool_operations.append(False)
+                index += 1
         elif operator == '<':
-            result = logic_variables[index] < logic_variables[index + 1]
+            if logic_variables[index] < logic_variables[index+1]:
+                bool_operations.append(True)
+                index += 1
+            else:
+                bool_operations.append(False)
+                index += 1
         elif operator == '>':
-            result = logic_variables[index] > logic_variables[index + 1]
+            if logic_variables[index] > logic_variables[index+1]:
+                bool_operations.append(True)
+                index += 1
+            else:
+                bool_operations.append(False)
+                index += 1
         elif operator == '!':
-            result = logic_variables[index] != logic_variables[index + 1]
+            if logic_variables[index] != logic_variables[index+1]:
+                bool_operations.append(True)
+                index += 1
+            else:
+                bool_operations.append(False)
+                index += 1
         elif operator == '&':
-            result = logic_variables[index] and logic_variables[index + 1]
-            all_true = all_true and result  # Actualizar la bandera
+            isAnd=True
+            index += 1
         elif operator == '#':
-            result = logic_variables[index] or logic_variables[index + 1]
-
-        index += 2  # Avanzar al siguiente par de valores
-
-        if result is False and operator == '#':
-            return False  # Si encontramos un OR verdadero, no es necesario seguir evaluando
-
-    return all_true  # Si llega aquí, todas las expresiones AND son verdaderas
+            isOr=True
+            index += 1
+    return bool_operations[index]
