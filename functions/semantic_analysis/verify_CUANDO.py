@@ -1,4 +1,5 @@
 from functions.utils.utils import is_declared_variable
+from collections import deque
 logic_operations = {"OPERADOR_LOGICO_AND","OPERADOR_LOGICO_OR","OPERADOR_COMPARACION"}
 def verify_CUANDO(principal,i,tokens):
     logic_operators = []
@@ -15,47 +16,58 @@ def verify_CUANDO(principal,i,tokens):
             logic_operators.append(tokens[i][1])
         i += 1
     result = evaluate_logic_expression(logic_variables, logic_operators)
-    return result
+    return result#AQUI HACER ALGO MAS CON EL RESULT, NO RETORNARLO
 def evaluate_logic_expression(logic_variables, logic_operators):
     index = 0
-    bool_operations = []
-    isAnd = False
-    isOr = False
-    while index < len(logic_operators) + len(logic_variables):
-        if index < len(logic_operators):
-            operator = logic_operators[index]
-        elif operator == '=':
+    stack_bool_operations = deque()
+    stack_and_or = deque()
+    while index < len(logic_operators) :
+        operator = logic_operators[index]
+        if operator == '=':
             if logic_variables[index] == logic_variables[index+1]:
-                bool_operations.append(True)
+                stack_bool_operations.append(True)
                 index += 1
             else:
-                bool_operations.append(False)
+                stack_bool_operations.append(False)
                 index += 1
         elif operator == '<':
             if logic_variables[index] < logic_variables[index+1]:
-                bool_operations.append(True)
+                stack_bool_operations.append(True)
                 index += 1
             else:
-                bool_operations.append(False)
+                stack_bool_operations.append(False)
                 index += 1
         elif operator == '>':
             if logic_variables[index] > logic_variables[index+1]:
-                bool_operations.append(True)
+                stack_bool_operations.append(True)
                 index += 1
             else:
-                bool_operations.append(False)
+                stack_bool_operations.append(False)
                 index += 1
         elif operator == '!':
             if logic_variables[index] != logic_variables[index+1]:
-                bool_operations.append(True)
+                stack_bool_operations.append(True)
                 index += 1
             else:
-                bool_operations.append(False)
+                stack_bool_operations.append(False)
                 index += 1
         elif operator == '&':
-            isAnd=True
+            stack_and_or.append('&')
             index += 1
         elif operator == '#':
-            isOr=True
+            stack_and_or.append('#')
             index += 1
-    return bool_operations[index]
+    for operator in stack_and_or:
+        if operator == '&':
+            aux = stack_bool_operations.pop()
+            aux2 = stack_bool_operations.pop()
+            stack_bool_operations.append(aux and aux2)
+        if operator == '#':
+            aux = stack_bool_operations.pop()
+            aux2 = stack_bool_operations.pop()
+            stack_bool_operations.append(aux or aux2)
+    return top(stack_and_or)
+def top(pila):
+    if not pila:
+        return (r' ', ' ')  # Devuelve None si la pila está vacía
+    return pila[-1]  # Devuelve el último elemento de la pila
