@@ -40,13 +40,13 @@ def syntactic_analysis(tokens):
             else:
                 return f"Error sintactico en {token[1]}"
         elif token[0] == 'INICIO':
-            if top(pila_data_type)[0] == 'PARENTESIS_DER' or top(pila_data_type)[0] in tokens_num_entero_flotante:
+            if top(pila_data_type)[0] == 'PARENTESIS_DER' or top(pila_data_type)[0] in tokens_num_entero_flotante or top(pila_data_type)[0] == 'SINO':
                 pila_block.append(token)
                 pila_data_type.append(token)
             else:
                 return f"Error sintactico en {token[1]}"
         elif token[0] == 'FIN':
-            if  top(pila_block)[0] in tokens_inicio_final or top(pila_data_type)[0] == 'FIN_DE_INSTRUCCION':
+            if  top(pila_block)[0] == 'FIN' or top(pila_data_type)[0] == 'FIN_DE_INSTRUCCION':
                     pila_block.append(token)
                     pila_data_type.append(token)
             else:
@@ -64,7 +64,8 @@ def syntactic_analysis(tokens):
             else:
                 return f"Error sintactico en {token[1]}"
         elif token[0] == 'SINO':
-            if top(pila_if_else)[0] == 'CUANDO':
+            if top(pila_data_type)[0] == 'FIN':
+                pila_data_type.append(token)
                 pila_verify_inicio_fin.append(token)
             else:
                 return f"Error sintactico en {token[1]}"

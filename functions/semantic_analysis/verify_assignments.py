@@ -37,7 +37,7 @@ def verify_assigments(principal,i,tokens):
                         principal.variables[tokens[index_variable_to_assign][1]][1] = result
     else:
         return f"Error semantico en {tokens[i][1]}"
-    return str(i)
+    return str(i+1)
 
 def operation(total_operators,total_to_assign):
     result = total_to_assign[0]

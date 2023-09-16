@@ -24,6 +24,7 @@ def semantic_analysis(tokens):
             i += 2
             countINICIO += 1
             while not countFIN == countINICIO:
+
                 if is_assignment(tokens,i):
                     message = verify_assigments(principal,i,tokens)
                     if not message.isdigit():
@@ -41,6 +42,5 @@ def semantic_analysis(tokens):
                     countINICIO += 1
                 if tokens[i][0] == 'FIN':
                     countFIN += 1
-                i += 1
 
 
