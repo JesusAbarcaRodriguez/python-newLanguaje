@@ -23,6 +23,16 @@ def is_function_declaration(tokens,i):
         return True
     else:
         return False
+def is_procedure_decalaration(tokens,i):
+    if tokens[i][0] == 'PROCEDIMIENTO' and tokens[i+1][0] == 'IDENTIFICADOR':
+        return True
+    else:
+        return False
+def is_main_procedure(tokens,i):
+    if tokens[i][0] == 'PROCEDIMIENTO' and tokens[i+1][0] == 'PRINCIPAL':
+        return True
+    else:
+        return False  
 def is_parameters_declaration(tokens,i):
     if tokens[i][0] == 'TIPO_DATO' and tokens[i+1][0] == 'IDENTIFICADOR':
         return True

@@ -17,8 +17,20 @@ class Function:
     parameters = []
     data_type = ""
     identifier = ""
+    init_function = 0
+    end_function = 0
     return_data = None
     def __init__(self,parameters,data_type,identifier):
         self.parameters = parameters
         self.data_type = data_type
+        self.identifier = identifier
+
+class Procedimento:
+    parameters = []
+    identifier = ""
+    init_function = 0
+    end_function = 0
+    return_data = None
+    def __init__(self,parameters,identifier):
+        self.parameters = parameters
         self.identifier = identifier

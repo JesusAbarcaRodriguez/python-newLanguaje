@@ -1,3 +1,6 @@
+import re
+
+
 def verify_DE(principal,i,tokens):
     from functions.semantic_analysis.verify_CUANDO import verify_CUANDO
     from functions.semantic_analysis.verify_assignments import verify_assigments
@@ -18,6 +21,8 @@ def verify_DE(principal,i,tokens):
     i += 2
     auxi = i
     while init < end:
+        i = auxi
+        init += 1
         while not tokens[i][0] == 'FIN':
             if is_assignment(tokens,i):
                 message = verify_assigments(principal,i,tokens)
@@ -27,9 +32,11 @@ def verify_DE(principal,i,tokens):
             if is_for(tokens,i):
                 i += 1
                 message = verify_DE(principal,i,tokens)
+                if not message.isdigit():
+                        return message
+                i = int(message)
             if is_if(tokens,i):
                 i += 1
                 message = verify_CUANDO(principal,i,tokens)
-        i = auxi
-        init += 1
-    return message
+
+    return str(i+1)

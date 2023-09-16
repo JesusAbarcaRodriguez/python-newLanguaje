@@ -1,6 +1,11 @@
 from collections import deque
+
+
+
 logic_operations = {"OPERADOR_LOGICO_AND","OPERADOR_LOGICO_OR","OPERADOR_COMPARACION"}
 def verify_CUANDO(principal,i,tokens):
+    from functions.semantic_analysis.verify_MIENTRAS import verify_MIENTRAS
+    from functions.utils.analysis_conditions import evaluate_logic_expression
     from functions.semantic_analysis.verify_DE import verify_DE
     from functions.semantic_analysis.verify_assignments import verify_assigments
     from functions.utils.utils import is_assignment, is_declared_variable, is_for, is_if, is_while
@@ -25,17 +30,23 @@ def verify_CUANDO(principal,i,tokens):
         while not countFIN == countINICIO:
             if is_assignment(tokens,i):
                 message = verify_assigments(principal,i,tokens)
-            if not message.isdigit():
-                return message
+                if not message.isdigit():
+                    return message
                 i = int(message)
             elif is_for(tokens,i):
                 i += 1
-                verify_DE(principal,i,tokens)
+                message= verify_DE(principal,i,tokens)
+                if not message.isdigit():
+                    return message
+                i = int(message)
             elif is_while(tokens,i):
                 i += 1
             elif is_if(tokens,i):
                 i += 1
-                verify_CUANDO(principal,i,tokens)
+                message = verify_CUANDO(principal,i,tokens)
+                if not message.isdigit():
+                    return message
+                i = int(message)
             if tokens[i][0] == 'INICIO':
                     countINICIO += 1
             if tokens[i][0] == 'FIN':
@@ -54,67 +65,21 @@ def verify_CUANDO(principal,i,tokens):
             elif is_for(tokens,i):
                 i += 1
                 message = verify_DE(principal,i,tokens)
+                if not message.isdigit():
+                        return message
+                i = int(message)
             elif is_while(tokens,i):
                 i += 1
+                message = verify_MIENTRAS(principal,i,tokens)
+                if not message.isdigit():
+                        return message
+                i = int(message)
             elif is_if(tokens,i):
                 i += 1
                 message = verify_CUANDO(principal,i,tokens)
-            if tokens[i][0] == 'INICIO':
-                    countINICIO += 1
+                if not message.isdigit():
+                        return message
+                i = int(message)
             if tokens[i][0] == 'FIN':
                     countFIN += 1
-    return message
-def evaluate_logic_expression(logic_variables, logic_operators):
-    index = 0
-    stack_bool_operations = deque()
-    stack_and_or = deque()
-    while index < len(logic_operators) :
-        operator = logic_operators[index]
-        if operator == '=':
-            if logic_variables[index] == logic_variables[index+1]:
-                stack_bool_operations.append(True)
-                index += 1
-            else:
-                stack_bool_operations.append(False)
-                index += 1
-        elif operator == '<':
-            if logic_variables[index] < logic_variables[index+1]:
-                stack_bool_operations.append(True)
-                index += 1
-            else:
-                stack_bool_operations.append(False)
-                index += 1
-        elif operator == '>':
-            if logic_variables[index] > logic_variables[index+1]:
-                stack_bool_operations.append(True)
-                index += 1
-            else:
-                stack_bool_operations.append(False)
-                index += 1
-        elif operator == '!':
-            if logic_variables[index] != logic_variables[index+1]:
-                stack_bool_operations.append(True)
-                index += 1
-            else:
-                stack_bool_operations.append(False)
-                index += 1
-        elif operator == '&':
-            stack_and_or.append('&')
-            index += 1
-        elif operator == '#':
-            stack_and_or.append('#')
-            index += 1
-    for operator in stack_and_or:
-        if operator == '&':
-            aux = stack_bool_operations.pop()
-            aux2 = stack_bool_operations.pop()
-            stack_bool_operations.append(aux and aux2)
-        if operator == '#':
-            aux = stack_bool_operations.pop()
-            aux2 = stack_bool_operations.pop()
-            stack_bool_operations.append(aux or aux2)
-    return top(stack_bool_operations)
-def top(pila):
-    if not pila:
-        return (r' ', ' ')
-    return pila[-1]
+    return str(i+1)

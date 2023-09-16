@@ -36,7 +36,7 @@ def verify_assigments(principal,i,tokens):
                         result = operation(total_operators,total_int_to_assign)
                         principal.variables[tokens[index_variable_to_assign][1]][1] = result
     else:
-        return f"Error semantico en {tokens[i][1]}"
+        return f"{tokens[i][1]} no ha sido declarada "
     return str(i+1)
 
 def operation(total_operators,total_to_assign):

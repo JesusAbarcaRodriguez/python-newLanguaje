@@ -30,7 +30,7 @@ def syntactic_analysis(tokens):
             else:
                 return f"Error sintactico en {token[1]}"
         elif token[0] == 'PARENTESIS_IZQ':
-            if top(pila_data_type)[0] == 'IDENTIFICADOR' or top(pila_data_type)[0] == 'PRINCIPAL':
+            if top(pila_data_type)[0] == 'IDENTIFICADOR':
                 pila_data_type.append(token)
             else:
                 return f"Error sintactico en {token[1]}"
@@ -40,7 +40,7 @@ def syntactic_analysis(tokens):
             else:
                 return f"Error sintactico en {token[1]}"
         elif token[0] == 'INICIO':
-            if top(pila_data_type)[0] == 'PARENTESIS_DER' or top(pila_data_type)[0] in tokens_num_entero_flotante or top(pila_data_type)[0] == 'SINO':
+            if top(pila_data_type)[0] == 'PARENTESIS_DER' or top(pila_data_type)[0] in tokens_num_entero_flotante or top(pila_data_type)[0] == 'SINO' or top(pila_data_type)[0] == 'PRINCIPAL' :
                 pila_block.append(token)
                 pila_data_type.append(token)
             else:
