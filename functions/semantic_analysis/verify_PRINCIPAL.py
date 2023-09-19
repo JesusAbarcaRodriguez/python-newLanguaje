@@ -14,7 +14,7 @@ def verify_PRINCIPAL(principal,i,tokens):
     countINICIO += 1
     while not countFIN == countINICIO:
         if is_assignment(tokens,i):
-            message = verify_assigments(principal,i,tokens)
+            message = verify_assigments(principal.variables,i,tokens)
             if not message.isdigit():
                 return message
             i = int(message)

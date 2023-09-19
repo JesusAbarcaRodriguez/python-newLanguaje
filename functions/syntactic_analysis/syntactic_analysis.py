@@ -106,7 +106,12 @@ def syntactic_analysis(tokens):
                 pila_data_type.append(token)
             else:
                 return f"Error sintactico en {token[1]}"
-        elif token[0] == 'CARACTER':
+        elif token[0] == 'VALOR_CARACTER':
+            if(top(pila_data_type)[0] == 'ASIGNACION'):
+                pila_data_type.append(token)
+            else:
+                return f"Error sintactico en {token[1]}"
+        elif token[0] == 'VALOR_BOOLEANO':
             if(top(pila_data_type)[0] == 'ASIGNACION'):
                 pila_data_type.append(token)
             else:

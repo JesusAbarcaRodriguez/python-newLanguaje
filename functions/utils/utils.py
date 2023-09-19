@@ -44,13 +44,13 @@ def is_assignment(tokens,i):
     else:
         return False
 
-def is_same_type(variable_to_assign,tokens,i,principal):
-    if variable_to_assign[0]  == principal.variables[tokens[i][1]][0]:
+def is_same_type(variable_to_assign,tokens,i,variables):
+    if variable_to_assign[0]  == variables[tokens[i][1]][0]:
         return True
     else:
         return False
-def is_declared_variable(tokens,i,principal):
-    if tokens[i][1] in principal.variables:
+def is_declared_variable(tokens,i,variables):
+    if tokens[i][1] in variables:
         return True
     else:
         return False

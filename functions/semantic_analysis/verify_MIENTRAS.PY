@@ -16,7 +16,7 @@ def verify_MIENTRAS(principal,i,tokens):
         if tokens[i][0] == 'ENTERO' or tokens[i][0] == 'CADENA_LITERAL' or tokens[i][0] == 'CARACTER':
             logic_variables.append(tokens[i][1])
         if tokens[i][0] == 'IDENTIFICADOR':
-            if is_declared_variable(tokens,i,principal):
+            if is_declared_variable(tokens,i,principal.variables):
                 logic_variables.append(principal.variables[tokens[i][1]][1])
             else:
                 return f"Error semantico en {tokens[i][1]}"

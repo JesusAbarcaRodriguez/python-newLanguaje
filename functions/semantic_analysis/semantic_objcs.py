@@ -14,14 +14,13 @@ class Principal:
     procedimiento = {}
 
 class Function:
-    parameters = []
+    parameters = {}
     data_type = ""
     identifier = ""
     init_function = 0
     end_function = 0
     return_data = None
-    def __init__(self,parameters,data_type,identifier):
-        self.parameters = parameters
+    def __init__(self,data_type,identifier):
         self.data_type = data_type
         self.identifier = identifier
 

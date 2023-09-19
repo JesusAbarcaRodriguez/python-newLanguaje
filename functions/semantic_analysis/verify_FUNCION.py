@@ -7,20 +7,21 @@ def verify_FUNCION(principal,i,tokens):
     from functions.utils.utils import is_assignment, is_for, is_if, is_parameters_declaration, is_while
 
     init_funtion = i
-    function = Function([],tokens[i][1],tokens[i+2][1])
+    function = Function(tokens[i][1],tokens[i+2][1])
     function.init_function = init_funtion
     i = i + 4
     while tokens[i][0] != 'PARENTESIS_DER':
         if is_parameters_declaration(tokens,i):
-            function.parameters[tokens[i+1][1]]([tokens[i+1][1],tokens[i][1]])
+            function.parameters[tokens[i+1][1]] = [tokens[i][1],None]
             i += 2
         else:
             return f"Error semantico en {tokens[i][1]}"
     i += 2
-    countINICIO += 1
-    while not countFIN == countINICIO:
+    variables = principal.variables.copy()
+    variables.update(function.parameters)
+    while not tokens[i][0] == 'FIN':
         if is_assignment(tokens,i):
-            message = verify_assigments(principal,i,tokens)
+            message = verify_assigments(variables,i,tokens)
             if not message.isdigit():
                 return message
             i = int(message)
@@ -42,9 +43,8 @@ def verify_FUNCION(principal,i,tokens):
             if not message.isdigit():
                     return message
             i = int(message)
-        if tokens[i][0] == 'FIN':
-            countFIN += 1
+        
     end_function = i
     function.end_function = end_function
-    principal.functions[function.name] = function
+    principal.functions[function.identifier] = function
     return str(i+1)

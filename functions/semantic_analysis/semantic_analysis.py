@@ -7,13 +7,14 @@ def semantic_analysis(tokens):
     from functions.utils.utils import is_main_procedure, is_function_declaration, is_variable_declaration
 
     principal = Principal()
-    countINICIO = 0
-    countFIN = 0
     i = 0
     while i < len(tokens):
         if is_variable_declaration(tokens,i):
-            principal.variables[tokens[i+1][1]] = [tokens[i][1],None]
-            i += 3
+            if principal.variables.get(tokens[i+1][1]) == None:
+                principal.variables[tokens[i+1][1]] = [tokens[i][1],None]
+                i += 3
+            else:
+                return f"Error semantico la variable {tokens[i+1][1]} ya esta declarada"
         elif is_function_declaration(tokens,i):
             message = verify_FUNCION(principal,i,tokens)
             if not message.isdigit():

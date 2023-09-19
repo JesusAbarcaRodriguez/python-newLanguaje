@@ -10,13 +10,13 @@ def verify_DE(principal,i,tokens):
     if tokens[i][0] == 'NUMERO_ENTERO':
         init = int(tokens[i][1])
     elif tokens[i][0] == "IDENTIFICADOR":
-        if is_declared_variable(tokens,i,principal):
+        if is_declared_variable(tokens,i,principal.variables):
             init = principal.variables[tokens[i][1]][1]
     i += 2
     if tokens[i][0] == 'NUMERO_ENTERO':
         end = int(tokens[i][1])
     elif tokens[i][0] == "IDENTIFICADOR":
-        if is_declared_variable(tokens,i,principal):
+        if is_declared_variable(tokens,i,principal.variables):
             end = principal.variables[tokens[i][1]][1]
     i += 2
     auxi = i

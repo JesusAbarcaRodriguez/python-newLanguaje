@@ -21,6 +21,7 @@ patterns = [
     (r'(ENTERO|BOOLEANO|FLOTANTE|CADENA|CARACTER)\[(\d+)\]\[(\d+)\]', 'TIPO_DATO_MATRIZ'),
     (r'(ENTERO|BOOLEANO|FLOTANTE|CADENA|CARACTER)\[(\d+)\]', 'TIPO_DATO_VECTOR'),
     (r'ENTERO|BOOLEANO |FLOTANTE|CADENA|CARACTER', 'TIPO_DATO'),
+    (r'VERDADERO|FALSO','VALOR_BOOLEANO'),
     (r'[+\-*/]', 'OPERADOR_ARITMETICO'),
     (r'[=!<>]', 'OPERADOR_COMPARACION'),
     (r'&', 'OPERADOR_LOGICO_AND'),
@@ -28,12 +29,13 @@ patterns = [
     (r'\(', 'PARENTESIS_IZQ'),
     (r'\)', 'PARENTESIS_DER'),
     (r'\"(.*?)\"', 'CADENA_LITERAL'),
-    (r"\'(.)'", 'CARACTER'),
+    (r"\'(.)'", 'VALOR_CARACTER'),
     (r'\:', 'ASIGNACION'),
     (r'[a-zA-Z_]\w*', 'IDENTIFICADOR'),
     (r'\d+\.\d+', 'NUMERO_FLOTANTE'),
     (r'\d+', 'NUMERO_ENTERO'),
-    (r'\.\.\.', 'RANGO')
+    (r'\.\.\.', 'RANGO'),
+    
 ]
 
 def syntax_analysis(code):

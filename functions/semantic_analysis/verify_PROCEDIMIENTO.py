@@ -18,7 +18,7 @@ def verify_PROCEDIMENTO(principal,i,tokens):
             return f"Error semantico en {tokens[i][1]}"
     i += 2
     countINICIO += 1
-    while not countFIN == countINICIO:
+    while not tokens[i][0] == 'FIN':
         if is_assignment(tokens,i):
             message = verify_assigments(principal,i,tokens)
             if not message.isdigit():
@@ -42,8 +42,6 @@ def verify_PROCEDIMENTO(principal,i,tokens):
             if not message.isdigit():
                     return message
             i = int(message)
-        if tokens[i][0] == 'FIN':
-            countFIN += 1
     end_function = i
     procedimento.end_function = end_function
     principal.procedimiento[procedimento.name] = procedimento

@@ -11,13 +11,12 @@ def verify_CUANDO(principal,i,tokens):
     from functions.utils.utils import is_assignment, is_declared_variable, is_for, is_if, is_while
     logic_operators = []
     logic_variables = []
-    countINICIO = 0
-    countFIN = 0
+
     while not tokens[i][0] == 'INICIO':
         if tokens[i][0] == 'ENTERO' or tokens[i][0] == 'CADENA_LITERAL' or tokens[i][0] == 'CARACTER':
             logic_variables.append(tokens[i][1])
         if tokens[i][0] == 'IDENTIFICADOR':
-            if is_declared_variable(tokens,i,principal):
+            if is_declared_variable(tokens,i,principal.variables):
                 logic_variables.append(principal.variables[tokens[i][1]][1])
             else:
                 return f"Error semantico en {tokens[i][1]}"
@@ -26,8 +25,7 @@ def verify_CUANDO(principal,i,tokens):
         i += 1
     result = evaluate_logic_expression(logic_variables, logic_operators)
     if  result == True:
-        countINICIO += 1
-        while not countFIN == countINICIO:
+        while not tokens[i][0] == 'FIN':
             if is_assignment(tokens,i):
                 message = verify_assigments(principal,i,tokens)
                 if not message.isdigit():
@@ -47,39 +45,34 @@ def verify_CUANDO(principal,i,tokens):
                 if not message.isdigit():
                     return message
                 i = int(message)
-            if tokens[i][0] == 'INICIO':
-                    countINICIO += 1
-            if tokens[i][0] == 'FIN':
-                    countFIN += 1
     else:
-        while not tokens[i][0] == 'SINO':
-            i +=1
-        countINICIO += 1
-        i +=2
-        while not countFIN == countINICIO:
-            if is_assignment(tokens,i):
-                message = verify_assigments(principal,i,tokens)
-                if not message.isdigit():
-                    return message
-                i = int(message)
-            elif is_for(tokens,i):
-                i += 1
-                message = verify_DE(principal,i,tokens)
-                if not message.isdigit():
-                        return message
-                i = int(message)
-            elif is_while(tokens,i):
-                i += 1
-                message = verify_MIENTRAS(principal,i,tokens)
-                if not message.isdigit():
-                        return message
-                i = int(message)
-            elif is_if(tokens,i):
-                i += 1
-                message = verify_CUANDO(principal,i,tokens)
-                if not message.isdigit():
-                        return message
-                i = int(message)
-            if tokens[i][0] == 'FIN':
-                    countFIN += 1
-    return str(i+1)
+        while not tokens[i][0] == 'FIN':
+            i=i+1
+        i=i+1
+        if tokens[i][0] == 'SINO':                          
+                i +=2
+                while not tokens[i][0] == 'FIN':
+                    if is_assignment(tokens,i):
+                        message = verify_assigments(principal,i,tokens)
+                        if not message.isdigit():
+                            return message
+                        i = int(message)
+                    elif is_for(tokens,i):
+                        i += 1
+                        message = verify_DE(principal,i,tokens)
+                        if not message.isdigit():
+                                return message
+                        i = int(message)
+                    elif is_while(tokens,i):
+                        i += 1
+                        message = verify_MIENTRAS(principal,i,tokens)
+                        if not message.isdigit():
+                                return message
+                        i = int(message)
+                    elif is_if(tokens,i):
+                        i += 1
+                        message = verify_CUANDO(principal,i,tokens)
+                        if not message.isdigit():
+                                return message
+                        i = int(message)
+    return str(i)
