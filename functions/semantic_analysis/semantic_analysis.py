@@ -30,6 +30,7 @@ def semantic_analysis(tokens):
             if not message.isdigit():
                 return message
             i = int(message)
+            
     return "Analisis semantico exitoso"
 
 

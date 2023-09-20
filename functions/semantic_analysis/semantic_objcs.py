@@ -12,6 +12,7 @@ class Principal:
     data_string_vector = {}
     data_bool_vector = {}
     procedimiento = {}
+    print_data = []
 
 class Function:
     parameters = {}

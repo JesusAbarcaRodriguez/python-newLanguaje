@@ -51,6 +51,30 @@ def evaluate_logic_expression(logic_variables, logic_operators):
             stack_bool_operations.append(aux or aux2)
     return top(stack_bool_operations)
 
+def evaluate_type_expression(logic_variables, logic_operators):
+    index = 0
+    stack_bool_operations = deque()
+    stack_and_or = deque()
+
+    while index < len(logic_operators) :
+
+        operator = logic_operators[index]
+        if operator == '=' or operator == '<' or operator == '>' or operator == '!':
+            variable1 = logic_variables.pop()
+            variable2 = logic_variables.pop()
+            if isinstance(variable1, (int,float)) and isinstance(variable2, (int,float)):
+                index += 1
+                
+            elif isinstance(variable1, type(variable2)):
+                if operator == '='or operator == '!':
+                    index += 1
+                else:
+                    return f"Error semantico en {variable1} y {variable2}"                
+
+        elif operator == '&' or operator == '#':
+            index += 1
+    return 'OK'
+
 def top(pila):
     if not pila:
         return (r' ', ' ')
