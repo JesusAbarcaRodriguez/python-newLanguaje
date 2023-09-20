@@ -4,8 +4,8 @@ from PyQt5.QtWidgets import QInputDialog, QLineEdit
 from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtWidgets import QAction, QMenu
-from functions.syntax_analysis.syntax_highlighter import SyntaxHighlighter
-from functions.read_code import read_code
+from functions.compile_code import compile_code
+from functions.lexical_analysis.lexical_highlighter import LexicalHighlighter
 class DataTypesDialog(QDialog):
     def __init__(self, parent=None):
         super(DataTypesDialog, self).__init__(parent)
@@ -67,7 +67,7 @@ class MainView(QMainWindow):
         self.btn_new.clicked.connect(self.open_new_dialog)
         self.btn_options.clicked.connect(self.show_options_menu)
         self.textEdit = self.findChild(QTextEdit, "textEdit")
-        self.highlighter = SyntaxHighlighter(self.textEdit.document())
+        self.highlighter = LexicalHighlighter(self.textEdit.document())
     def show_options_menu(self):
         options_menu = QMenu(self)
         reserved_words_action = QAction("Palabras reservadas", self)
@@ -150,7 +150,7 @@ class MainView(QMainWindow):
         self.close()
     def execute_code(self):
         code = self.textEdit.toPlainText()
-        self.textEdit_2.setPlainText(read_code(code))
+        self.textEdit_2.setPlainText(compile_code(code))
     def open_new_dialog(self):
         text, ok = QInputDialog.getText(self, 'New File', 'Enter file name:')
         if ok and text:

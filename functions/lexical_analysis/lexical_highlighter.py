@@ -2,9 +2,9 @@ from PyQt5.QtCore import Qt, QRegExp
 from PyQt5.QtGui import QSyntaxHighlighter, QColor, QTextCharFormat  # Añade QTextCharFormat aquí
 
 
-class SyntaxHighlighter(QSyntaxHighlighter):
+class LexicalHighlighter(QSyntaxHighlighter):
     def __init__(self, parent=None):
-        super(SyntaxHighlighter, self).__init__(parent)
+        super(LexicalHighlighter, self).__init__(parent)
         self.highlighting_rules = []
         mi_color_personalizado2 = QColor(255, 124, 0)
         mi_color_personalizado3 = QColor(255, 62, 0)

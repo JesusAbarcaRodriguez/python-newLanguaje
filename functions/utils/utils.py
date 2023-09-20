@@ -49,6 +49,11 @@ def is_same_type(variable_to_assign,tokens,i,variables):
         return True
     else:
         return False
+def is_same_expression_type(token1,token2):
+    if token1[0] == token2[0]:
+        return True
+    else:
+        return False
 def is_declared_variable(tokens,i,variables):
     if tokens[i][1] in variables:
         return True

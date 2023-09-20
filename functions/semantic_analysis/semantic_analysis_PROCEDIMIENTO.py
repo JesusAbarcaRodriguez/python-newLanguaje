@@ -2,9 +2,9 @@
 
 
 def semantic_analysis_PROCEDIMENTO(principal,i,tokens):
-    from functions.semantic_analysis.semantic_objcs import Procedimento
+    from functions.utils.global_state import Procedimento
     from functions.utils.utils import  is_parameters_declaration
-    from functions.semantic_analysis.traverse_structure.traverse_structure import traverse_structure
+    from functions.utils.traverse_structure import traverse_structure
     init_funtion = i
     procedimento = Procedimento([],tokens[i+2][1])
     procedimento.init_function = init_funtion

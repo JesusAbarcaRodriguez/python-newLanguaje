@@ -1,5 +1,5 @@
 import re
-class SyntaxAnalysisObj:
+class LexicalAnalysisObj:
     def __init__(self, isError, message,tokens):
         self.isError = isError
         self.message = message
@@ -38,8 +38,8 @@ patterns = [
     
 ]
 
-def syntax_analysis(code):
-    syntax_analysis_obj = SyntaxAnalysisObj(False,"",[])
+def lexical_analysis(code):
+    syntax_analysis_obj = LexicalAnalysisObj(False,"",[])
     while code:
         for pattern, token_type in patterns:
             match = re.match(pattern, code)

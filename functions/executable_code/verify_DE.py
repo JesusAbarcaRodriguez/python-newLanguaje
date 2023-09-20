@@ -1,5 +1,5 @@
 def verify_DE(principal,i,tokens):
-    from functions.semantic_analysis.traverse_structure.traverse_structure import traverse_structure
+    from functions.utils.traverse_structure import traverse_structure
     from functions.utils.utils import  is_declared_variable
     init = 0
     end = 0

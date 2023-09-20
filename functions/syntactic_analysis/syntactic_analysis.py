@@ -3,7 +3,7 @@ tokens_to_verify_identificador = {"TIPO_DATO", "FUNCION", "CUANDO", "MIENTRAS", 
 tokens_inicio_final ={"INICIO","FIN"}
 tokens_to_verify_num = {'ASIGNACION', 'RANGO' , 'DE' , 'CUANDO','MIENTRAS','OPERADOR_LOGICO_AND','OPERADOR_LOGICO_OR','OPERADOR_ARITMETICO','OPERADOR_COMPARACION'}
 tokens_num_entero_flotante ={"NUMERO_ENTERO","NUMERO_FLOTANTE","IDENTIFICADOR"}
-tokens_cadena_caracter = {"CADENA_LITERAL","CARACTER"}
+tokens_cadena_caracter = {"CADENA_LITERAL","VALOR_CARACTER"}
 def syntactic_analysis(tokens):
     pila_data_type= deque()
     pila_block= deque()

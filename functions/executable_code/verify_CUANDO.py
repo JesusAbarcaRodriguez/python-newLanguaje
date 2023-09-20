@@ -1,7 +1,7 @@
 
 logic_operations = {"OPERADOR_LOGICO_AND","OPERADOR_LOGICO_OR","OPERADOR_COMPARACION"}
 def verify_CUANDO(principal,i,tokens):
-    from functions.semantic_analysis.traverse_structure.traverse_structure import traverse_structure
+    from functions.utils.traverse_structure import traverse_structure
     from functions.utils.analysis_conditions import evaluate_logic_expression
     from functions.utils.utils import  is_declared_variable
     logic_operators = []
