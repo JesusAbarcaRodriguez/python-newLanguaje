@@ -1,4 +1,4 @@
-def verify_PRINCIPAL(principal,i,tokens):
+def semantic_analysis_PRINCIPAL(principal,i,tokens):
     from functions.semantic_analysis.traverse_structure.traverse_structure import traverse_structure
 
     i += 3

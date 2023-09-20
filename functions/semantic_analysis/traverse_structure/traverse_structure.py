@@ -1,8 +1,8 @@
 def traverse_structure(principal,i,tokens):
-    from functions.semantic_analysis.verify_CUANDO import verify_CUANDO
-    from functions.semantic_analysis.verify_DE import verify_DE
+    from functions.semantic_analysis.semantic_analysis_CUANDO import verify_CUANDO
+    from functions.semantic_analysis.semantic_analysis_DE import verify_DE
     from functions.semantic_analysis.verify_MIENTRAS import verify_MIENTRAS
-    from functions.semantic_analysis.verify_assignments import verify_assigments
+    from functions.semantic_analysis.semantic_analysis_assignments import verify_assigments
     from functions.utils.utils import is_assignment, is_for, is_if, is_while
     while not tokens[i][0] == 'FIN':
         if is_assignment(tokens,i):

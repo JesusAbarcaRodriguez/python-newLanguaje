@@ -1,9 +1,9 @@
-def verify_FUNCION(principal,i,tokens):
+def semantic_analysis_FUNCION(principal,i,tokens):
+    from functions.semantic_analysis.semantic_analysis_MIENTRAS import semantic_analysis_MIENTRAS
     from functions.semantic_analysis.semantic_objcs import Function
-    from functions.semantic_analysis.verify_CUANDO import verify_CUANDO
-    from functions.semantic_analysis.verify_DE import verify_DE
-    from functions.semantic_analysis.verify_MIENTRAS import verify_MIENTRAS
-    from functions.semantic_analysis.verify_assignments import verify_assigments
+    from functions.semantic_analysis.semantic_analysis_CUANDO import semantic_analysis_CUANDO
+    from functions.semantic_analysis.semantic_analysis_DE import semantic_analysis_DE
+    from functions.semantic_analysis.semantic_analysis_assignments import verify_assigments
     from functions.utils.utils import is_assignment, is_for, is_if, is_parameters_declaration, is_while
 
     init_funtion = i
@@ -27,19 +27,19 @@ def verify_FUNCION(principal,i,tokens):
             i = int(message)
         elif is_for(tokens,i):
             i += 1
-            message = verify_DE(principal,i,tokens)
+            message = semantic_analysis_DE(principal,i,tokens)
             if not message.isdigit():
                     return message
             i = int(message)
         elif is_while(tokens,i):
             i += 1
-            message = verify_MIENTRAS(principal,i,tokens)
+            message = semantic_analysis_MIENTRAS(principal,i,tokens)
             if not message.isdigit():
                     return message
             i = int(message)
         elif is_if(tokens,i):
             i += 1
-            message = verify_CUANDO(principal,i,tokens)
+            message = semantic_analysis_CUANDO(principal,i,tokens)
             if not message.isdigit():
                     return message
             i = int(message)

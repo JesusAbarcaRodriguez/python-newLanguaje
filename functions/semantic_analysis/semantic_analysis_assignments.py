@@ -1,5 +1,5 @@
 from functions.utils.utils import is_declared_variable, is_same_type
-def verify_assigments(variables,i,tokens):
+def semantic_analysis_assigments(variables,i,tokens):
     if is_declared_variable(tokens,i,variables):
         variable_to_assign = variables[tokens[i][1]]
         i += 2

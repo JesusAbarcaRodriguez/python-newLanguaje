@@ -1,9 +1,9 @@
 def semantic_analysis(tokens):
     from functions.utils.utils import is_procedure_decalaration
-    from functions.semantic_analysis.verify_PRINCIPAL import verify_PRINCIPAL
-    from functions.semantic_analysis.verify_FUNCION import verify_FUNCION
+    from functions.semantic_analysis.semantic_analysis_PRINCIPAL import verify_PRINCIPAL
+    from functions.semantic_analysis.semantic_analysis_FUNCION import verify_FUNCION
     from functions.semantic_analysis.semantic_objcs import  Principal
-    from functions.semantic_analysis.verify_PROCEDIMIENTO import verify_PROCEDIMENTO
+    from functions.semantic_analysis.semantic_analysis_PROCEDIMIENTO import verify_PROCEDIMENTO
     from functions.utils.utils import is_main_procedure, is_function_declaration, is_variable_declaration
 
     principal = Principal()

@@ -1,7 +1,7 @@
 
 
 
-def verify_PROCEDIMENTO(principal,i,tokens):
+def semantic_analysis_PROCEDIMENTO(principal,i,tokens):
     from functions.semantic_analysis.semantic_objcs import Procedimento
     from functions.utils.utils import  is_parameters_declaration
     from functions.semantic_analysis.traverse_structure.traverse_structure import traverse_structure

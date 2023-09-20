@@ -1,4 +1,4 @@
-def verify_DE(principal,i,tokens):
+def semantic_analysis_DE(principal,i,tokens):
     from functions.semantic_analysis.traverse_structure.traverse_structure import traverse_structure
     from functions.utils.utils import  is_declared_variable
     variable_init = 0
