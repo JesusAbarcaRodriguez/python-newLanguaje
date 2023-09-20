@@ -14,6 +14,21 @@ class Principal:
     procedimiento = {}
     print_data = []
 
+    def clear_all_data(self):
+        self.functions = {}
+        self.variables = {}
+        self.data_int_matrix = {}
+        self.data_char_matrix = {}
+        self.data_float_matrix = {}
+        self.data_string_matrix = {}
+        self.data_bool_matrix = {}
+        self.data_int_vector = {}
+        self.data_char_vector = {}
+        self.data_float_vector = {}
+        self.data_string_vector = {}
+        self.data_bool_vector = {}
+        self.procedimiento = {}
+        self.print_data = []
 class Function:
     parameters = {}
     data_type = ""

@@ -5,8 +5,8 @@ def semantic_analysis(tokens):
     from functions.utils.global_state import  Principal
     from functions.semantic_analysis.semantic_analysis_PROCEDIMIENTO import semantic_analysis_PROCEDIMENTO
     from functions.utils.utils import is_main_procedure, is_function_declaration, is_variable_declaration
-
     principal = Principal()
+    principal.clear_all_data()
     i = 0
     while i < len(tokens):
         if is_variable_declaration(tokens,i):
