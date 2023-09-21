@@ -10,6 +10,8 @@ def verify_PROCEDIMIENTO(principal,i,tokens,function_name, variables):
     from functions.executable_code.verify_Mientras import verify_MIENTRAS
     from functions.utils.utils import is_assignment, is_for, is_if, is_while
 
+    function = principal.procedures[function_name]
+
     variablesAux = variables.copy()
     variables = principal.variables.copy()
     variables.update(variablesAux)
