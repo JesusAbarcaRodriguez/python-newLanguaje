@@ -1,5 +1,5 @@
 from collections import deque
-tokens_to_verify_identificador = {"TIPO_DATO", "FUNCION", "CUANDO", "MIENTRAS", "DE","OPERADOR_COMPARACION","RANGO","OPERADOR_LOGICO_AND","OPERADOR_LOGICO_OR","OPERADOR_ARITMETICO","INICIO","ASIGNACION","FIN_DE_INSTRUCCION", "PARENTESIS_IZQ", "IDENTIFICADOR"}
+tokens_to_verify_identificador = {"RETORNO","TIPO_DATO", "FUNCION", "CUANDO", "MIENTRAS", "DE","OPERADOR_COMPARACION","RANGO","OPERADOR_LOGICO_AND","OPERADOR_LOGICO_OR","OPERADOR_ARITMETICO","INICIO","ASIGNACION","FIN_DE_INSTRUCCION", "PARENTESIS_IZQ", "IDENTIFICADOR"}
 tokens_inicio_final ={"INICIO","FIN"}
 tokens_to_verify_num = {'ASIGNACION', 'RANGO' , 'DE' , 'CUANDO','MIENTRAS','OPERADOR_LOGICO_AND','OPERADOR_LOGICO_OR','OPERADOR_ARITMETICO','OPERADOR_COMPARACION'}
 tokens_num_entero_flotante ={"NUMERO_ENTERO","NUMERO_FLOTANTE","IDENTIFICADOR"}
@@ -15,6 +15,11 @@ def syntactic_analysis(tokens):
             pila_data_type.append(token)
         elif token[0] == 'IDENTIFICADOR':
             if top(pila_data_type)[0] in tokens_to_verify_identificador:
+                pila_data_type.append(token)
+            else:
+                return f"Error sintactico en {token[1]}"
+        elif token[0] == 'RETORNO':
+            if top(pila_data_type)[0] == 'FIN_DE_INSTRUCCION' or top(pila_data_type)[0] == 'FIN':
                 pila_data_type.append(token)
             else:
                 return f"Error sintactico en {token[1]}"
@@ -46,7 +51,7 @@ def syntactic_analysis(tokens):
             else:
                 return f"Error sintactico en {token[1]}"
         elif token[0] == 'FIN':
-            if  top(pila_block)[0] == 'FIN' or top(pila_data_type)[0] == 'FIN_DE_INSTRUCCION':
+            if  top(pila_block)[0] == 'RETORNO' or  top(pila_block)[0] == 'FIN' or top(pila_data_type)[0] == 'FIN_DE_INSTRUCCION':
                     pila_block.append(token)
                     pila_data_type.append(token)
             else:
@@ -102,17 +107,17 @@ def syntactic_analysis(tokens):
             else:
                 return f"Error sintactico en {token[1]}"
         elif token[0] == 'CADENA_LITERAL':
-            if(top(pila_data_type)[0] == 'ASIGNACION'):
+            if(top(pila_data_type)[0] == 'ASIGNACION') or top(pila_data_type)[0] == 'RETORNO':
                 pila_data_type.append(token)
             else:
                 return f"Error sintactico en {token[1]}"
         elif token[0] == 'VALOR_CARACTER':
-            if(top(pila_data_type)[0] == 'ASIGNACION'):
+            if(top(pila_data_type)[0] == 'ASIGNACION') or top(pila_data_type)[0] == 'RETORNO':
                 pila_data_type.append(token)
             else:
                 return f"Error sintactico en {token[1]}"
         elif token[0] == 'VALOR_BOOLEANO':
-            if(top(pila_data_type)[0] == 'ASIGNACION'):
+            if(top(pila_data_type)[0] == 'ASIGNACION') or top(pila_data_type)[0] == 'RETORNO':
                 pila_data_type.append(token)
             else:
                 return f"Error sintactico en {token[1]}"
@@ -129,7 +134,7 @@ def syntactic_analysis(tokens):
         elif token[0] == 'TIPO_DATO_MATRIZ':
             pila_data_type.append(token)
         elif token[0] == 'NUMERO_ENTERO':
-            if(top(pila_data_type)[0]  in tokens_to_verify_num):
+            if(top(pila_data_type)[0]  in tokens_to_verify_num) or top(pila_data_type)[0] == 'RETORNO':
                 pila_data_type.append(token)
             else:
                 return f"Error sintactico en {token[1]}"
@@ -138,7 +143,7 @@ def syntactic_analysis(tokens):
                 flag = True
                 pila_data_type.append(token)
         elif token[0] == 'NUMERO_FLOTANTE':
-            if(top(pila_data_type)[0] in tokens_to_verify_num):
+            if(top(pila_data_type)[0] in tokens_to_verify_num) or top(pila_data_type)[0] == 'RETORNO':
                 pila_data_type.append(token)
             else:
                 return f"Error sintactico en {token[1]}"

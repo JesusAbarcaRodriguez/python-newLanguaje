@@ -1,3 +1,6 @@
+from functions.utils.utils import is_return
+
+
 def semantic_analysis_FUNCION(principal,i,tokens):
     from functions.semantic_analysis.semantic_analysis_MIENTRAS import semantic_analysis_MIENTRAS
     from functions.utils.global_state import Function
@@ -5,10 +8,8 @@ def semantic_analysis_FUNCION(principal,i,tokens):
     from functions.semantic_analysis.semantic_analysis_DE import semantic_analysis_DE
     from functions.semantic_analysis.semantic_analysis_assignments import semantic_analysis_assigments
     from functions.utils.utils import is_assignment, is_for, is_if, is_parameters_declaration, is_while
-
     init_funtion = i
     function = Function(tokens[i][1],tokens[i+2][1])
-    
     i = i + 4
     while tokens[i][0] != 'PARENTESIS_DER':
         if is_parameters_declaration(tokens,i):
@@ -44,7 +45,19 @@ def semantic_analysis_FUNCION(principal,i,tokens):
             if not message.isdigit():
                     return message
             i = int(message)
-        
+        elif is_return(tokens,i):
+            i += 1
+            if tokens[i][0] == 'IDENTIFICADOR':
+                if tokens[i][1] in variables:
+                    if not variables[tokens[i][1]][0] == function.data_type:
+                        return f"Error semantico en {tokens[i][1]}"
+                else:
+                    return f"Error semantico en {tokens[i][1]}"
+            #elif tokens[i][0] in ['NUMERO_ENTERO','NUMERO_FLOTANTE','CADENA']:
+                #function.return_data = tokens[i][1]
+            else:
+                return f"Error semantico en {tokens[i][1]}"
+            i += 2
     end_function = i
     function.end_function = end_function
     principal.functions[function.identifier] = function

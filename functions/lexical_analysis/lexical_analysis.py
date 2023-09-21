@@ -17,6 +17,7 @@ patterns = [
     (r'SINO', 'SINO'),
     (r'MIENTRAS', 'MIENTRAS'),
     (r'\$(.*?)\$', 'COMENTARIO'),
+    (r'RETORNO', 'RETORNO'),
     (r'FIN', 'FIN'),
     (r'(ENTERO|BOOLEANO|FLOTANTE|CADENA|CARACTER)\[(\d+)\]\[(\d+)\]', 'TIPO_DATO_MATRIZ'),
     (r'(ENTERO|BOOLEANO|FLOTANTE|CADENA|CARACTER)\[(\d+)\]', 'TIPO_DATO_VECTOR'),
@@ -35,7 +36,6 @@ patterns = [
     (r'\d+\.\d+', 'NUMERO_FLOTANTE'),
     (r'\d+', 'NUMERO_ENTERO'),
     (r'\.\.\.', 'RANGO'),
-    
 ]
 
 def lexical_analysis(code):

@@ -1,3 +1,6 @@
+from functions.utils.utils import is_return
+
+
 def verify_FUNCION(principal,i,tokens,function_name, variables):
     from functions.executable_code.verify_PROCEDIMIENTO import verify_PROCEDIMIENTO
     from functions.semantic_analysis.semantic_call_function_procedure import semantic_call_function_procedure
@@ -37,6 +40,18 @@ def verify_FUNCION(principal,i,tokens,function_name, variables):
             if not message.isdigit():
                     return message
             i = int(message)
+        elif is_return(tokens,i):
+            i += 1
+            if tokens[i][0] == 'IDENTIFICADOR':
+                if tokens[i][1] in variables:
+                    function.return_data = variables[tokens[i][1]][1]
+                else:
+                    return f"Error semantico en {tokens[i][1]}"
+            elif tokens[i][0] in ['NUMERO_ENTERO','NUMERO_FLOTANTE','CADENA']:
+                function.return_data = tokens[i][1]
+            else:
+                return f"Error semantico en {tokens[i][1]}"
+            i += 3
         elif is_called_fuction_procedure(tokens,i):
             function_name2= tokens[i][1]
             i += 2

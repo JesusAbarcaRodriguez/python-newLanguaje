@@ -41,6 +41,11 @@ def is_parameters_declaration(tokens,i):
         return True
     else:
         return False
+def is_return(tokens,i):
+    if tokens[i][0] == 'RETORNO':
+        return True
+    else:
+        return False
 def is_assignment(tokens,i):
     if tokens[i][0] == 'IDENTIFICADOR' and tokens[i+1][0] == 'ASIGNACION':
         return True
