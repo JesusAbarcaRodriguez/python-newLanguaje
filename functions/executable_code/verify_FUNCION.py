@@ -1,4 +1,4 @@
-def verify_FUNCION(principal,i,tokens,function_name):
+def verify_FUNCION(principal,i,tokens,function_name, variables):
     from functions.executable_code.verify_PROCEDIMIENTO import verify_PROCEDIMIENTO
     from functions.semantic_analysis.semantic_call_function_procedure import semantic_call_function_procedure
     from functions.utils.utils import is_called_fuction_procedure, is_declared_variable
@@ -9,7 +9,9 @@ def verify_FUNCION(principal,i,tokens,function_name):
     from functions.utils.utils import is_assignment, is_for, is_if, is_while
 
     function = principal.functions[function_name]
+    variablesAux = variables.copy()
     variables = principal.variables.copy()
+    variables.update(variablesAux)
     variables.update(function.parameters)
     while not tokens[i][0] == 'FIN':
         if is_assignment(tokens,i):
@@ -19,19 +21,19 @@ def verify_FUNCION(principal,i,tokens,function_name):
             i = int(message)
         elif is_for(tokens,i):
             i += 1
-            message = verify_DE(principal,i,tokens)
+            message = verify_DE(principal,i,tokens,variables)
             if not message.isdigit():
                     return message
             i = int(message)
         elif is_while(tokens,i):
             i += 1
-            message = verify_MIENTRAS(principal,i,tokens)
+            message = verify_MIENTRAS(principal,i,tokens,variables)
             if not message.isdigit():
                     return message
             i = int(message)
         elif is_if(tokens,i):
             i += 1
-            message = verify_CUANDO(principal,i,tokens)
+            message = verify_CUANDO(principal,i,tokens, variables)
             if not message.isdigit():
                     return message
             i = int(message)
@@ -54,10 +56,10 @@ def verify_FUNCION(principal,i,tokens,function_name):
             keys_procedures = principal.procedures.keys()
             if function_name2 in keys_functions:
                 init_function = principal.functions[function_name2].init_function
-                verify_FUNCION(principal,init_function,tokens,function_name2)
+                verify_FUNCION(principal,init_function,tokens,function_name2, variables)
             if function_name2 in keys_procedures:
                 init_function = principal.functions[function_name2].init_function
-                verify_PROCEDIMIENTO(principal,init_function,tokens,function_name2)
+                verify_PROCEDIMIENTO(principal,init_function,tokens,function_name2, variables)
             i += 2
 
     return str(i+1)

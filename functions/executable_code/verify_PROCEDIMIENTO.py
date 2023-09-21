@@ -1,6 +1,6 @@
 
 
-def verify_PROCEDIMIENTO(principal,i,tokens,function_name):
+def verify_PROCEDIMIENTO(principal,i,tokens,function_name, variables):
     from functions.executable_code.verify_FUNCION import verify_FUNCION
     from functions.semantic_analysis.semantic_call_function_procedure import semantic_call_function_procedure
     from functions.utils.utils import is_called_fuction, is_declared_variable
@@ -10,8 +10,9 @@ def verify_PROCEDIMIENTO(principal,i,tokens,function_name):
     from functions.executable_code.verify_Mientras import verify_MIENTRAS
     from functions.utils.utils import is_assignment, is_for, is_if, is_while
 
-    function = principal.procedures[function_name]
-    variables = principal.procedures.copy()
+    variablesAux = variables.copy()
+    variables = principal.variables.copy()
+    variables.update(variablesAux)
     variables.update(function.parameters)
     while not tokens[i][0] == 'FIN':
         if is_assignment(tokens,i):

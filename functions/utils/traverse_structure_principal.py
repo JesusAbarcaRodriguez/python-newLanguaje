@@ -1,5 +1,5 @@
 
-def traverse_structure_principal(principal,i,tokens):
+def traverse_structure_principal(principal,i,tokens,variables):
     from functions.semantic_analysis.semantic_call_function_procedure import semantic_call_function_procedure
     from functions.executable_code.verify_DE import verify_DE   
     from functions.executable_code.assignments_variables import verify_assigments
@@ -12,13 +12,13 @@ def traverse_structure_principal(principal,i,tokens):
     parameters_input = []
     while not tokens[i][0] == 'FIN':
         if is_assignment(tokens,i):
-            message = verify_assigments(principal.variables,i,tokens)
+            message = verify_assigments(principal,principal.variables,i,tokens)
             if not message.isdigit():
                 return message
             i = int(message)
         elif is_for(tokens,i):
             i += 1
-            message = verify_DE(principal,i,tokens)
+            message = verify_DE(principal,i,tokens,variables)
             if not message.isdigit():
                     return message
             i = int(message)

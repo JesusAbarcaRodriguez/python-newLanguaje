@@ -1,5 +1,5 @@
-from functions.utils.utils import is_declared_variable, is_same_type
-def semantic_analysis_assigments(variables,i,tokens):
+from functions.utils.utils import is_called_fuction_procedure, is_declared_variable, is_same_type
+def semantic_analysis_assigments(principal,variables,i,tokens):
     if is_declared_variable(tokens,i,variables):
         variable_to_assign = variables[tokens[i][1]]
         variable_name = tokens[i][1]
@@ -30,8 +30,16 @@ def semantic_analysis_assigments(variables,i,tokens):
                 if not variable_to_assign[0] == 'CADENA':
                     return f"Error la asignación es de tipos diferentes, la variable '{variable_name}' no es de tipo {tokens[i][0]}"
                 i +=1
+            elif is_called_fuction_procedure(i,tokens):
+                function_name= tokens[i][1]
+                keys_functions = principal.functions.keys()
+                if function_name in keys_functions:
+                    if not principal.functions[function_name].data_type == variable_to_assign[0]:
+                        return f"Error la asignación es de tipos diferentes, la variable '{variable_name}' no es de tipo {principal.functions[function_name].data_type}"
+                else:
+                    return f"Error la asignación es de tipos diferentes, la variable '{variable_name}' no es de tipo {tokens[i][0]}"
             else:
-                return f"Error semantico en {variable_name} no es una asignacion valida"
+                return f"Error semantico en {function_name} no es una asignacion valida"
     else:
         return f"{tokens[i][1]} no ha sido declarada "
     return str(i+1)

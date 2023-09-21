@@ -6,7 +6,7 @@ def traverse_structure(principal,i,tokens):
     from functions.utils.utils import is_assignment, is_for, is_if, is_while
     while not tokens[i][0] == 'FIN':
         if is_assignment(tokens,i):
-            message = semantic_analysis_assigments(principal.variables,i,tokens)
+            message = semantic_analysis_assigments(principal,principal.variables,i,tokens)
             if not message.isdigit():
                 return message
             i = int(message)
