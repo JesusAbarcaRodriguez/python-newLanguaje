@@ -8,7 +8,7 @@ def is_if(tokens,i):
         return True
     else:
         return False
-def is_called_fuction(tokens,i):
+def is_called_fuction_procedure(tokens,i):
     if tokens[i][0] == 'IDENTIFICADOR' and tokens[i+1][0] == 'PARENTESIS_IZQ':
         return True
     return False

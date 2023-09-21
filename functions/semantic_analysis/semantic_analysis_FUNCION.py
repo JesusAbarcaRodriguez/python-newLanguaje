@@ -8,7 +8,7 @@ def semantic_analysis_FUNCION(principal,i,tokens):
 
     init_funtion = i
     function = Function(tokens[i][1],tokens[i+2][1])
-    function.init_function = init_funtion
+    
     i = i + 4
     while tokens[i][0] != 'PARENTESIS_DER':
         if is_parameters_declaration(tokens,i):
@@ -17,6 +17,7 @@ def semantic_analysis_FUNCION(principal,i,tokens):
         else:
             return f"Error semantico en {tokens[i][1]}"
     i += 2
+    function.init_function = i
     variables = principal.variables.copy()
     variables.update(function.parameters)
     while not tokens[i][0] == 'FIN':

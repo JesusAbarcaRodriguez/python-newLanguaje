@@ -1,6 +1,7 @@
 class Principal:
     functions = {}
     variables = {}
+    procedures = {}
     data_int_matrix = {}
     data_char_matrix = {}
     data_float_matrix = {}
@@ -11,9 +12,8 @@ class Principal:
     data_float_vector = {}
     data_string_vector = {}
     data_bool_vector = {}
-    procedimiento = {}
     print_data = []
-
+    read_data = []
     def clear_all_data(self):
         self.functions = {}
         self.variables = {}

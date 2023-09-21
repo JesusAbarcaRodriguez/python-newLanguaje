@@ -1,6 +1,4 @@
 
-
-
 def semantic_analysis_PROCEDIMENTO(principal,i,tokens):
     from functions.utils.global_state import Procedimento
     from functions.utils.utils import  is_parameters_declaration
@@ -23,5 +21,5 @@ def semantic_analysis_PROCEDIMENTO(principal,i,tokens):
     i = int(message)
     end_function = i
     procedimento.end_function = end_function
-    principal.procedimiento[procedimento.name] = procedimento
+    principal.procedures[procedimento.name] = procedimento
     return str(i)
