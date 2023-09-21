@@ -8,11 +8,14 @@ def is_if(tokens,i):
         return True
     else:
         return False
+def is_called_fuction(tokens,i):
+    if tokens[i][0] == 'IDENTIFICADOR' and tokens[i+1][0] == 'PARENTESIS_IZQ':
+        return True
+    return False
 def is_for(tokens,i):
     if tokens[i][0] == 'DE':
         return True
-    else:
-        return False
+    return False
 def is_variable_declaration(tokens,i):
     if tokens[i][0] == 'TIPO_DATO' and tokens[i+1][0] == 'IDENTIFICADOR':
         return True
