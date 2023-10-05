@@ -4,63 +4,19 @@ from PyQt5.QtWidgets import QInputDialog, QLineEdit
 from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtWidgets import QAction, QMenu
+from controller.data_types_controller import DataTypesDialog
+from controller.functions_controller import FunctionTypesDialog
+from controller.operations_controller import OperationTypesDialog
+from controller.reserved_words_controller import ReservedWordsDialog
 from functions.compile_code import compile_code
 from functions.lexical_analysis.lexical_highlighter import LexicalHighlighter
-class DataTypesDialog(QDialog):
-    def __init__(self, parent=None):
-        super(DataTypesDialog, self).__init__(parent)
-        uic.loadUi("view/dataType.ui", self)
-
-        self.btn_select.clicked.connect(self.select_data_type)
-
-        self.initialize_data_types()
-
-    def initialize_data_types(self):
-        data_types = ["\n ENTERO", "\n FLOTANTE", "\n CADENA", "\n CARACTER", "\n NULO"]
-        for data_type in data_types:
-            item = QListWidgetItem(data_type)
-            self.listWidget.addItem(item)
-
-    def select_data_type(self):
-        selected_item = self.listWidget.currentItem()
-        if selected_item:
-            selected_data_type = selected_item.text()
-            main_window = self.parent()
-            main_window.add_data_type_to_text_edit(selected_data_type)
-            self.close()
-
-class ReservedWordsDialog(QDialog):
-    def __init__(self, parent=None):
-        super(ReservedWordsDialog, self).__init__(parent)
-
-        uic.loadUi("view/reservedWord.ui", self)
-
-        self.btn_select.clicked.connect(self.select_reserved_word)
-
-        self.initialize_reserved_words()
-
-    def initialize_reserved_words(self):
-        self.reserved_words = {
-            "MIENTRAS": "\n MIENTRAS i<10 INICIO \n … i : i + 1; \n FIN",
-            "DE": "\n DE i=0…variable INICIO \n … $Acá se va a ejecutar el bucle de 0 hasta el valor de la variable$ \n FIN",
-            "CUANDO": "\n CUANDO i<10 INICIO \n … i : i + 1; \n FIN \n  SINO INICIO \n … i : i + 1; \n FIN",
-        }
-        self.listWidget.addItems(self.reserved_words.keys())
-    def select_reserved_word(self):
-        selected_item = self.listWidget.currentItem()
-        if selected_item:
-            selected_word = selected_item.text()
-            main_window = self.parent()
-            main_window.add_reserved_word_to_text_edit(self.reserved_words.get(selected_word, ""))  # Llamada a un método en MainView
-            self.close()
-
-
 class MainView(QMainWindow):
-
     def __init__(self):
         super(MainView, self).__init__()
         uic.loadUi("view/view.ui", self)
         self.data_types_dialog = None
+        self.functions_dialog = None
+        self.operations_dialog = None
         self.reserved_words_dialog = None
         self.btn_exit.clicked.connect(self.close_window)
         self.btn_compile.clicked.connect(self.execute_code)
@@ -81,7 +37,6 @@ class MainView(QMainWindow):
         syntax_menu.addAction(control_action)
         syntax_menu.addAction(functions_action)
         syntax_menu.addAction(operations_action)
-
         options_menu.addAction(reserved_words_action)
         options_menu.addMenu(syntax_menu)
         options_menu.addAction(semantic_action)
@@ -90,15 +45,33 @@ class MainView(QMainWindow):
         selected_action = options_menu.exec_(self.btn_options.mapToGlobal(self.btn_options.rect().bottomLeft()))
         if selected_action == reserved_words_action:
             self.generate_code_for_reserved_words()
+        elif selected_action == operations_action:
+            self.generate_code_for_operations()
         elif selected_action == control_action:
             self.generate_code_for_control_syntax()
         elif selected_action == load_file_action:
             self.open_file_dialog()
         elif selected_action == data_types_action:
             self.generate_code_for_data_types()
+        elif selected_action == functions_action:
+            self.generate_code_for_functions()
         # ... (similarly for other actions)
 
     # ... (other methods)
+    def generate_code_for_operations(self):
+        try:
+            if not self.operations_dialog:
+                self.operations_dialog = OperationTypesDialog(self)
+            self.operations_dialog.exec_()
+        except Exception as e:
+            print(f"Error in generate_code_for_operations: {e}")
+    def generate_code_for_functions(self):
+        try:
+            if not self.functions_dialog:
+                self.functions_dialog = FunctionTypesDialog(self)
+            self.functions_dialog.exec_()
+        except Exception as e:
+            print(f"Error in generate_code_for_functions: {e}")
     def generate_code_for_data_types(self):
         try:
             if not self.data_types_dialog:
@@ -106,6 +79,14 @@ class MainView(QMainWindow):
             self.data_types_dialog.exec_()
         except Exception as e:
             print(f"Error in generate_code_for_data_types: {e}")
+    def add_operation_to_text_edit(self, operation):
+        current_text = self.textEdit.toPlainText()
+        new_text = f"{current_text} {operation}"
+        self.textEdit.setPlainText(new_text)
+    def add_function_to_text_edit(self, function):
+        current_text = self.textEdit.toPlainText()
+        new_text = f"{current_text} {function}"
+        self.textEdit.setPlainText(new_text)
     def add_data_type_to_text_edit(self, data_type):
         current_text = self.textEdit.toPlainText()
         new_text = f"{current_text} {data_type}"
