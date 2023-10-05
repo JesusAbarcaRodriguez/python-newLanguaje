@@ -1,7 +1,5 @@
 from functions.utils.utils import is_return
-
-
-def verify_FUNCION(principal,i,tokens,function_name, variables):
+def verify_FUNCION(principal,init_function,tokens,function_name):
     from functions.executable_code.verify_PROCEDIMIENTO import verify_PROCEDIMIENTO
     from functions.semantic_analysis.semantic_call_function_procedure import semantic_call_function_procedure
     from functions.utils.utils import is_called_fuction_procedure, is_declared_variable
@@ -12,13 +10,13 @@ def verify_FUNCION(principal,i,tokens,function_name, variables):
     from functions.utils.utils import is_assignment, is_for, is_if, is_while
 
     function = principal.functions[function_name]
-    variablesAux = variables.copy()
+    i = init_function
+    variablesAux = function.parameters.copy()
     variables = principal.variables.copy()
     variables.update(variablesAux)
-    variables.update(function.parameters)
     while not tokens[i][0] == 'FIN':
         if is_assignment(tokens,i):
-            message = verify_assigments(variables,i,tokens)
+            message = verify_assigments(principal,variables,i,tokens)
             if not message.isdigit():
                 return message
             i = int(message)
@@ -47,11 +45,11 @@ def verify_FUNCION(principal,i,tokens,function_name, variables):
                     function.return_data = variables[tokens[i][1]][1]
                 else:
                     return f"Error semantico en {tokens[i][1]}"
-            elif tokens[i][0] in ['NUMERO_ENTERO','NUMERO_FLOTANTE','CADENA']:
+            elif tokens[i][0] in ['NUMERO_ENTERO','NUMERO_FLOTANTE','VALOR_CADENA','VALOR_CARACTER','VALOR_BOOLEANO']:
                 function.return_data = tokens[i][1]
             else:
                 return f"Error semantico en {tokens[i][1]}"
-            i += 3
+            i += 2
         elif is_called_fuction_procedure(tokens,i):
             function_name2= tokens[i][1]
             i += 2
@@ -63,7 +61,7 @@ def verify_FUNCION(principal,i,tokens,function_name, variables):
                 else:
                     parameters_input = tokens[i]
 
-            if  len(parameters_input): 
+            if  len(parameters_input):
                 message = semantic_call_function_procedure(principal,function_name2,parameters_input)
                 if not message == "OK":
                         return message

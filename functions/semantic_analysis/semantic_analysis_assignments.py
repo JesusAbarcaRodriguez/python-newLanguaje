@@ -5,7 +5,15 @@ def semantic_analysis_assigments(principal,variables,i,tokens):
         variable_name = tokens[i][1]
         i += 2
         while tokens[i][0] != 'FIN_DE_INSTRUCCION':
-            if tokens[i][0] == 'IDENTIFICADOR':
+            if is_called_fuction_procedure(tokens,i):
+                function_name= tokens[i][1]
+                keys_functions = principal.functions.keys()
+                if function_name in keys_functions:
+                    if not principal.functions[function_name].data_type == variable_to_assign[0]:
+                        return f"Error la asignación es de tipos diferentes, la variable '{variable_name}' no es de tipo {principal.functions[function_name].data_type}"
+                else:
+                    return f"Error la asignación es de tipos diferentes, la variable '{variable_name}' no es de tipo {tokens[i][0]}"
+            elif tokens[i][0] == 'IDENTIFICADOR':
                 if not (tokens[i][1] in variables  and (is_same_type(variable_to_assign,tokens,i,variables) or variable_to_assign[0] == 'FLOTANTE' and  variables[tokens[i][1]][0] == 'ENTERO')):
                     return f"Error semantico en {tokens[i][1]}"
             elif tokens[i][0] == 'NUMERO_ENTERO':
@@ -30,16 +38,8 @@ def semantic_analysis_assigments(principal,variables,i,tokens):
                 if not variable_to_assign[0] == 'CADENA':
                     return f"Error la asignación es de tipos diferentes, la variable '{variable_name}' no es de tipo {tokens[i][0]}"
                 i +=1
-            elif is_called_fuction_procedure(i,tokens):
-                function_name= tokens[i][1]
-                keys_functions = principal.functions.keys()
-                if function_name in keys_functions:
-                    if not principal.functions[function_name].data_type == variable_to_assign[0]:
-                        return f"Error la asignación es de tipos diferentes, la variable '{variable_name}' no es de tipo {principal.functions[function_name].data_type}"
-                else:
-                    return f"Error la asignación es de tipos diferentes, la variable '{variable_name}' no es de tipo {tokens[i][0]}"
             else:
-                return f"Error semantico en {function_name} no es una asignacion valida"
+                return f"Error semantico en {tokens[i][1]} no es una asignacion valida"
     else:
         return f"{tokens[i][1]} no ha sido declarada "
     return str(i+1)

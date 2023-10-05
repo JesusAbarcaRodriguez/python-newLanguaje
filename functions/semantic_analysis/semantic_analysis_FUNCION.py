@@ -23,7 +23,7 @@ def semantic_analysis_FUNCION(principal,i,tokens):
     variables.update(function.parameters)
     while not tokens[i][0] == 'FIN':
         if is_assignment(tokens,i):
-            message = semantic_analysis_assigments(variables,i,tokens)
+            message = semantic_analysis_assigments(principal,variables,i,tokens)
             if not message.isdigit():
                 return message
             i = int(message)
@@ -53,12 +53,21 @@ def semantic_analysis_FUNCION(principal,i,tokens):
                         return f"Error semantico en {tokens[i][1]}"
                 else:
                     return f"Error semantico en {tokens[i][1]}"
-            #elif tokens[i][0] in ['NUMERO_ENTERO','NUMERO_FLOTANTE','CADENA']:
-                #function.return_data = tokens[i][1]
+            elif tokens[i][0] in ['NUMERO_ENTERO','NUMERO_FLOTANTE','CADENA']:
+                if  not tokens[i][0] == 'NUMERO_ENTERO' and function.data_type == 'ENTERO' or function.data_type == 'FLOTANTE':
+                    return f"Error semantico en {tokens[i][1]}"
+                elif not tokens[i][0] == 'NUMERO_FLOTANTE' and function.data_type == 'FLOTANTE':
+                    return f"Error semantico en {tokens[i][1]}"
+                elif not tokens[i][0] == 'VALOR_CARACTER' and function.data_type == 'CARARCTER':
+                    return f"Error semantico en {tokens[i][1]}"
+                elif not tokens[i][0] == 'CADENA_LITERAL' and function.data_type == 'CADENA':
+                    return f"Error semantico en {tokens[i][1]}"
+                elif not tokens[i][0] == 'VALOR_BOOLEANO' and function.data_type == 'BOOLEANO':
+                    return f"Error semantico en {tokens[i][1]}"
             else:
                 return f"Error semantico en {tokens[i][1]}"
             i += 2
     end_function = i
-    function.end_function = end_function
+    function.end_functio = end_function
     principal.functions[function.identifier] = function
     return str(i+1)

@@ -25,10 +25,10 @@ def semantic_call_function_procedure(principal,function_name, parameters_input):
                 iterator += 1
             elif param_data[0] == 'CARACTER' and parameters_input[iterator][0] == 'VALOR_CARACTER':
                 obj.parameters[param_name][1] = parameters_input[iterator][1]
-                iterator 
+                iterator
             elif param_data[0] == 'BOOLEANO' and parameters_input[iterator][0] == 'VALOR_BOOLEANO':
-                obj.parameters[param_name][1] = parameters_input[iterator][1]   
-                iterator += 1        
+                obj.parameters[param_name][1] = parameters_input[iterator][1]
+                iterator += 1
             else:
                 return f'Error: El parámetro {param_name} no coincide en tipo con la definición de la función {function_name}'
     else:
