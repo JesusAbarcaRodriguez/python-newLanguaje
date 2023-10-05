@@ -1,4 +1,4 @@
-from functions.utils.utils import is_return
+from functions.utils.utils import is_read, is_return
 def verify_FUNCION(principal,init_function,tokens,function_name):
     from functions.executable_code.verify_PROCEDIMIENTO import verify_PROCEDIMIENTO
     from functions.semantic_analysis.semantic_call_function_procedure import semantic_call_function_procedure
@@ -20,6 +20,8 @@ def verify_FUNCION(principal,init_function,tokens,function_name):
             if not message.isdigit():
                 return message
             i = int(message)
+        if is_read(tokens,i):
+            i += 4
         elif is_for(tokens,i):
             i += 1
             message = verify_DE(principal,i,tokens,variables)
