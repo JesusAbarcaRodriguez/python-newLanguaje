@@ -29,7 +29,8 @@ patterns = [
     (r'#', 'OPERADOR_LOGICO_OR'),
     (r'\(', 'PARENTESIS_IZQ'),
     (r'\)', 'PARENTESIS_DER'),
-    (r'\"(.*?)\"', 'CADENA_LITERAL'),
+ #   (r'\"(.*?)\"', 'CADENA_LITERAL'),
+    (r'\"(.*?)\"', lambda match: ('CADENA_LITERAL', match.group(1))),
     (r"\'(.)'", 'VALOR_CARACTER'),
     (r'\:', 'ASIGNACION'),
     (r'[a-zA-Z_]\w*', 'IDENTIFICADOR'),
@@ -39,15 +40,16 @@ patterns = [
 ]
 
 def lexical_analysis(code):
-    syntax_analysis_obj = LexicalAnalysisObj(False,"",[])
+    syntax_analysis_obj = LexicalAnalysisObj(False, "", [])
     while code:
         for pattern, token_type in patterns:
             match = re.match(pattern, code)
             if match:
-                token = match.group()
-                if token_type != 'COMENTARIO':
-                    syntax_analysis_obj.tokens.append((token_type, token))
-                code = code[len(token):].lstrip()
+                if callable(token_type):
+                    syntax_analysis_obj.tokens.append(token_type(match))
+                else:
+                    syntax_analysis_obj.tokens.append((token_type, match.group()))
+                code = code[len(match.group()):].lstrip()
                 break
         else:
             syntax_analysis_obj.isError = True

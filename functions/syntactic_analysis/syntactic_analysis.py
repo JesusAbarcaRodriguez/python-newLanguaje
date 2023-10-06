@@ -114,7 +114,7 @@ def syntactic_analysis(tokens):
             else:
                 return f"Error sintactico en {token[1]}"
         elif token[0] == 'CADENA_LITERAL':
-            if(top(pila_data_type)[0] == 'ASIGNACION') or top(pila_data_type)[0] == 'RETORNO' or top(pila_data_type)[0] == 'OPERADOR_ARITMETICO':
+            if(top(pila_data_type)[0] == 'ASIGNACION') or top(pila_data_type)[0] == 'RETORNO' or top(pila_data_type)[0] == 'OPERADOR_ARITMETICO' or top(pila_data_type)[0] == "PARENTESIS_IZQ":
                 pila_data_type.append(token)
             else:
                 return f"Error sintactico en {token[1]}"

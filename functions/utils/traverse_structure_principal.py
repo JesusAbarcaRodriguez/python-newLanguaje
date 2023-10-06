@@ -2,7 +2,7 @@
 from functions.executable_code.verify_write import verify_write
 from functions.utils.utils import is_write
 
-def traverse_structure_principal(principal,i,tokens,variables):
+def traverse_structure_principal(self,principal,i,tokens,variables):
     from functions.semantic_analysis.semantic_call_function_procedure import semantic_call_function_procedure
     from functions.executable_code.verify_DE import verify_DE   
     from functions.executable_code.assignments_variables import verify_assigments
@@ -20,13 +20,13 @@ def traverse_structure_principal(principal,i,tokens,variables):
                 return message
             i = int(message)
         elif is_write(tokens,i):
-            message = verify_write(principal.variables,i,tokens)
+            message = verify_write(self,principal.variables,i,tokens)
             if not message.isdigit():
                 return message
             i = int(message)
         elif is_for(tokens,i):
             i += 1
-            message = verify_DE(principal,i,tokens,variables)
+            message = verify_DE(self,principal,i,tokens,variables)
             if not message.isdigit():
                     return message
             i = int(message)

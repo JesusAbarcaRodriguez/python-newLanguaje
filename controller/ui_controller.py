@@ -43,7 +43,7 @@ class MainView(QMainWindow):
             self.textEdit_2.setPlainText(new_text)
     def write_variables(self,variable_text):
         current_text = self.textEdit_2.toPlainText()
-        new_text = f"   '\n ' {current_text} {variable_text}"
+        new_text = f"{current_text}{variable_text}"
         self.textEdit_2.setPlainText(new_text)
     def execute_custom_command(self, command):
         # Implementa la lógica para ejecutar un comando personalizado aquí.
@@ -157,7 +157,9 @@ class MainView(QMainWindow):
         self.close()
     def execute_code(self):
         code = self.textEdit.toPlainText()
-        self.textEdit_2.setPlainText(compile_code(code))
+        self.textEdit_2.setPlainText("")
+       # self.textEdit_2.setPlainText(compile_code(self, code))
+        compile_code(self, code)
     def open_new_dialog(self):
         text, ok = QInputDialog.getText(self, 'New File', 'Enter file name:')
         if ok and text:

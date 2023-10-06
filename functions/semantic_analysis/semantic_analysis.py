@@ -1,4 +1,4 @@
-def semantic_analysis(tokens):
+def semantic_analysis(self,tokens):
     from functions.utils.utils import is_procedure_decalaration
     from functions.semantic_analysis.semantic_analysis_PRINCIPAL import semantic_analysis_PRINCIPAL
     from functions.semantic_analysis.semantic_analysis_FUNCION import semantic_analysis_FUNCION
@@ -26,7 +26,7 @@ def semantic_analysis(tokens):
                 return message
             i = int(message)
         elif is_main_procedure(tokens,i):
-            message = semantic_analysis_PRINCIPAL(principal,i,tokens)
+            message = semantic_analysis_PRINCIPAL(self,principal,i,tokens)
             if not message.isdigit():
                 return message
             i = int(message)

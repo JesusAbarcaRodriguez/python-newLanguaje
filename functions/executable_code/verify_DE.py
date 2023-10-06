@@ -1,4 +1,4 @@
-def verify_DE(principal,i,tokens, variables):
+def verify_DE(self,principal,i,tokens, variables):
     from functions.utils.traverse_structure_principal import traverse_structure_principal
     from functions.utils.utils import  is_declared_variable
     init = 0
@@ -19,7 +19,7 @@ def verify_DE(principal,i,tokens, variables):
     while init < end:
         i = auxi
         init += 1
-        message = traverse_structure_principal(principal,i,tokens,variables)
+        message = traverse_structure_principal(self,principal,i,tokens,variables)
         if not message.isdigit():
             return message
         i = int(message)

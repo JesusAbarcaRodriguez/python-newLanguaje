@@ -1,5 +1,5 @@
 logic_operations = {"OPERADOR_LOGICO_AND","OPERADOR_LOGICO_OR","OPERADOR_COMPARACION"}
-def verify_MIENTRAS(principal,i,tokens, variables):
+def verify_MIENTRAS(self,principal,i,tokens, variables):
     from functions.utils.traverse_structure_principal import traverse_structure_principal
     from functions.utils.utils import  is_declared_variable
     from functions.utils.analysis_conditions import evaluate_logic_expression
@@ -19,7 +19,7 @@ def verify_MIENTRAS(principal,i,tokens, variables):
         i += 1
     result = evaluate_logic_expression(logic_variables, logic_operators)
     while result == True:
-        message = traverse_structure_principal(principal,i,tokens)
+        message = traverse_structure_principal(self,principal,i,tokens)
         if not message.isdigit():
             return message
         i = int(message)
