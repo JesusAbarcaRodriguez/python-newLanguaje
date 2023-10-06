@@ -56,6 +56,11 @@ def is_read(tokens,i):
         return True
     else:
         return False
+def is_write(tokens,i):
+    if tokens[i][0] == 'ESCRIBIR' and tokens[i+1][0] == 'PARESNTESIS_IZQ':
+        return True
+    else:
+        return False
 def is_same_type(variable_to_assign,tokens,i,variables):
     if variable_to_assign[0]  == variables[tokens[i][1]][0]:
         return True

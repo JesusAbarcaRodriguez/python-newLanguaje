@@ -1,4 +1,8 @@
 
+from functions.executable_code.verify_write import verify_write
+from functions.utils.utils import is_write
+
+
 def traverse_structure_principal(principal,i,tokens,variables):
     from functions.semantic_analysis.semantic_call_function_procedure import semantic_call_function_procedure
     from functions.executable_code.verify_DE import verify_DE   
@@ -13,6 +17,11 @@ def traverse_structure_principal(principal,i,tokens,variables):
     while not tokens[i][0] == 'FIN':
         if is_assignment(tokens,i):
             message = verify_assigments(principal,principal.variables,i,tokens)
+            if not message.isdigit():
+                return message
+            i = int(message)
+        elif is_write(tokens,i):
+            message = verify_write(principal.variables,i,tokens)
             if not message.isdigit():
                 return message
             i = int(message)

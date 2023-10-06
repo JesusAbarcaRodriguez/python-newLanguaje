@@ -41,7 +41,7 @@ class MainView(QMainWindow):
             current_text = self.textEdit_2.toPlainText()
             new_text = f"{current_text} {output}"
             self.textEdit_2.setPlainText(new_text)
-    def read_variables(self,variable_text):
+    def write_variables(self,variable_text):
         current_text = self.textEdit_2.toPlainText()
         new_text = f"   '\n ' {current_text} {variable_text}"
         self.textEdit_2.setPlainText(new_text)

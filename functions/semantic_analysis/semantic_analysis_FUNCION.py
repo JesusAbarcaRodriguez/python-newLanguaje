@@ -1,6 +1,5 @@
-from functions.utils.utils import is_return
-
-
+from functions.semantic_analysis.semantic_analysis_write import semantic_analysis_write
+from functions.utils.utils import is_return, is_write
 def semantic_analysis_FUNCION(principal,i,tokens):
     from functions.semantic_analysis.semantic_analysis_MIENTRAS import semantic_analysis_MIENTRAS
     from functions.utils.global_state import Function
@@ -24,6 +23,11 @@ def semantic_analysis_FUNCION(principal,i,tokens):
     while not tokens[i][0] == 'FIN':
         if is_assignment(tokens,i):
             message = semantic_analysis_assigments(principal,variables,i,tokens)
+            if not message.isdigit():
+                return message
+            i = int(message)
+        elif is_write(tokens,i):
+            message = semantic_analysis_write(variables,i,tokens)
             if not message.isdigit():
                 return message
             i = int(message)
