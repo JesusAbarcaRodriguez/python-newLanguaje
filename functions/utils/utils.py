@@ -57,7 +57,7 @@ def is_read(tokens,i):
     else:
         return False
 def is_write(tokens,i):
-    if tokens[i][0] == 'ESCRIBIR' and tokens[i+1][0] == 'PARESNTESIS_IZQ':
+    if tokens[i][0] == 'ESCRIBIR' and tokens[i+1][0] == 'PARENTESIS_IZQ':
         return True
     else:
         return False

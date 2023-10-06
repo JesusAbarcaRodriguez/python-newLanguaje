@@ -2,7 +2,6 @@
 from functions.executable_code.verify_write import verify_write
 from functions.utils.utils import is_write
 
-
 def traverse_structure_principal(principal,i,tokens,variables):
     from functions.semantic_analysis.semantic_call_function_procedure import semantic_call_function_procedure
     from functions.executable_code.verify_DE import verify_DE   
@@ -68,5 +67,5 @@ def traverse_structure_principal(principal,i,tokens,variables):
                 verify_PROCEDIMIENTO(principal,init_function,tokens,function_procedures_name)
             i += 2
         else:
-            return f"Error sintactico en {tokens[i][1]}"
+            return f"Error semantico en {tokens[i][1]}"
     return str(i+1)

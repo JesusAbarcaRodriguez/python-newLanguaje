@@ -1,8 +1,8 @@
-from controller.ui_controller import MainView
 def verify_write(variables,i,tokens):
+    from main import write_variables
     i+=2
     text = ""
-    main_view_instance = MainView()
+
     while tokens[i][0] != 'PARENTESIS_DER':
         if tokens[i][0] == "IDENTIFICADOR":
             if tokens[i][0] in variables:
@@ -13,5 +13,5 @@ def verify_write(variables,i,tokens):
             i+=1
         else:
             return f"Error semantico en {tokens[i][1]}"
-    main_view_instance.write_variables(text)
+    write_variables(text)
     return i+2
