@@ -58,7 +58,7 @@ def syntactic_analysis(tokens):
             else:
                 return f"Error sintactico en {token[1]}"
         elif token[0] == 'FIN':
-            if  top(pila_block)[0] == 'RETORNO' or  top(pila_block)[0] == 'FIN' or top(pila_data_type)[0] == 'FIN_DE_INSTRUCCION':
+            if  top(pila_block)[0] == 'RETORNO' or top(pila_block)[0] == 'INICIO' or  top(pila_block)[0] == 'FIN' or top(pila_data_type)[0] == 'FIN_DE_INSTRUCCION':
                     pila_block.append(token)
                     pila_data_type.append(token)
             else:
