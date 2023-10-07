@@ -15,7 +15,7 @@ def traverse_structure_principal(self,principal,i,tokens,variables):
     parameters_input = []
     while not tokens[i][0] == 'FIN':
         if is_assignment(tokens,i):
-            message = verify_assigments(principal,principal.variables,i,tokens)
+            message = verify_assigments(self,principal,principal.variables,i,tokens)
             if not message.isdigit():
                 return message
             i = int(message)
@@ -32,13 +32,13 @@ def traverse_structure_principal(self,principal,i,tokens,variables):
             i = int(message)
         elif is_while(tokens,i):
             i += 1
-            message = verify_MIENTRAS(principal,i,tokens)
+            message = verify_MIENTRAS(self,principal,i,tokens)
             if not message.isdigit():
                     return message
             i = int(message)
         elif is_if(tokens,i):
             i += 1
-            message = verify_CUANDO(principal,i,tokens)
+            message = verify_CUANDO(self,principal,i,tokens)
             if not message.isdigit():
                     return message
             i = int(message)
@@ -61,10 +61,10 @@ def traverse_structure_principal(self,principal,i,tokens,variables):
             keys_procedures = principal.procedures.keys()
             if function_procedures_name in keys_functions:
                 init_function = principal.functions[function_procedures_name].init_function
-                verify_FUNCION(principal,init_function,tokens,function_procedures_name)
+                verify_FUNCION(self,principal,init_function,tokens,function_procedures_name)
             if function_procedures_name in keys_procedures:
                 init_function = principal.procedure[function_procedures_name].init_function
-                verify_PROCEDIMIENTO(principal,init_function,tokens,function_procedures_name)
+                verify_PROCEDIMIENTO(self,principal,init_function,tokens,function_procedures_name)
             i += 2
         else:
             return f"Error semantico en {tokens[i][1]}"

@@ -11,5 +11,5 @@ def semantic_analysis_write(variables,i,tokens):
             i+=1
         else:
             return f"Error semantico en {tokens[i][1]} + 'no se puede imprimir'"
-    return i+2
+    return str(i+2)
 

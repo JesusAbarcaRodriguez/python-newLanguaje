@@ -31,16 +31,19 @@ class MainView(QMainWindow):
         self.btn_options.clicked.connect(self.show_options_menu)
         self.textEdit = self.findChild(QTextEdit, "textEdit")
         self.highlighter = LexicalHighlighter(self.textEdit.document())
-    def execute_command(self,isWrite):
-        if(isWrite):
-            self.command_line.setEnabled(True)
-            command = self.command_line.text()
-            self.command_line.clear()
-            # Ejecutar el comando y mostrar la salida en textEdit_2
-            output = self.execute_custom_command(command)
-            current_text = self.textEdit_2.toPlainText()
-            new_text = f"{current_text} {output}"
-            self.textEdit_2.setPlainText(new_text)
+    async def execute_command(self):
+    
+        self.command_line.setEnabled(True)
+        self.command_line.setStyleSheet("background-color: lightblue;")
+        command = self.command_line.text()
+        self.command_line.clear()
+        # Ejecutar el comando y mostrar la salida en textEdit_2
+        output = self.execute_custom_command(command)
+        current_text = self.textEdit_2.toPlainText()
+        new_text = f"{current_text} {output}"
+        self.textEdit_2.setPlainText(new_text)
+        return output
+    
     def write_variables(self,variable_text):
         current_text = self.textEdit_2.toPlainText()
         new_text = f"{current_text}{variable_text}"

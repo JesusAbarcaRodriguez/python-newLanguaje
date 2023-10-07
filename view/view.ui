@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>DEV_CER</class>
+ <widget class="QMainWindow" name="DEV_CER">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -15,7 +15,7 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(103, 103, 103);</string>
+    <string notr="true">background-color: rgb(18, 18, 18);</string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout" stretch="1,14">
     <item>
@@ -30,7 +30,7 @@
        <item>
         <widget class="QPushButton" name="btn_new">
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(255, 255, 255);
+          <string notr="true">background-color: rgb(63, 128, 129);
 border-color: rgb(39, 93, 211);</string>
          </property>
          <property name="text">
@@ -41,7 +41,7 @@ border-color: rgb(39, 93, 211);</string>
        <item>
         <widget class="QPushButton" name="btn_options">
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(255, 255, 255);</string>
+          <string notr="true">background-color: rgb(63, 128, 129);</string>
          </property>
          <property name="text">
           <string>Options</string>
@@ -51,7 +51,8 @@ border-color: rgb(39, 93, 211);</string>
        <item>
         <widget class="QPushButton" name="btn_exit">
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(255, 255, 255);</string>
+          <string notr="true">
+background-color: rgb(63, 128, 129);</string>
          </property>
          <property name="text">
           <string>Exit</string>
@@ -60,6 +61,9 @@ border-color: rgb(39, 93, 211);</string>
        </item>
        <item>
         <widget class="QFrame" name="frame_5">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
          </property>
@@ -88,7 +92,7 @@ border-color: rgb(39, 93, 211);</string>
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,1">
           <item>
            <widget class="QFrame" name="frame_4">
             <property name="frameShape">
@@ -102,7 +106,9 @@ border-color: rgb(39, 93, 211);</string>
               <widget class="QTextEdit" name="textEdit">
                <property name="styleSheet">
                 <string notr="true">font: 8pt &quot;Cascadia Code&quot;;
-background-color: rgb(166, 166, 166);
+background-color: rgb(30, 30, 30);
+border-color:red;
+color:rgb(255,255,255);
 </string>
                </property>
                <property name="html">
@@ -111,6 +117,12 @@ background-color: rgb(166, 166, 166);
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Cascadia Code'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="tabStopWidth">
+                <number>20</number>
+               </property>
+               <property name="tabStopDistance">
+                <double>20.000000000000000</double>
                </property>
               </widget>
              </item>
@@ -147,7 +159,9 @@ p, li { white-space: pre-wrap; }
                    <bool>true</bool>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">font: 11pt &quot;Cascadia Code&quot;;</string>
+                   <string notr="true">font: 11pt &quot;Cascadia Code&quot;;
+color:  rgb(255, 255, 255);
+</string>
                   </property>
                   <property name="verticalScrollBarPolicy">
                    <enum>Qt::ScrollBarAsNeeded</enum>
@@ -157,6 +171,7 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Cascadia Code'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>

@@ -1,4 +1,4 @@
-def verify_assigments(principal,variables,i,tokens):
+def verify_assigments(self,principal,variables,i,tokens):
     from functions.executable_code.verify_FUNCION import verify_FUNCION
     from functions.semantic_analysis.semantic_call_function_procedure import semantic_call_function_procedure
     from functions.utils.utils import is_called_fuction_procedure, is_declared_variable, is_same_type
@@ -32,7 +32,7 @@ def verify_assigments(principal,variables,i,tokens):
                             if not message == "OK":
                                     return message
                         init_function = principal.functions[function_name].init_function
-                        verify_FUNCION(principal,init_function,tokens,function_name)
+                        verify_FUNCION(self,principal,init_function,tokens,function_name)
                         variables[tokens[index_variable_to_assign][1]][1] = principal.functions[function_name].return_data
                         i += 1
                     else:

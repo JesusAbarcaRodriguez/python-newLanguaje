@@ -1,6 +1,6 @@
 from functions.executable_code.verify_write import verify_write
 from functions.utils.utils import is_read, is_return, is_write
-def verify_FUNCION(principal,init_function,tokens,function_name):
+def verify_FUNCION(self,principal,init_function,tokens,function_name):
     from functions.executable_code.verify_PROCEDIMIENTO import verify_PROCEDIMIENTO
     from functions.semantic_analysis.semantic_call_function_procedure import semantic_call_function_procedure
     from functions.utils.utils import is_called_fuction_procedure, is_declared_variable
@@ -17,14 +17,14 @@ def verify_FUNCION(principal,init_function,tokens,function_name):
     variables.update(variablesAux)
     while not tokens[i][0] == 'FIN':
         if is_assignment(tokens,i):
-            message = verify_assigments(principal,variables,i,tokens)
+            message = verify_assigments(self,principal,variables,i,tokens)
             if not message.isdigit():
                 return message
             i = int(message)
         if is_read(tokens,i):
             i += 4
         elif is_write(tokens,i):
-            message = verify_write(variables,i,tokens)
+            message = verify_write(self,variables,i,tokens)
             if not message.isdigit():
                 return message
             i = int(message)

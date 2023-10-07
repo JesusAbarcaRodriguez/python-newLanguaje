@@ -16,6 +16,7 @@ def semantic_analysis_assigments(principal,variables,i,tokens):
             elif tokens[i][0] == 'IDENTIFICADOR':
                 if not (tokens[i][1] in variables  and (is_same_type(variable_to_assign,tokens,i,variables) or variable_to_assign[0] == 'FLOTANTE' and  variables[tokens[i][1]][0] == 'ENTERO')):
                     return f"Error semantico en {tokens[i][1]}"
+                i += 1
             elif tokens[i][0] == 'NUMERO_ENTERO':
                 if not (variable_to_assign[0] == 'ENTERO' or variable_to_assign[0] == 'FLOTANTE'):
                     return f"Error la asignación es de tipos diferentes, la variable '{variable_name}' no es de tipo {tokens[i][0]}"
