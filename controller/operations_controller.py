@@ -13,12 +13,13 @@ class OperationTypesDialog(QDialog):
             "RESTA": "\n a-b",
             "MULTIPLICACION": "\n a*b",
             "DIVISION": "\n a/b",
-            "AND": "\n a = b and c = d",
-            "OR": "\n a = b or c = d",
+            "AND": "\n a = b & c = d",
+            "OR": "\n a = b # c = d",
             "DIFERENTE": "\n a ! b ",
             "MAYOR": "\n a>b",
             "MENOR": "\n a<b",
             "IGUAL": "\n a=b",
+            "ASIGNACION": "\n a : b",
         }
         self.listWidget.addItems(self.operations.keys())
     def select_operation(self):

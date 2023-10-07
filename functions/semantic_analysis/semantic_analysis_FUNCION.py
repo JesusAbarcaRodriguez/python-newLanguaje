@@ -33,19 +33,19 @@ def semantic_analysis_FUNCION(principal,i,tokens):
             i = int(message)
         elif is_for(tokens,i):
             i += 1
-            message = semantic_analysis_DE(principal,i,tokens)
+            message = semantic_analysis_DE(principal,variables,i,tokens)
             if not message.isdigit():
                     return message
             i = int(message)
         elif is_while(tokens,i):
             i += 1
-            message = semantic_analysis_MIENTRAS(principal,i,tokens)
+            message = semantic_analysis_MIENTRAS(principal,variables,i,tokens)
             if not message.isdigit():
                     return message
             i = int(message)
         elif is_if(tokens,i):
             i += 1
-            message = semantic_analysis_CUANDO(principal,i,tokens)
+            message = semantic_analysis_CUANDO(principal,variables,i,tokens)
             if not message.isdigit():
                     return message
             i = int(message)

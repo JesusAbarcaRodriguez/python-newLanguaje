@@ -15,7 +15,9 @@ def semantic_analysis_PROCEDIMENTO(principal,i,tokens):
             return f"Error semantico en {tokens[i][1]}"
     i += 2
     countINICIO += 1
-    message = traverse_structure(principal,i,tokens)
+    variables = principal.variables.copy()
+    variables.update(procedimento.parameters)
+    message = traverse_structure(principal,variables,i,tokens)
     if not message.isdigit():
         return message
     i = int(message)

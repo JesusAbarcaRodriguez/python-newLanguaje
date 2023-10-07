@@ -51,7 +51,7 @@ def evaluate_logic_expression(logic_variables, logic_operators):
             stack_bool_operations.append(aux or aux2)
     return top(stack_bool_operations)
 
-def evaluate_type_expression(logic_variables, logic_operators):
+def evaluate_type_expression(logic_variables, logic_operators):#TODO: revisar
     index = 0
     stack_bool_operations = deque()
     stack_and_or = deque()

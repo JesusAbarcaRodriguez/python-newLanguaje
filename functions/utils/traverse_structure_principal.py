@@ -4,7 +4,7 @@ from functions.utils.utils import is_write
 
 def traverse_structure_principal(self,principal,i,tokens,variables):
     from functions.semantic_analysis.semantic_call_function_procedure import semantic_call_function_procedure
-    from functions.executable_code.verify_DE import verify_DE   
+    from functions.executable_code.verify_DE import verify_DE
     from functions.executable_code.assignments_variables import verify_assigments
     from functions.utils.utils import is_assignment, is_for, is_if, is_while, is_called_fuction_procedure
     from functions.executable_code.verify_CUANDO import verify_CUANDO
@@ -15,12 +15,12 @@ def traverse_structure_principal(self,principal,i,tokens,variables):
     parameters_input = []
     while not tokens[i][0] == 'FIN':
         if is_assignment(tokens,i):
-            message = verify_assigments(self,principal,principal.variables,i,tokens)
+            message = verify_assigments(self,principal,variables,i,tokens)
             if not message.isdigit():
                 return message
             i = int(message)
         elif is_write(tokens,i):
-            message = verify_write(self,principal.variables,i,tokens)
+            message = verify_write(self,variables,i,tokens)
             if not message.isdigit():
                 return message
             i = int(message)
@@ -32,13 +32,13 @@ def traverse_structure_principal(self,principal,i,tokens,variables):
             i = int(message)
         elif is_while(tokens,i):
             i += 1
-            message = verify_MIENTRAS(self,principal,i,tokens)
+            message = verify_MIENTRAS(self,principal,i,tokens,variables)
             if not message.isdigit():
                     return message
             i = int(message)
         elif is_if(tokens,i):
             i += 1
-            message = verify_CUANDO(self,principal,i,tokens)
+            message = verify_CUANDO(self,principal,i,tokens,variables)
             if not message.isdigit():
                     return message
             i = int(message)
@@ -53,7 +53,7 @@ def traverse_structure_principal(self,principal,i,tokens,variables):
                 else:
                     parameters_input = tokens[i]
 
-            if  len(parameters_input): 
+            if  len(parameters_input):
                 message = semantic_call_function_procedure(principal,function_procedures_name,parameters_input)
                 if not message == "OK":
                         return message

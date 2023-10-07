@@ -21,7 +21,7 @@ def verify_FUNCION(self,principal,init_function,tokens,function_name):
             if not message.isdigit():
                 return message
             i = int(message)
-        if is_read(tokens,i):
+        elif is_read(tokens,i):
             i += 4
         elif is_write(tokens,i):
             message = verify_write(self,variables,i,tokens)
@@ -30,19 +30,19 @@ def verify_FUNCION(self,principal,init_function,tokens,function_name):
             i = int(message)
         elif is_for(tokens,i):
             i += 1
-            message = verify_DE(principal,i,tokens,variables)
+            message = verify_DE(self,principal,i,tokens,variables)
             if not message.isdigit():
                     return message
             i = int(message)
         elif is_while(tokens,i):
             i += 1
-            message = verify_MIENTRAS(principal,i,tokens,variables)
+            message = verify_MIENTRAS(self,principal,i,tokens,variables)
             if not message.isdigit():
                     return message
             i = int(message)
         elif is_if(tokens,i):
             i += 1
-            message = verify_CUANDO(principal,i,tokens, variables)
+            message = verify_CUANDO(self,principal,i,tokens, variables)
             if not message.isdigit():
                     return message
             i = int(message)
