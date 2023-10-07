@@ -18,6 +18,7 @@ def verify_CUANDO(self,principal,i,tokens, variables):
         i += 1
     result = evaluate_logic_expression(logic_variables, logic_operators)
     if  result == True:
+        i += 1
         message = traverse_structure_principal(self,principal,i,tokens,variables)
         if not message.isdigit():
             return message
