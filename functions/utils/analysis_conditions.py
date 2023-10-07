@@ -51,7 +51,7 @@ def evaluate_logic_expression(logic_variables, logic_operators):
             stack_bool_operations.append(aux or aux2)
     return top(stack_bool_operations)
 
-def evaluate_type_expression(logic_variables, logic_operators):#TODO: revisar
+def evaluate_type_expression(logic_variables, logic_operators):
     index = 0
     stack_bool_operations = deque()
     stack_and_or = deque()
@@ -60,7 +60,7 @@ def evaluate_type_expression(logic_variables, logic_operators):#TODO: revisar
         if operator == '=' or operator == '<' or operator == '>' or operator == '!':
             variable1 = logic_variables.pop()
             variable2 = logic_variables.pop()
-            if variable1 == variable2 and ( variable1 == 'FLOTANTE' or variable1 == 'ENTERO'):
+            if variable1 == variable2 or ( variable1 == 'FLOTANTE' or variable1 == 'ENTERO'):
                 index += 1
             else:
                 if operator == '='or operator == '!':

@@ -48,7 +48,10 @@ def lexical_analysis(code):
                 if callable(token_type):
                     syntax_analysis_obj.tokens.append(token_type(match))
                 else:
-                    syntax_analysis_obj.tokens.append((token_type, match.group()))
+                    token = match.group()
+                    if token_type == 'NUMERO_ENTERO':
+                        token = int(token)  # Convertir a entero
+                    syntax_analysis_obj.tokens.append((token_type, token))
                 code = code[len(match.group()):].lstrip()
                 break
         else:

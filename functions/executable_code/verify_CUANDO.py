@@ -18,7 +18,7 @@ def verify_CUANDO(self,principal,i,tokens, variables):
         i += 1
     result = evaluate_logic_expression(logic_variables, logic_operators)
     if  result == True:
-        message = traverse_structure_principal(self,principal,i,tokens)
+        message = traverse_structure_principal(self,principal,i,tokens,variables)
         if not message.isdigit():
             return message
         i = int(message)
@@ -26,7 +26,7 @@ def verify_CUANDO(self,principal,i,tokens, variables):
         while not tokens[i][0] == 'FIN':
             i=i+1
         i=i+1
-        if tokens[i][0] == 'SINO':                          
+        if tokens[i][0] == 'SINO':
             i +=2
             if not message.isdigit():
                 return message
