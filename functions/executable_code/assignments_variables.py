@@ -1,4 +1,8 @@
+
+
+
 def verify_assigments(self,principal,variables,i,tokens):
+    from functions.utils.utils import is_read
     from functions.executable_code.verify_FUNCION import verify_FUNCION
     from functions.semantic_analysis.semantic_call_function_procedure import semantic_call_function_procedure
     from functions.utils.utils import is_called_fuction_procedure, is_declared_variable, is_same_type
@@ -37,7 +41,11 @@ def verify_assigments(self,principal,variables,i,tokens):
                         i += 1
                     else:
                         return f"Error: La variable: '{variable_to_assign[1]}' no es del mismo tipo que la funcion {function_name} "
-            if tokens[i][0] == 'IDENTIFICADOR':
+            elif is_read(tokens,i): 
+              #  result = self.execute_command()
+                variables[tokens[index_variable_to_assign][1]][1] = 1
+                i += 1
+            elif tokens[i][0] == 'IDENTIFICADOR':
                 if tokens[i][1] in variables and not variables[tokens[i][1]][1] == None  and (is_same_type(variable_to_assign,tokens,i,variables) or variable_to_assign[0] == 'FLOTANTE' and  variables[tokens[i][1]][0] == 'ENTERO'):
                     if variable_to_assign[0] == 'ENTERO' or variable_to_assign[0] == 'FLOTANTE':
                         total_nums_to_assign.append(variables[tokens[i][1]][1])

@@ -2,6 +2,7 @@ class Principal:
     functions = {}
     variables = {}
     procedures = {}
+    init_principal = 0 
     data_int_matrix = {}
     data_char_matrix = {}
     data_float_matrix = {}

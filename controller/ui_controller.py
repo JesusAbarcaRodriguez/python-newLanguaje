@@ -9,6 +9,7 @@ from controller.functions_controller import FunctionTypesDialog
 from controller.operations_controller import OperationTypesDialog
 from controller.reserved_words_controller import ReservedWordsDialog
 from functions.compile_code import compile_code
+from functions.execute_code import execute_code
 from functions.lexical_analysis.lexical_highlighter import LexicalHighlighter
 class MainView(QMainWindow):
     def __init__(self):
@@ -26,9 +27,11 @@ class MainView(QMainWindow):
         self.operations_dialog = None
         self.reserved_words_dialog = None
         self.btn_exit.clicked.connect(self.close_window)
-        self.btn_compile.clicked.connect(self.execute_code)
+        self.btn_compile.clicked.connect(self.compile_codeUi)
         self.btn_new.clicked.connect(self.open_new_dialog)
         self.btn_options.clicked.connect(self.show_options_menu)
+        self.btn_execute.clicked.connect(self.execute_codeUi)
+
         self.textEdit = self.findChild(QTextEdit, "textEdit")
         self.highlighter = LexicalHighlighter(self.textEdit.document())
     async def execute_command(self):
@@ -38,7 +41,7 @@ class MainView(QMainWindow):
         command = self.command_line.text()
         self.command_line.clear()
         # Ejecutar el comando y mostrar la salida en textEdit_2
-        output = self.execute_custom_command(command)
+        output = await self.execute_custom_command(command)
         current_text = self.textEdit_2.toPlainText()
         new_text = f"{current_text} {output}"
         self.textEdit_2.setPlainText(new_text)
@@ -48,7 +51,7 @@ class MainView(QMainWindow):
         current_text = self.textEdit_2.toPlainText()
         
         # Reemplazar "##" por un salto de línea
-        variable_text = variable_text.replace("##", "\n")
+        variable_text = variable_text.replace("//", "\n")
         new_text = f"{current_text}{variable_text}"
         self.textEdit_2.setPlainText(new_text)
 
@@ -162,11 +165,16 @@ class MainView(QMainWindow):
         QMessageBox.information(self, "Option 2", "Option 2 selected.")
     def close_window(self):
         self.close()
-    def execute_code(self):
+    def execute_codeUi(self):
         code = self.textEdit.toPlainText()
         self.textEdit_2.setPlainText("")
        # self.textEdit_2.setPlainText(compile_code(self, code))
-        compile_code(self, code)
+        execute_code(self, code)
+    def compile_codeUi(self):
+        code = self.textEdit.toPlainText()
+        self.textEdit_2.setPlainText("")
+        self.textEdit_2.setPlainText(compile_code(code))
+        #compile_code(self, code)
     def open_new_dialog(self):
         text, ok = QInputDialog.getText(self, 'New File', 'Enter file name:')
         if ok and text:

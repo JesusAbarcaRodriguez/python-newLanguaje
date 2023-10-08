@@ -20,7 +20,7 @@ def syntactic_analysis(tokens):
             else:
                 return f"Error sintactico en {token[1]}"
         elif token[0] == 'LEER':
-            if top(pila_data_type)[0] == 'FIN_DE_INSTRUCCION' or top(pila_data_type)[0] == 'INICIO' or top(pila_data_type)[0] == 'FIN':
+            if top(pila_data_type)[0] == 'ASIGNACION':
                 pila_data_type.append(token)
         elif token[0] == 'ESCRIBIR':
             if top(pila_data_type)[0] == 'FIN_DE_INSTRUCCION' or top(pila_data_type)[0] == 'INICIO' or top(pila_data_type)[0] == 'FIN':
@@ -31,7 +31,7 @@ def syntactic_analysis(tokens):
             else:
                 return f"Error sintactico en {token[1]}"
         elif token[0] == 'FIN_DE_INSTRUCCION':
-            if top(pila_data_type)[0] in tokens_num_entero_flotante or top(pila_data_type)[0] in tokens_cadena_caracter or top(pila_data_type)[0] == 'PARENTESIS_DER':
+            if top(pila_data_type)[0] in tokens_num_entero_flotante or top(pila_data_type)[0] in tokens_cadena_caracter or top(pila_data_type)[0] == 'PARENTESIS_DER' or top(pila_data_type)[0] == "LEER":
                 pila_data_type.append(token)
             else:
                 return f"Error sintactico en {token[1]}"

@@ -1,8 +1,8 @@
-def semantic_analysis_PRINCIPAL(self,principal,i,tokens):
-    from functions.utils.traverse_structure_principal import traverse_structure_principal
+def semantic_analysis_PRINCIPAL(principal,i,tokens):
+    from functions.utils.traverse_structure import traverse_structure
 
     i += 3
-    message = traverse_structure_principal(self,principal,i,tokens,principal.variables)
+    message = traverse_structure(principal,principal.variables,i,tokens)
     if not message.isdigit():
         return message
     i = int(message)

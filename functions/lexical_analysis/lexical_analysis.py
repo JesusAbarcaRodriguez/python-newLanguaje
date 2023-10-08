@@ -29,7 +29,6 @@ patterns = [
     (r'#', 'OPERADOR_LOGICO_OR'),
     (r'\(', 'PARENTESIS_IZQ'),
     (r'\)', 'PARENTESIS_DER'),
- #   (r'\"(.*?)\"', 'CADENA_LITERAL'),
     (r'\"(.*?)\"', lambda match: ('CADENA_LITERAL', match.group(1))),
     (r"\'(.)'", 'VALOR_CARACTER'),
     (r'\:', 'ASIGNACION'),

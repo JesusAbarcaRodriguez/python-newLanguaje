@@ -9,16 +9,19 @@ class LexicalHighlighter(QSyntaxHighlighter):
         orange_color = QColor(255, 124, 0)
         red_color = QColor(255, 62, 0)
         comments_color = QColor(128, 128, 128)
+        blue_color = QColor(0, 166, 255)
         keyword_formatBlue = QTextCharFormat()
         keyword_formatOrange = QTextCharFormat()
         keyword_formatRed = QTextCharFormat()
         keyword_formatGreen = QTextCharFormat()
+        keyword_formatPurple = QTextCharFormat()
         string_format = QTextCharFormat()
         comments_format = QTextCharFormat()
         keyword_formatGreen.setForeground(Qt.green)
         keyword_formatRed.setForeground(red_color)
-        keyword_formatBlue.setForeground(Qt.blue)
+        keyword_formatBlue.setForeground(blue_color)
         keyword_formatOrange.setForeground(orange_color)
+        keyword_formatPurple.setForeground(Qt.magenta)
 
         keywords = ["ENTERO", "FLOTANTE","BOOLEANO", "CADENA", "CARACTER"]  # Agrega aquí más palabras clave si es necesario
         for keyword in keywords:
@@ -41,8 +44,13 @@ class LexicalHighlighter(QSyntaxHighlighter):
                 pattern = "\\b" + keyword + "\\b"
                 rule = (QRegExp(pattern), keyword_formatGreen)
                 self.highlighting_rules.append(rule)
-
         
+        keywords = ["RETORNO"]
+        for keyword in keywords:
+            pattern = "\\b" + keyword + "\\b"
+            rule = (QRegExp(pattern), keyword_formatPurple)
+            self.highlighting_rules.append(rule)
+            
         pattern = r'"[^"]*"' # Reconoce cadenas entre comillas
         string_format.setForeground(orange_color)  # Color de texto para las cadenas
         rule = (QRegExp(pattern), string_format)
