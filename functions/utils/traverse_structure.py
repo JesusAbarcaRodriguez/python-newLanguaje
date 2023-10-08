@@ -1,4 +1,6 @@
 def traverse_structure(principal,variables,i,tokens):
+    from functions.semantic_analysis.semantic_analysis_write import semantic_analysis_write
+    from functions.utils.utils import is_write
     from functions.semantic_analysis.semantic_analysis_CUANDO import semantic_analysis_CUANDO
     from functions.semantic_analysis.semantic_analysis_DE import semantic_analysis_DE
     from functions.semantic_analysis.semantic_analysis_MIENTRAS import semantic_analysis_MIENTRAS
@@ -27,5 +29,10 @@ def traverse_structure(principal,variables,i,tokens):
             message = semantic_analysis_CUANDO(principal,variables,i,tokens)
             if not message.isdigit():
                     return message
+            i = int(message)
+        elif is_write(tokens,i):
+            message = semantic_analysis_write(variables,i,tokens)
+            if not message.isdigit():
+                return message
             i = int(message)
     return str(i+1)

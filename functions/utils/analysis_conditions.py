@@ -60,7 +60,7 @@ def evaluate_type_expression(logic_variables, logic_operators):
         if operator == '=' or operator == '<' or operator == '>' or operator == '!':
             variable1 = logic_variables.pop()
             variable2 = logic_variables.pop()
-            if variable1 == variable2 or ( variable1 == 'FLOTANTE' or variable1 == 'ENTERO'):
+            if variable1 == variable2 or ( variable1 == 'NUMERO_ENTERO' and variable2 == 'ENTERO')or (variable2 == 'NUMERO_ENTERO' and variable1 == 'ENTERO'):
                 index += 1
             else:
                 if operator == '='or operator == '!':

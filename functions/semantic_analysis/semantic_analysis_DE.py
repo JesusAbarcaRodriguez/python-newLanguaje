@@ -13,8 +13,8 @@ def semantic_analysis_DE(principal,variables,i,tokens):
         return f"Error semantico en {tokens[i][1]} No se puede recorrer un rango con un tipo de dato {tokens[i][0]}"
     i += 2
     if tokens[i][0] == 'IDENTIFICADOR':
-        if is_declared_variable(tokens,i+2,variables):
-            variable_fin = variables[tokens[i+2][1]][0]
+        if is_declared_variable(tokens,i,variables):
+            variable_fin = variables[tokens[i][1]][0]
     elif tokens[i][0] == 'NUMERO_ENTERO':
         variable_fin = tokens[i][0]
     else:

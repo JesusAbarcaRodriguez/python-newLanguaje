@@ -44,10 +44,14 @@ class MainView(QMainWindow):
         self.textEdit_2.setPlainText(new_text)
         return output
     
-    def write_variables(self,variable_text):
+    def write_variables(self, variable_text):
         current_text = self.textEdit_2.toPlainText()
+        
+        # Reemplazar "##" por un salto de línea
+        variable_text = variable_text.replace("##", "\n")
         new_text = f"{current_text}{variable_text}"
         self.textEdit_2.setPlainText(new_text)
+
     def execute_custom_command(self, command):
         # Implementa la lógica para ejecutar un comando personalizado aquí.
         # Retorna la salida del comando como una cadena.
