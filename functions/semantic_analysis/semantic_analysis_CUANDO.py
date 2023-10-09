@@ -25,8 +25,8 @@ def semantic_analysis_CUANDO(principal,variables,i,tokens):
         if not message.isdigit():
             return message
         i = int(message)
-        if tokens[i+1][0] == 'SINO':
-            i +=3
+        if tokens[i][0] == 'SINO':
+            i +=2
             message = traverse_structure(principal,variables,i,tokens)
             if not message.isdigit():
                 return message

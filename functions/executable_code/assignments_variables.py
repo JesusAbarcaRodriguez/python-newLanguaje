@@ -1,5 +1,6 @@
 
-
+from numbers import Number
+from PyQt5.QtCore import QEventLoop
 
 def verify_assigments(self,principal,variables,i,tokens):
     from functions.utils.utils import is_read
@@ -42,9 +43,35 @@ def verify_assigments(self,principal,variables,i,tokens):
                     else:
                         return f"Error: La variable: '{variable_to_assign[1]}' no es del mismo tipo que la funcion {function_name} "
             elif is_read(tokens,i): 
-              #  result = self.execute_command()
-                variables[tokens[index_variable_to_assign][1]][1] = 1
+                self.on_comand_line()
+                event_loop = QEventLoop()
+                self.command_line.returnPressed.connect(event_loop.quit)
+                event_loop.exec_()
+                result = self.comand_text
+                self.off_comand_line()
+                if variable_to_assign[0] == 'ENTERO':
+                    if result.isdigit():
+                        result = int(result)
+                        variables[tokens[index_variable_to_assign][1]][1] = result
+                    else:
+                        return f"Error: La variable: '{variable_to_assign[1]}' de tipo '{variable_to_assign[0]}' no coincide con {result} "
+                elif variable_to_assign[0] == 'FLOTANTE':
+                    if result.isdigit():
+                        result = float(result)
+                        variables[tokens[index_variable_to_assign][1]][1] = result
+                    else:
+                        return f"Error: La variable: '{variable_to_assign[1]}' de tipo '{variable_to_assign[0]}' no coincide con {result} "
+                elif variable_to_assign[0] == "CADENA":
+                    variables[tokens[index_variable_to_assign][1]][1] = result
+                elif variable_to_assign[0] == "CARACTER":
+                    if result.len()==1:
+                        variables[tokens[index_variable_to_assign][1]][1] = result
+                    else:
+                        return f"Error: La variable: '{variable_to_assign[1]}' de tipo '{variable_to_assign[0]}' solo permite un caracter "
+                else:
+                    return f"Error: La variable: '{variable_to_assign[1]}' no es del mismo tipo que la funcion que {result} "
                 i += 1
+
             elif tokens[i][0] == 'IDENTIFICADOR':
                 if tokens[i][1] in variables and not variables[tokens[i][1]][1] == None  and (is_same_type(variable_to_assign,tokens,i,variables) or variable_to_assign[0] == 'FLOTANTE' and  variables[tokens[i][1]][0] == 'ENTERO'):
                     if variable_to_assign[0] == 'ENTERO' or variable_to_assign[0] == 'FLOTANTE':

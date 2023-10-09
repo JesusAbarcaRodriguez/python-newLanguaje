@@ -12,12 +12,13 @@ from functions.compile_code import compile_code
 from functions.execute_code import execute_code
 from functions.lexical_analysis.lexical_highlighter import LexicalHighlighter
 class MainView(QMainWindow):
+    comand_text = None
     def __init__(self):
         super(MainView, self).__init__()
         uic.loadUi("view/view.ui", self)
         # Agregar un QLineEdit para la línea de comandos
         self.command_line = QLineEdit(self)
-        self.command_line.setStyleSheet("font: 11pt 'Cascadia Code';")
+        self.command_line.setStyleSheet("font: 11pt 'Cascadia Code' color:rgb(255,255,255);")
         self.command_line.returnPressed.connect(self.execute_command)
         self.command_line.setEnabled(False)
         # Configurar diseño de la interfaz
@@ -34,18 +35,22 @@ class MainView(QMainWindow):
 
         self.textEdit = self.findChild(QTextEdit, "textEdit")
         self.highlighter = LexicalHighlighter(self.textEdit.document())
-    async def execute_command(self):
-    
+    def on_comand_line(self):
         self.command_line.setEnabled(True)
         self.command_line.setStyleSheet("background-color: lightblue;")
+    def off_comand_line(self):
+        self.command_line.setEnabled(False)
+        self.command_line.setStyleSheet("background-color: transparent;")
+        self.command_text = None
+    def execute_command(self):
         command = self.command_line.text()
         self.command_line.clear()
-        # Ejecutar el comando y mostrar la salida en textEdit_2
-        output = await self.execute_custom_command(command)
         current_text = self.textEdit_2.toPlainText()
-        new_text = f"{current_text} {output}"
+        new_text = f"{current_text} >>{command} \n"
         self.textEdit_2.setPlainText(new_text)
-        return output
+        self.comand_text = command
+        self.command_line.setStyleSheet("font: 11pt 'Cascadia Code' color:rgb(255,255,255);")
+        self.command_line.setEnabled(False)
     
     def write_variables(self, variable_text):
         current_text = self.textEdit_2.toPlainText()
@@ -149,7 +154,7 @@ class MainView(QMainWindow):
 
         if file_path:
             self.load_file(file_path)
-
+    
     def load_file(self, file_path):
         try:
             with open(file_path, 'r') as file:

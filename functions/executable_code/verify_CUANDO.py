@@ -29,6 +29,7 @@ def verify_CUANDO(self,principal,i,tokens, variables):
         i=i+1
         if tokens[i][0] == 'SINO':
             i +=2
+            message = traverse_structure_principal(self,principal,i,tokens,variables)
             if not message.isdigit():
                 return message
             i = int(message)
