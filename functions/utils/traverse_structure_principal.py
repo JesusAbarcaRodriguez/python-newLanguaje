@@ -1,6 +1,6 @@
 
 from functions.executable_code.verify_write import verify_write
-from functions.utils.utils import is_write
+from functions.utils.utils import is_return, is_write
 
 def traverse_structure_principal(self,principal,i,tokens,variables):
     from functions.semantic_analysis.semantic_call_function_procedure import semantic_call_function_procedure
@@ -42,6 +42,13 @@ def traverse_structure_principal(self,principal,i,tokens,variables):
             if not message.isdigit():
                     return message
             i = int(message)
+        elif tokens[i][0] == 'SINO':
+            while not tokens[i][0] == 'FIN':
+                i=i+1
+            i=i+1
+        elif is_return(tokens,i):
+            i=i-1
+            break
         elif is_called_fuction_procedure(tokens,i):
             function_procedures_name= tokens[i][1]
             i += 2

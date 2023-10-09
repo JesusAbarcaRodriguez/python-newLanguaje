@@ -58,6 +58,7 @@ def verify_FUNCION(self,principal,init_function,tokens,function_name):
             else:
                 return f"Error semantico en {tokens[i][1]}"
             i += 2
+            break
         elif is_called_fuction_procedure(tokens,i):
             function_name2= tokens[i][1]
             i += 2

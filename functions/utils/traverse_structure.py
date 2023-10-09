@@ -1,3 +1,6 @@
+from functions.utils.utils import is_return
+
+
 def traverse_structure(principal,variables,i,tokens):
     from functions.semantic_analysis.semantic_analysis_write import semantic_analysis_write
     from functions.utils.utils import is_write
@@ -35,4 +38,6 @@ def traverse_structure(principal,variables,i,tokens):
             if not message.isdigit():
                 return message
             i = int(message)
+        elif is_return(tokens,i):
+            i += 3
     return str(i+1)
