@@ -46,6 +46,10 @@ def verify_FUNCION(self,principal,init_function,tokens,function_name):
             if not message.isdigit():
                     return message
             i = int(message)
+        elif tokens[i][0] == 'SINO':
+            while not tokens[i][0] == 'FIN':
+                i=i+1
+            i=i+1
         elif is_return(tokens,i):
             i += 1
             if tokens[i][0] == 'IDENTIFICADOR':
