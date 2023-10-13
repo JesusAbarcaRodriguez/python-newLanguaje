@@ -5,12 +5,17 @@ def verify_write(self,variables,arrays,i,tokens):
     while tokens[i][0] != 'PARENTESIS_DER':
         if tokens[i][0] == "IDENTIFICADOR" and tokens[i+1][0] == "INDICE":
             if tokens[i][1] in arrays:
-                value = arrays[tokens[i][1]][1][tokens[i+1][1]]
-                if isinstance(value, (int, float)):
-                    text = text + str(value)
+                array_size = arrays[tokens[i][1]]
+                variable_value = variables[tokens[i+1][1]]
+                if variable_value[1] <= int(array_size[2]):
+                    value = arrays[tokens[i][1]][1][tokens[i+1][1]]
+                    if isinstance(value, (int, float)):
+                        text = text + str(value)
+                    else:
+                        text = text + value
+                    i+=2
                 else:
-                    text = text + value
-                i+=2
+                    return f"Error semantico el indice {tokens[i+1][1]} es mayor al tamaño del arreglo"
             else:
                 return f"Error semantico la variable {tokens[i][1]} no esta declarada"
         elif tokens[i][0] == "IDENTIFICADOR":
