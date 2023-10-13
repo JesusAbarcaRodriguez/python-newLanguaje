@@ -1,5 +1,5 @@
 from collections import deque
-tokens_to_verify_identificador = {"RETORNO","TIPO_DATO", "FUNCION", "CUANDO", "MIENTRAS", "DE","OPERADOR_COMPARACION","RANGO","OPERADOR_LOGICO_AND","OPERADOR_LOGICO_OR","OPERADOR_ARITMETICO","INICIO","ASIGNACION","FIN_DE_INSTRUCCION", "PARENTESIS_IZQ", "IDENTIFICADOR","FIN"}
+tokens_to_verify_identificador = {"TIPO_DATO_VECTOR","RETORNO","TIPO_DATO", "FUNCION", "CUANDO", "MIENTRAS", "DE","OPERADOR_COMPARACION","RANGO","OPERADOR_LOGICO_AND","OPERADOR_LOGICO_OR","OPERADOR_ARITMETICO","INICIO","ASIGNACION","FIN_DE_INSTRUCCION", "PARENTESIS_IZQ", "IDENTIFICADOR","FIN"}
 tokens_inicio_final ={"INICIO","FIN"}
 tokens_to_verify_num = {'ASIGNACION','NUMERO_ENTERO', "PARENTESIS_IZQ", 'RANGO' , 'DE' , 'CUANDO','MIENTRAS','OPERADOR_LOGICO_AND','OPERADOR_LOGICO_OR','OPERADOR_ARITMETICO','OPERADOR_COMPARACION'}
 tokens_num_entero_flotante ={"NUMERO_ENTERO","NUMERO_FLOTANTE","IDENTIFICADOR"}
@@ -47,7 +47,7 @@ def syntactic_analysis(tokens):
             else:
                 return f"Error sintactico en {token[1]}"
         elif token[0] == 'PARENTESIS_DER':
-            if top(pila_data_type)[0] in tokens_data or top(pila_data_type)[0] == 'PARENTESIS_IZQ' or top(pila_data_type)[0] == 'IDENTIFICADOR':
+            if top(pila_data_type)[0] in tokens_data or top(pila_data_type)[0] == 'PARENTESIS_IZQ' or top(pila_data_type)[0] == 'IDENTIFICADOR' or top(pila_data_type)[0] == 'INDICE':
                 pila_data_type.append(token)
             else:
                 return f"Error sintactico en {token[1]}"
@@ -129,7 +129,12 @@ def syntactic_analysis(tokens):
             else:
                 return f"Error sintactico en {token[1]}"
         elif token[0] == 'ASIGNACION':
-            if(top(pila_data_type)[0] == 'IDENTIFICADOR'):
+            if(top(pila_data_type)[0] == 'IDENTIFICADOR' or top(pila_data_type)[0] == 'INDICE'):
+                pila_data_type.append(token)
+            else:
+                return f"Error sintactico en {token[1]}"
+        elif token[0] == "INDICE":
+            if top(pila_data_type)[0] == 'IDENTIFICADOR':
                 pila_data_type.append(token)
             else:
                 return f"Error sintactico en {token[1]}"

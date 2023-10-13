@@ -21,6 +21,11 @@ def is_variable_declaration(tokens,i):
         return True
     else:
         return False
+def is_array_declaration(tokens,i):
+    if tokens[i][0] == 'TIPO_DATO_VECTOR' and tokens[i+1][0] == 'IDENTIFICADOR':
+        return True
+    else:
+        return False
 def is_function_declaration(tokens,i):
     if tokens[i][0] == 'TIPO_DATO' and tokens[i+1][0] == 'FUNCION':
         return True
@@ -51,6 +56,11 @@ def is_assignment(tokens,i):
         return True
     else:
         return False
+def is_array_assignment(tokens,i):
+    if tokens[i][0] == 'IDENTIFICADOR' and tokens[i+1][0] =='INDICE' and tokens[i+2][0] == 'ASIGNACION':
+        return True
+    else:
+        return False
 def is_read(tokens,i):
     if tokens[i][0] == 'LEER' and tokens[i+1][0] == 'FIN_DE_INSTRUCCION':
         return True
@@ -73,6 +83,11 @@ def is_same_expression_type(token1,token2):
         return False
 def is_declared_variable(tokens,i,variables):
     if tokens[i][1] in variables:
+        return True
+    else:
+        return False
+def is_declarate_array(tokens,i,arrays):
+    if tokens[i][1] in arrays:
         return True
     else:
         return False

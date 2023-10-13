@@ -1,5 +1,6 @@
 from functions.semantic_analysis.semantic_analysis_write import semantic_analysis_write
-from functions.utils.utils import is_return, is_write
+from functions.semantic_analysis.sementic_analysis_array_assignments import sementic_analysis_array_assignments
+from functions.utils.utils import is_array_assignment, is_return, is_write
 def semantic_analysis_FUNCION(principal,i,tokens):
     from functions.semantic_analysis.semantic_analysis_MIENTRAS import semantic_analysis_MIENTRAS
     from functions.utils.global_state import Function
@@ -23,6 +24,11 @@ def semantic_analysis_FUNCION(principal,i,tokens):
     while not tokens[i][0] == 'FIN':
         if is_assignment(tokens,i):
             message = semantic_analysis_assigments(principal,variables,i,tokens)
+            if not message.isdigit():
+                return message
+            i = int(message)
+        if is_array_assignment(tokens,i):
+            message = sementic_analysis_array_assignments(principal,principal.arrays,variables,i,tokens)
             if not message.isdigit():
                 return message
             i = int(message)

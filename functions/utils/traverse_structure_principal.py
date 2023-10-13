@@ -1,6 +1,7 @@
 
+from functions.executable_code.assignments_arrays import assignments_arrays
 from functions.executable_code.verify_write import verify_write
-from functions.utils.utils import is_return, is_write
+from functions.utils.utils import is_array_assignment, is_return, is_write
 
 def traverse_structure_principal(self,principal,i,tokens,variables):
     from functions.semantic_analysis.semantic_call_function_procedure import semantic_call_function_procedure
@@ -19,8 +20,13 @@ def traverse_structure_principal(self,principal,i,tokens,variables):
             if not message.isdigit():
                 return message
             i = int(message)
+        elif is_array_assignment(tokens,i):
+            message = assignments_arrays(self,principal,principal.arrays,variables,i,tokens)
+            if not message.isdigit():
+                return message
+            i = int(message)
         elif is_write(tokens,i):
-            message = verify_write(self,variables,i,tokens)
+            message = verify_write(self,variables,principal.arrays,i,tokens)
             if not message.isdigit():
                 return message
             i = int(message)
