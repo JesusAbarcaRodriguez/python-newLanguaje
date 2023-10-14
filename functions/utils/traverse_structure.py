@@ -1,3 +1,7 @@
+from functions.semantic_analysis.sementic_analysis_matrix_assignments import sementic_analysis_matrix_assignments
+from functions.utils.utils import is_matrix_assignment
+
+
 def traverse_structure(principal,variables,i,tokens):
     from functions.semantic_analysis.sementic_analysis_array_assignments import sementic_analysis_array_assignments
     from functions.utils.utils import is_array_assignment, is_return
@@ -16,6 +20,11 @@ def traverse_structure(principal,variables,i,tokens):
             i = int(message)
         elif is_array_assignment(tokens,i):
             message = sementic_analysis_array_assignments(principal,principal.arrays,variables,i,tokens)
+            if not message.isdigit():
+                return message
+            i = int(message)
+        elif is_matrix_assignment(tokens,i):
+            message = sementic_analysis_matrix_assignments(principal,principal.matrix,variables,i,tokens)
             if not message.isdigit():
                 return message
             i = int(message)
@@ -38,7 +47,7 @@ def traverse_structure(principal,variables,i,tokens):
                     return message
             i = int(message)
         elif is_write(tokens,i):
-            message = semantic_analysis_write(variables,principal.arrays,i,tokens)
+            message = semantic_analysis_write(variables,principal.arrays,principal.matrix,i,tokens)
             if not message.isdigit():
                 return message
             i = int(message)

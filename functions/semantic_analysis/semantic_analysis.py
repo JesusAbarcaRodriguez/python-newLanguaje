@@ -1,4 +1,6 @@
 import re
+
+from functions.utils.utils import is_matrix_declaration
 def semantic_analysis(tokens,principal):
     from functions.utils.utils import is_procedure_decalaration
     from functions.semantic_analysis.semantic_analysis_PRINCIPAL import semantic_analysis_PRINCIPAL
@@ -27,6 +29,24 @@ def semantic_analysis(tokens,principal):
                 i += 3
             else:
                 return f"Error semantico el vector {tokens[i+1][1]} ya esta declarado"
+        elif is_matrix_declaration(tokens,i):
+            rows_match = re.search(r'\[(\d+)\]', tokens[i][1])
+            columns_match = re.search(r'\[(\d+)\]\[(\d+)\]', tokens[i][1])
+            if rows_match and columns_match:
+                rows = int(rows_match.group(1))
+                columns = int(columns_match.group(2))
+            else:
+                return f"Error semántico en {tokens[i][1]}. No se pudieron extraer los índices de filas y columnas correctamente."
+            data_type_match = re.search(r'(ENTERO|BOOLEANO|FLOTANTE|CADENA|CARACTER)', tokens[i][1])
+            if data_type_match:
+                data_type = data_type_match.group(1)
+            else:
+                return f"Error semantico en {tokens[i][1]} no es un tipo de dato valido"
+            if principal.matrix.get(tokens[i+1][1]) == None:
+                principal.matrix[tokens[i+1][1]] = [data_type,[],rows,columns]
+                i += 3
+            else:
+                return f"Error semantico la matriz {tokens[i+1][1]} ya esta declarada"
         elif is_function_declaration(tokens,i):
             message = semantic_analysis_FUNCION(principal,i,tokens)
             if not message.isdigit():

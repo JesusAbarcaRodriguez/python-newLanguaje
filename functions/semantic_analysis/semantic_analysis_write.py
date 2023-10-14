@@ -1,8 +1,12 @@
-def semantic_analysis_write(variables,arrays,i,tokens):
+def semantic_analysis_write(variables,arrays,matrix,i,tokens):
     i+=2
     text = ""
     while tokens[i][0] != 'PARENTESIS_DER':
-        if tokens[i][0] == "IDENTIFICADOR" and tokens[i+1][0] == "INDICE":
+        if tokens[i][0] == "IDENTIFICADOR" and tokens[i+1][0] == "INDICE" and tokens[i+2][0] == "INDICE":
+            if not tokens[i][1] in matrix:
+                return f"Error semantico la variable {tokens[i][1]} no esta declarada"
+            i+=3
+        elif tokens[i][0] == "IDENTIFICADOR" and tokens[i+1][0] == "INDICE":
             if not tokens[i][1] in arrays:
                 return f"Error semantico la variable {tokens[i][1]} no esta declarada"
             i+=2
