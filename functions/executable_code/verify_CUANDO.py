@@ -17,6 +17,8 @@ def verify_CUANDO(self,principal,i,tokens, variables):
             logic_operators.append(tokens[i][1])
         i += 1
     result = evaluate_logic_expression(logic_variables, logic_operators)
+    if not result==True and not result==False:
+        return result
     if  result == True:
         i += 1
         message = traverse_structure_principal(self,principal,i,tokens,variables)

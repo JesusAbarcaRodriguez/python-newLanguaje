@@ -4,48 +4,54 @@ def evaluate_logic_expression(logic_variables, logic_operators):
     index = 0
     stack_bool_operations = deque()
     stack_and_or = deque()
-    while index < len(logic_operators) :
-        operator = logic_operators[index]
-        if operator == '=':
-            if logic_variables[index] == logic_variables[index+1]:
-                stack_bool_operations.append(True)
-                index += 1
-            else:
-                stack_bool_operations.append(False)
-                index += 1
-        elif operator == '<':
-            if  not logic_variables[index] == "VERDADERO" or logic_variables[index] == "FALSO" or logic_variables[index+1] == "VERDADERO" or logic_variables[index+1] == "FALSO":
-                if logic_variables[index] < logic_variables[index+1]:
+    if len(logic_variables) == 1 and logic_variables[0] == 'VERDADERO' or logic_variables[0] == 'FALSO':
+        if logic_variables[0] == 'VERDADERO':
+            return True
+        elif logic_variables[0] == 'FALSO':
+            return False
+    else:
+        while index < len(logic_operators) :
+            operator = logic_operators[index]
+            if operator == '=':
+                if logic_variables[index] == logic_variables[index+1]:
                     stack_bool_operations.append(True)
                     index += 1
                 else:
                     stack_bool_operations.append(False)
                     index += 1
-            else:
-                return f"Error semantico en {logic_variables[index]} no se puede comparar con <"
-        elif operator == '>':
-            if  not logic_variables[index] == "VERDADERO" or logic_variables[index] == "FALSO" or logic_variables[index+1] == "VERDADERO" or logic_variables[index+1] == "FALSO":
-                if logic_variables[index] > logic_variables[index+1]:
+            elif operator == '<':
+                if  logic_variables[index] == "VERDADERO" or logic_variables[index] == "FALSO" and logic_variables[index+1] == "VERDADERO" or logic_variables[index+1] == "FALSO":
+                    return f"Error semantico en {logic_variables[index]} no se puede comparar con <"
+                else:
+                    if logic_variables[index] < logic_variables[index+1]:
+                        stack_bool_operations.append(True)
+                        index += 1
+                    else:
+                        stack_bool_operations.append(False)
+                        index += 1
+            elif operator == '>':
+                if  logic_variables[index] == "VERDADERO" or logic_variables[index] == "FALSO" or logic_variables[index+1] == "VERDADERO" or logic_variables[index+1] == "FALSO":
+                    return f"Error semantico en {logic_variables[index]} no se puede comparar con <"
+                else:
+                    if logic_variables[index] > logic_variables[index+1]:
+                        stack_bool_operations.append(True)
+                        index += 1
+                    else:
+                        stack_bool_operations.append(False)
+                        index += 1
+            elif operator == '!':
+                if logic_variables[index] != logic_variables[index+1]:
                     stack_bool_operations.append(True)
                     index += 1
                 else:
                     stack_bool_operations.append(False)
                     index += 1
-            else:
-                return f"Error semantico en {logic_variables[index]} no se puede comparar con <"
-        elif operator == '!':
-            if logic_variables[index] != logic_variables[index+1]:
-                stack_bool_operations.append(True)
+            elif operator == '&':
+                stack_and_or.append('&')
                 index += 1
-            else:
-                stack_bool_operations.append(False)
+            elif operator == '#':
+                stack_and_or.append('#')
                 index += 1
-        elif operator == '&':
-            stack_and_or.append('&')
-            index += 1
-        elif operator == '#':
-            stack_and_or.append('#')
-            index += 1
     for operator in stack_and_or:
         if operator == '&':
             aux = stack_bool_operations.pop()

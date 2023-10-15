@@ -42,7 +42,7 @@ def verify_assigments(self,principal,variables,i,tokens):
                         i += 1
                     else:
                         return f"Error: La variable: '{variable_to_assign[1]}' no es del mismo tipo que la funcion {function_name} "
-            elif is_read(tokens,i): 
+            elif is_read(tokens,i):
                 self.on_comand_line()
                 event_loop = QEventLoop()
                 self.command_line.returnPressed.connect(event_loop.quit)
@@ -95,12 +95,14 @@ def verify_assigments(self,principal,variables,i,tokens):
             elif tokens[i][0] == 'VALOR_BOOLEANO':
                 if variable_to_assign[0] == 'BOOLEANO':
                     variables[tokens[index_variable_to_assign][1]][1] = tokens[i][1]
+                    i += 1
             elif tokens[i][0] == "OPERADOR_ARITMETICO" or tokens[i][0] == "PARENTESIS_IZQ" or tokens[i][0] == "PARENTESIS_DER":
                 total_operators.append(tokens[i][1])
                 i += 1
             elif tokens[i][0] == "CARACTER":
                 if variable_to_assign[0] == 'CARACTER':
                     variables[tokens[index_variable_to_assign][1]][1] = tokens[i][1]
+                    i += 1
             elif tokens[i][0] == "CADENA_LITERAL":
                 if variable_to_assign[0] == 'CADENA':
                     total_strings_to_assign.append(tokens[i][1])

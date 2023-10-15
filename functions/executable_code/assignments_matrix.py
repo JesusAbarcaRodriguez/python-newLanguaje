@@ -118,12 +118,14 @@ def assignments_matrix(self,principal,matrix,variables,i,tokens):
             elif tokens[i][0] == 'VALOR_BOOLEANO':
                 if matrix_to_assign[0] == 'BOOLEANO':
                     matrix[tokens[index_matrix_to_assign][1]][1] = [(result, row, column)]
+                    i += 1
             elif tokens[i][0] == "OPERADOR_ARITMETICO" or tokens[i][0] == "PARENTESIS_IZQ" or tokens[i][0] == "PARENTESIS_DER":
                 total_operators.append(tokens[i][1])
                 i += 1
             elif tokens[i][0] == "CARACTER":
                 if matrix_to_assign[0] == 'CARACTER':
                     matrix[tokens[index_matrix_to_assign][1]][1] = [(result, row, column)]
+                    i += 1
             elif tokens[i][0] == "CADENA_LITERAL":
                 if matrix_to_assign[0] == 'CADENA':
                     total_strings_to_assign.append(tokens[i][1])
