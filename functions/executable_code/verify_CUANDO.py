@@ -6,7 +6,7 @@ def verify_CUANDO(self,principal,i,tokens, variables):
     logic_operators = []
     logic_variables = []
     while not tokens[i][0] == 'INICIO':
-        if tokens[i][0] == 'NUMERO_ENTERO' or tokens[i][0] == 'NUMERO_FLOTANTE'  or tokens[i][0] == 'VALOR_CARACTER' or tokens[i][0] == 'CADENA_LITERAL':
+        if tokens[i][0] == 'NUMERO_ENTERO' or tokens[i][0] == 'NUMERO_FLOTANTE'  or tokens[i][0] == 'VALOR_CARACTER' or tokens[i][0] == 'CADENA_LITERAL' or tokens[i][0] == 'VALOR_BOOLEANO':
             logic_variables.append(tokens[i][1])
         if tokens[i][0] == 'IDENTIFICADOR':
             if is_declared_variable(tokens,i,variables):

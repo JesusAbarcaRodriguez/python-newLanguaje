@@ -14,19 +14,25 @@ def evaluate_logic_expression(logic_variables, logic_operators):
                 stack_bool_operations.append(False)
                 index += 1
         elif operator == '<':
-            if logic_variables[index] < logic_variables[index+1]:
-                stack_bool_operations.append(True)
-                index += 1
+            if  not logic_variables[index] == "VERDADERO" or logic_variables[index] == "FALSO" or logic_variables[index+1] == "VERDADERO" or logic_variables[index+1] == "FALSO":
+                if logic_variables[index] < logic_variables[index+1]:
+                    stack_bool_operations.append(True)
+                    index += 1
+                else:
+                    stack_bool_operations.append(False)
+                    index += 1
             else:
-                stack_bool_operations.append(False)
-                index += 1
+                return f"Error semantico en {logic_variables[index]} no se puede comparar con <"
         elif operator == '>':
-            if logic_variables[index] > logic_variables[index+1]:
-                stack_bool_operations.append(True)
-                index += 1
+            if  not logic_variables[index] == "VERDADERO" or logic_variables[index] == "FALSO" or logic_variables[index+1] == "VERDADERO" or logic_variables[index+1] == "FALSO":
+                if logic_variables[index] > logic_variables[index+1]:
+                    stack_bool_operations.append(True)
+                    index += 1
+                else:
+                    stack_bool_operations.append(False)
+                    index += 1
             else:
-                stack_bool_operations.append(False)
-                index += 1
+                return f"Error semantico en {logic_variables[index]} no se puede comparar con <"
         elif operator == '!':
             if logic_variables[index] != logic_variables[index+1]:
                 stack_bool_operations.append(True)
