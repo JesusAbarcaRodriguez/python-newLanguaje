@@ -169,15 +169,13 @@ class MainView(QMainWindow):
         self.close()
     def execute_codeUi(self):
         code = self.textEdit.toPlainText()
-        current_text = self.textEdit_2.toPlainText()
-        new_text = f"{current_text} {execute_code(self, code)}"
-        self.textEdit_2.setPlainText(new_text)
+        execute_message = execute_code(self, code)
+        if not execute_message == "Ejecucion exitosa":
+            self.textEdit_2.setPlainText(execute_message)
     def compile_codeUi(self):
         code = self.textEdit.toPlainText()
-        current_text = self.textEdit_2.toPlainText()
-        new_text = f"{current_text} {compile_code(code)}"
-        self.textEdit_2.setPlainText(new_text)
-        #compile_code(self, code)
+        self.textEdit_2.setPlainText("")
+        self.textEdit_2.setPlainText(compile_code(code))
     def open_new_dialog(self):
         text, ok = QInputDialog.getText(self, 'New File', 'Enter file name:')
         if ok and text:

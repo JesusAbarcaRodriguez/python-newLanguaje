@@ -25,4 +25,4 @@ def execute_code(self,code):
             if not message.isdigit():
                 return message
             i = int(message)
-    return "Ejecucion exitosa "
+    return "Ejecucion exitosa"
