@@ -18,12 +18,11 @@ def execute_code(self,code):
     if message == "Analisis sintactico correcto":
         message = semantic_analysis(syntax_analysis_obj.tokens,principal)
     if message == "Analisis semantico exitoso":
-        tokens = syntax_analysis_obj.tokens 
+        tokens = syntax_analysis_obj.tokens
         i = principal.init_principal
         if is_main_procedure(tokens,i):
             message = verify_PRINCIPAL(self,principal,i,tokens)
             if not message.isdigit():
                 return message
             i = int(message)
-    
-    return message
+    return "Ejecucion exitosa "

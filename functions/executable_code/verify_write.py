@@ -100,10 +100,10 @@ def verify_write(self,variables,arrays,matrix,i,tokens):
             i+=1
         elif tokens[i][0] == "VALOR_BOOLEANO":
             if tokens[i][1] == "VERDADERO":
-                text = text + "1"
+                text = text + "VERDADERO"
                 i+=1
             elif tokens[i][1] == "FALSO":
-                text = text + "0"
+                text = text + "FALSO"
                 i+=1
         else:
             return f"Error semantico en {tokens[i][1]}"

@@ -51,10 +51,8 @@ class MainView(QMainWindow):
         self.comand_text = command
         self.command_line.setStyleSheet("font: 11pt 'Cascadia Code' color:rgb(255,255,255);")
         self.command_line.setEnabled(False)
-    
     def write_variables(self, variable_text):
         current_text = self.textEdit_2.toPlainText()
-        
         # Reemplazar "##" por un salto de línea
         variable_text = variable_text.replace("//", "\n")
         new_text = f"{current_text}{variable_text}"
@@ -154,7 +152,6 @@ class MainView(QMainWindow):
 
         if file_path:
             self.load_file(file_path)
-    
     def load_file(self, file_path):
         try:
             with open(file_path, 'r') as file:
@@ -172,13 +169,14 @@ class MainView(QMainWindow):
         self.close()
     def execute_codeUi(self):
         code = self.textEdit.toPlainText()
-        self.textEdit_2.setPlainText("")
-       # self.textEdit_2.setPlainText(compile_code(self, code))
-        execute_code(self, code)
+        current_text = self.textEdit_2.toPlainText()
+        new_text = f"{current_text} {execute_code(self, code)}"
+        self.textEdit_2.setPlainText(new_text)
     def compile_codeUi(self):
         code = self.textEdit.toPlainText()
-        self.textEdit_2.setPlainText("")
-        self.textEdit_2.setPlainText(compile_code(code))
+        current_text = self.textEdit_2.toPlainText()
+        new_text = f"{current_text} {compile_code(code)}"
+        self.textEdit_2.setPlainText(new_text)
         #compile_code(self, code)
     def open_new_dialog(self):
         text, ok = QInputDialog.getText(self, 'New File', 'Enter file name:')
