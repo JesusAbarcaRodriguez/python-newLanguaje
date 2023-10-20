@@ -24,7 +24,6 @@ patterns = [
     (r'\[(\d+|[a-zA-Z_]\w*)\]', lambda match: ('INDICE', match.group(1))),
     (r'ENTERO|BOOLEANO|FLOTANTE|CADENA|CARACTER', 'TIPO_DATO'),
     (r'VERDADERO|FALSO','VALOR_BOOLEANO'),
-    (r'[+\-*/]', 'OPERADOR_ARITMETICO'),
     (r'[=!<>]', 'OPERADOR_COMPARACION'),
     (r'&', 'OPERADOR_LOGICO_AND'),
     (r'#', 'OPERADOR_LOGICO_OR'),
@@ -36,6 +35,7 @@ patterns = [
     (r'[a-zA-Z_]\w*', 'IDENTIFICADOR'),
     (r'\d+\.\d+', 'NUMERO_FLOTANTE'),
     (r'\d+', 'NUMERO_ENTERO'),
+    (r'[+\-*/]', 'OPERADOR_ARITMETICO'),
     (r'\.\.\.', 'RANGO'),
 ]
 

@@ -50,13 +50,13 @@ def verify_assigments(self,principal,variables,i,tokens):
                 result = self.comand_text
                 self.off_comand_line()
                 if variable_to_assign[0] == 'ENTERO':
-                    if result.isdigit():
+                    if result.isdigit() or (result[0]== '-' and result[1:].isdigit()):
                         result = int(result)
                         variables[tokens[index_variable_to_assign][1]][1] = result
                     else:
                         return f"Error: La variable: '{variable_to_assign[1]}' de tipo '{variable_to_assign[0]}' no coincide con {result} "
                 elif variable_to_assign[0] == 'FLOTANTE':
-                    if result.isdigit():
+                    if result.isdigit() or (result[0]== '-' and result[1:].isdigit()):
                         result = float(result)
                         variables[tokens[index_variable_to_assign][1]][1] = result
                     else:
@@ -84,12 +84,12 @@ def verify_assigments(self,principal,variables,i,tokens):
                     return f"Error semantico en {tokens[i][1]}"
             elif tokens[i][0] == 'NUMERO_ENTERO':
                 if variable_to_assign[0] == 'ENTERO' or variable_to_assign[0] == 'FLOTANTE':
-                    total_nums_to_assign.append(int(tokens[i][1]))
+                    total_nums_to_assign.append(tokens[i][1])
                     is_int_assignments = True
                     i += 1
             elif tokens[i][0] == 'NUMERO_FLOTANTE':
                 if variable_to_assign[0] == 'FLOTANTE' :
-                    total_nums_to_assign.append(int(tokens[i][1]))
+                    total_nums_to_assign.append(tokens[i][1])
                     is_int_assignments = True
                     i += 1
             elif tokens[i][0] == 'VALOR_BOOLEANO':
@@ -128,20 +128,34 @@ def assign_string_operation(total_operators,total_strings_to_assign):
     else:
         return result
     return result
-def assign_nums_operation(total_operators,total_nums_to_assign):
+
+
+def assign_nums_operation(total_operators, total_nums_to_assign):
+    # Realizar primero las multiplicaciones y divisiones
+    i = 0
+    while i < len(total_operators):
+        if total_operators[i] == '*':
+            total_nums_to_assign[i] *= total_nums_to_assign[i + 1]
+            del total_operators[i]
+            del total_nums_to_assign[i + 1]
+        elif total_operators[i] == '/':
+            total_nums_to_assign[i] /= total_nums_to_assign[i + 1]
+            del total_operators[i]
+            del total_nums_to_assign[i + 1]
+        else:
+            i += 1
+    
+    # Realizar luego las sumas y restas
+  
+    if len(total_nums_to_assign) == 1 and total_operators[0] == '-':
+        return -total_nums_to_assign[0]
+
+    
     result = total_nums_to_assign[0]
-    index = 1
-    if not total_operators == []:
-        for operator in total_operators:
-            if operator == '+':
-                result += total_nums_to_assign[index]
-            elif operator == '-':
-                result -= total_nums_to_assign[index]
-            elif operator == '*':
-                result *= total_nums_to_assign[index]
-            elif operator == '/':
-                result /= total_nums_to_assign[index]
-            index += 1
-    else:
-        return result
+    for i in range(len(total_operators)):
+        if total_operators[i] == '+':
+            result += total_nums_to_assign[i + 1]
+        elif total_operators[i] == '-':
+            result -= total_nums_to_assign[i + 1]
+    
     return result

@@ -57,7 +57,7 @@ def is_return(tokens,i):
     else:
         return False
 def is_assignment(tokens,i):
-    if tokens[i][0] == 'IDENTIFICADOR' and tokens[i+1][0] == 'ASIGNACION':
+    if tokens[i][0] == 'IDENTIFICADOR' and (tokens[i+1][0] == 'ASIGNACION' ):
         return True
     else:
         return False

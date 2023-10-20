@@ -168,6 +168,7 @@ class MainView(QMainWindow):
     def close_window(self):
         self.close()
     def execute_codeUi(self):
+        self.textEdit_2.setPlainText("")
         code = self.textEdit.toPlainText()
         execute_message = execute_code(self, code)
         if not execute_message == "Ejecucion exitosa":

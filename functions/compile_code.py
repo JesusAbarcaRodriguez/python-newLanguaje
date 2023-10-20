@@ -11,6 +11,8 @@ def compile_code(code):
     else:
         message = syntactic_analysis(syntax_analysis_obj.tokens)
     if message == "Analisis sintactico correcto":
-        return semantic_analysis(syntax_analysis_obj.tokens, Principal() )
+        principal = Principal()
+        principal.clear_all_data()
+        return semantic_analysis(syntax_analysis_obj.tokens, principal  )
     else:
         return message

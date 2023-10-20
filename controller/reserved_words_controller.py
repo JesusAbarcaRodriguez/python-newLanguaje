@@ -1,9 +1,5 @@
 from PyQt5 import uic
-from PyQt5.QtWidgets import QDialog,QMainWindow,QListWidgetItem, QTextEdit
-from PyQt5.QtWidgets import QInputDialog, QLineEdit
-from PyQt5.QtWidgets import QFileDialog
-from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtWidgets import QAction, QMenu
+from PyQt5.QtWidgets import QDialog
 class ReservedWordsDialog(QDialog):
     def __init__(self, parent=None):
         super(ReservedWordsDialog, self).__init__(parent)
