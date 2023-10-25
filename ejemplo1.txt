@@ -1,0 +1,23 @@
+ENTERO d;
+ENTERO c;
+ENTERO b;
+ENTERO[5][5] matriz;
+ENTERO FUNCION cinco(ENTERO q) INICIO
+q:q+5;
+RETORNO q; 
+FIN
+PROCEDIMIENTO PRINCIPAL INICIO
+a:1;
+d:1;
+b:1;
+DE 1...6 INICIO
+	DE 1...6 INICIO
+		matriz[a][d]:cinco(b);
+		ESCRIBIR(matriz[a][d]);
+		d:d+1;
+		b:b+1;
+	FIN
+	d:1;	
+	a:a+1;
+FIN
+FIN
