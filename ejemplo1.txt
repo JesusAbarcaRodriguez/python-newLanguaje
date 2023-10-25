@@ -1,6 +1,7 @@
 ENTERO d;
 ENTERO c;
 ENTERO b;
+ENTERO a;
 ENTERO[5][5] matriz;
 ENTERO FUNCION cinco(ENTERO q) INICIO
 q:q+5;
