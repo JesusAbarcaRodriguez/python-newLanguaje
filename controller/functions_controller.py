@@ -10,8 +10,8 @@ class FunctionTypesDialog(QDialog):
 
     def initialize_function_types(self):
         self.function_types = {
-            "FUNCION": "\n ENTERO FUNCION suma(ENTERO a, ENTERO b) \n INICIO \n RETORNA a + b \n FIN",
-            "PROCEDIMIENTO": "\n PROCEDIMIENTO imprimir(ENTERO a) \n INICIO \n ESCRIBIR a \n FIN",
+            "FUNCION": "\n ENTERO FUNCION suma(ENTERO a, ENTERO b) \n INICIO \n a:a+b \n RETORNA a \n FIN",
+            "PROCEDIMIENTO": "\n PROCEDIMIENTO imprimir(ENTERO a) \n INICIO \n ESCRIBIR(a) \n FIN",
         }
         self.listWidget.addItems(self.function_types.keys())
 

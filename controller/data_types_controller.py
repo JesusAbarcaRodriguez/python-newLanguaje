@@ -15,7 +15,7 @@ class DataTypesDialog(QDialog):
         self.initialize_data_types()
 
     def initialize_data_types(self):
-        data_types = ["\n ENTERO", "\n FLOTANTE", "\n CADENA", "\n CARACTER", "\n NULO"]
+        data_types = ["\n ENTERO", "\n FLOTANTE", "\n CADENA", "\n CARACTER", "\n BOOLEANO"]
         for data_type in data_types:
             item = QListWidgetItem(data_type)
             self.listWidget.addItem(item)
