@@ -8,9 +8,9 @@ class ReservedWordsDialog(QDialog):
         self.initialize_reserved_words()
     def initialize_reserved_words(self):
         self.reserved_words = {
-            "MIENTRAS": "\n MIENTRAS i<10 INICIO \n … i : i + 1; \n FIN",
-            "DE": "\n DE i=0…variable INICIO \n … $Acá se va a ejecutar el bucle de 0 hasta el valor de la variable$ \n FIN",
-            "CUANDO": "\n CUANDO i<10 INICIO \n … i : i + 1; \n FIN \n  SINO INICIO \n … i : i + 1; \n FIN",
+            "MIENTRAS": "\n MIENTRAS i<10 INICIO \n  i : i + 1; \n FIN",
+            "DE": "\n DE 1…6 INICIO \n … $Acá se va a ejecutar el bucle de 1 hasta 6$ \n FIN",
+            "CUANDO": "\n CUANDO i<10 INICIO \n  ESCRIBIR(i); \n FIN \n  SINO INICIO \n i : i + 1; \n FIN",
         }
         self.listWidget.addItems(self.reserved_words.keys())
     def select_reserved_word(self):
