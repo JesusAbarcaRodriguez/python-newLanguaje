@@ -1,3 +1,6 @@
+from math import e
+
+
 def is_while(tokens,i):
     if tokens[i][0] == 'MIENTRAS':
         return True
@@ -106,3 +109,13 @@ def is_declarate_matrix(tokens,i,matrix):
         return True
     else:
         return False
+def error_message(tokens, i ):
+    init_error = 0
+    end_error = 0
+    if i > 3:
+        init_error = i-3
+    if i < len(tokens)-4:
+        end_error = i+3
+    slide_error = tokens[init_error:end_error]
+    return slide_error
+
