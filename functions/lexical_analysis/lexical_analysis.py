@@ -21,7 +21,7 @@ patterns = [
     (r'FIN', 'FIN'),
     (r'(ENTERO|BOOLEANO|FLOTANTE|CADENA|CARACTER)\[(\d+)\]\[(\d+)\]', 'TIPO_DATO_MATRIZ'),
     (r'(ENTERO|BOOLEANO|FLOTANTE|CADENA|CARACTER)\[(\d+)\]', 'TIPO_DATO_VECTOR'),
-    (r'\[(\d+|[a-zA-Z_]\w*)\]', lambda match: ('INDICE', match.group(1))),
+    (r'\[(\d+)\]', lambda match: ('INDICE', int(match.group(1)) if int(match.group(1)) > 0 else handle_error(match.group(1)))),
     (r'ENTERO|BOOLEANO|FLOTANTE|CADENA|CARACTER', 'TIPO_DATO'),
     (r'VERDADERO|FALSO','VALOR_BOOLEANO'),
     (r'[=!<>]', 'OPERADOR_COMPARACION'),
@@ -40,7 +40,6 @@ patterns = [
 ]
 
 def lexical_analysis(code):
-    syntax_analysis_obj = LexicalAnalysisObj(False, "", [])
     while code:
         for pattern, token_type in patterns:
             match = re.match(pattern, code)
@@ -51,11 +50,19 @@ def lexical_analysis(code):
                     token = match.group()
                     if token_type == 'NUMERO_ENTERO':
                         token = int(token)  # Convertir a entero
+                    elif token_type == 'NUMERO_FLOTANTE':
+                        token = float(token)
                     syntax_analysis_obj.tokens.append((token_type, token))
                 code = code[len(match.group()):].lstrip()
                 break
         else:
             syntax_analysis_obj.isError = True
-            syntax_analysis_obj.message += (f"No se pudo analizar el token en: {code}")
+            syntax_analysis_obj.message += (f"No se pudo analizar el token en: {pattern}")
             break
     return syntax_analysis_obj
+def handle_error(index_value):
+    syntax_analysis_obj.isError = True
+    syntax_analysis_obj.message += f"No se puede acceder a un índice 0 o menor:  {index_value} \n"
+    return 'ERROR_INDICE'
+
+syntax_analysis_obj = LexicalAnalysisObj(False, "", [])

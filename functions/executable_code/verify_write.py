@@ -44,9 +44,9 @@ def verify_write(self,variables,arrays,matrix,i,tokens):
                 if isinstance(value, (int, float)):
                     text = text + str(value)
                 elif value == "VERDADERO":
-                    text = text + "1"
+                    text = text + "VERDADERO"
                 elif value == "FALSO":
-                    text = text + "0"
+                    text = text + "FALSO"
                 else:
                     text = text + value
             else:
@@ -58,15 +58,18 @@ def verify_write(self,variables,arrays,matrix,i,tokens):
                     variable_value = variables[tokens[i+1][1]]
                     if variable_value[1] <= int(array_size[2]):
                         value = arrays[tokens[i][1]][1][tokens[i+1][1]]
-                        if isinstance(value, (int, float)):
-                            text = text + str(value)
-                        elif value == "VERDADERO":
-                            text = text + "1"
-                        elif value == "FALSO":
-                            text = text + "0"
+                        if not value == None:
+                            if isinstance(value, (int, float)):
+                                text = text + str(value)
+                            elif value == "VERDADERO":
+                                text = text + "VERDADERO"
+                            elif value == "FALSO":
+                                text = text + "FALSO"
+                            else:
+                                text = text + value
+                            i+=2
                         else:
-                            text = text + value
-                        i+=2
+                            text = text + "NULO"
                     else:
                         return f"Error semantico el indice {tokens[i+1][1]} es mayor al tamaño del arreglo"
                 elif tokens[i+1][1].isdigit():
@@ -87,9 +90,9 @@ def verify_write(self,variables,arrays,matrix,i,tokens):
                 if isinstance(value, (int, float)):
                     text = text + str(value)
                 elif value == "VERDADERO":
-                    text = text + "1"
+                    text = text + "VERDADERO"
                 elif value == "FALSO":
-                    text = text + "0"
+                    text = text + "FALSO"
                 else:
                     text = text + value
                 i+=1
