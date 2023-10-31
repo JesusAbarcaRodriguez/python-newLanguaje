@@ -5,7 +5,7 @@ def assignments_matrix(self,principal,matrix,variables,i,tokens):
     from pprint import isreadable
     from functions.executable_code.verify_FUNCION import verify_FUNCION
     from functions.semantic_analysis.semantic_call_function_procedure import semantic_call_function_procedure
-    from functions.utils.utils import is_called_fuction_procedure, is_declarate_matrix, is_declared_variable, is_same_type
+    from functions.utils.utils import error_message, is_called_fuction_procedure, is_declarate_matrix, is_declared_variable, is_same_type
     from PyQt5.QtCore import QEventLoop
     if is_declarate_matrix(tokens,i,matrix):
         matrix_to_assign = matrix[tokens[i][1]]
@@ -27,7 +27,7 @@ def assignments_matrix(self,principal,matrix,variables,i,tokens):
             if int(tokens[i][1]) >= int(matrix_to_assign[2]):
                 return f"Error semantico en {valor} no es un indice valido"
         else:
-            return f"Error semantico en {tokens[i][1]} no es un indice valido"
+            return f"Error semantico en {error_message(tokens, i )} no es un indice valido"
         i+=1
         column = tokens[i][1]
         if  tokens[i][1] in variables:
@@ -38,7 +38,7 @@ def assignments_matrix(self,principal,matrix,variables,i,tokens):
             if int(tokens[i][1]) >= int(matrix_to_assign[3]):
                 return f"Error semantico en {valor} no es un indice valido"
         else:
-            return f"Error semantico en {tokens[i][1]} no es un indice valido"
+            return f"Error semantico en {error_message(tokens, i )} no es un indice valido"
         i += 2
         while tokens[i][0] != 'FIN_DE_INSTRUCCION':
             if is_called_fuction_procedure(tokens,i):
@@ -104,7 +104,7 @@ def assignments_matrix(self,principal,matrix,variables,i,tokens):
                         matrix[tokens[index_matrix_to_assign][1]][1] = [(result, row, column)]
                     i += 1
                 else:
-                    return f"Error semantico en {tokens[i][1]}"
+                    return f"Error semantico en {error_message(tokens, i )}"
             elif tokens[i][0] == 'NUMERO_ENTERO':
                 if matrix_to_assign[0] == 'ENTERO' or matrix_to_assign[0] == 'FLOTANTE':
                     total_nums_to_assign.append(int(tokens[i][1]))
@@ -138,7 +138,7 @@ def assignments_matrix(self,principal,matrix,variables,i,tokens):
             result = assign_string_operation(total_operators,total_strings_to_assign)
             matrix[tokens[index_matrix_to_assign][1]][1]  = [(result, row, column)]
     else:
-        return f"{tokens[i][1]} no ha sido declarada "
+        return f"{error_message(tokens, i )} no ha sido declarada "
     return str(i+1)
 def assign_string_operation(total_operators,total_strings_to_assign):
     result = total_strings_to_assign[0]

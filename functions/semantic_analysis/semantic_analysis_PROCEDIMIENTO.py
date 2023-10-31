@@ -1,7 +1,7 @@
 
 def semantic_analysis_PROCEDIMENTO(principal,i,tokens):
     from functions.utils.global_state import Procedimento
-    from functions.utils.utils import  is_parameters_declaration
+    from functions.utils.utils import  error_message, is_parameters_declaration
     from functions.utils.traverse_structure import traverse_structure
     init_funtion = i
     procedimento = Procedimento([],tokens[i+2][1])
@@ -12,7 +12,7 @@ def semantic_analysis_PROCEDIMENTO(principal,i,tokens):
             procedimento.parameters[tokens[i+1][1]]([tokens[i+1][1],tokens[i][1]])
             i += 2
         else:
-            return f"Error semantico en {tokens[i][1]}"
+            return f"Error semantico en {error_message(tokens, i )}"
     i += 2
     countINICIO += 1
     variables = principal.variables.copy()

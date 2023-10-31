@@ -8,7 +8,7 @@ def verify_FUNCION(self,principal,init_function,tokens,function_name):
     from functions.executable_code.verify_CUANDO import verify_CUANDO
     from functions.executable_code.verify_DE import verify_DE
     from functions.executable_code.verify_Mientras import verify_MIENTRAS
-    from functions.utils.utils import is_assignment, is_for, is_if, is_while
+    from functions.utils.utils import error_message, is_assignment, is_for, is_if, is_while
 
     function = principal.functions[function_name]
     i = init_function
@@ -56,11 +56,11 @@ def verify_FUNCION(self,principal,init_function,tokens,function_name):
                 if tokens[i][1] in variables:
                     function.return_data = variables[tokens[i][1]][1]
                 else:
-                    return f"Error semantico en {tokens[i][1]}"
+                    return f"Error semantico en {error_message(tokens, i )}"
             elif tokens[i][0] in ['NUMERO_ENTERO','NUMERO_FLOTANTE','VALOR_CADENA','VALOR_CARACTER','VALOR_BOOLEANO']:
                 function.return_data = tokens[i][1]
             else:
-                return f"Error semantico en {tokens[i][1]}"
+                return f"Error semantico en {error_message(tokens, i )}"
             i += 2
             break
         elif is_called_fuction_procedure(tokens,i):

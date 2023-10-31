@@ -50,7 +50,7 @@ def verify_write(self,variables,arrays,matrix,i,tokens):
                 else:
                     text = text + value
             else:
-                return f"Error semantico la variable {tokens[i][1]} no esta declarada"
+                return f"Error semantico la variable {error_message(tokens, i )} no esta declarada"
         elif tokens[i][0] == "IDENTIFICADOR" and tokens[i+1][0] == "INDICE":
             if tokens[i][1] in arrays:
                 array_size = arrays[tokens[i][1]]
@@ -83,7 +83,7 @@ def verify_write(self,variables,arrays,matrix,i,tokens):
                     else:
                         return f"Error semantico el indice {tokens[i+1][1]} es mayor al tamaño del arreglo"
             else:
-                return f"Error semantico la variable {tokens[i][1]} no esta declarada"
+                return f"Error semantico la variable {error_message(tokens, i )} no esta declarada"
         elif tokens[i][0] == "IDENTIFICADOR":
             if tokens[i][1] in variables:
                 value = variables[tokens[i][1]][1]
@@ -97,7 +97,7 @@ def verify_write(self,variables,arrays,matrix,i,tokens):
                     text = text + value
                 i+=1
             else:
-                return f"Error semantico la variable {tokens[i][1]} no esta declarada"
+                return f"Error semantico la variable {error_message(tokens, i )} no esta declarada"
         elif tokens[i][0] == "CADENA_LITERAL" or tokens[i][0] == "VALOR_CARACTER" or tokens[i][0] == "NUMERO_ENTERO" or tokens[i][0] == "NUMERO_FLOTANTE" :
             text = text + tokens[i][1]
             i+=1
@@ -109,6 +109,6 @@ def verify_write(self,variables,arrays,matrix,i,tokens):
                 text = text + "FALSO"
                 i+=1
         else:
-            return f"Error semantico en {tokens[i][1]}"
+            return f"Error semantico en {error_message(tokens, i )}"
     self.write_variables(text)
     return str(i+2)

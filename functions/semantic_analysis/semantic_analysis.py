@@ -7,7 +7,7 @@ def semantic_analysis(tokens,principal):
     from functions.semantic_analysis.semantic_analysis_FUNCION import semantic_analysis_FUNCION
     from functions.utils.global_state import  Principal
     from functions.semantic_analysis.semantic_analysis_PROCEDIMIENTO import semantic_analysis_PROCEDIMENTO
-    from functions.utils.utils import is_array_declaration,is_main_procedure, is_function_declaration, is_variable_declaration
+    from functions.utils.utils import  error_message, is_array_declaration,is_main_procedure, is_function_declaration, is_variable_declaration
 
     i = 0
     while i < len(tokens):
@@ -23,7 +23,7 @@ def semantic_analysis(tokens,principal):
             if data_type_match:
                 data_type = data_type_match.group(1)
             else:
-                return f"Error semantico en {tokens[i][1]} no es un tipo de dato valido"
+                return f"Error semantico en {error_message(tokens, i )} no es un tipo de dato valido"
             if principal.arrays.get(tokens[i+1][1]) == None:
                 principal.arrays[tokens[i+1][1]] = [data_type,{},size]
                 i += 3
@@ -36,12 +36,12 @@ def semantic_analysis(tokens,principal):
                 rows = int(rows_match.group(1))
                 columns = int(columns_match.group(2))
             else:
-                return f"Error semántico en {tokens[i][1]}. No se pudieron extraer los índices de filas y columnas correctamente."
+                return f"Error semántico en {error_message(tokens, i )}. No se pudieron extraer los índices de filas y columnas correctamente."
             data_type_match = re.search(r'(ENTERO|BOOLEANO|FLOTANTE|CADENA|CARACTER)', tokens[i][1])
             if data_type_match:
                 data_type = data_type_match.group(1)
             else:
-                return f"Error semantico en {tokens[i][1]} no es un tipo de dato valido"
+                return f"Error semantico en {error_message(tokens, i )} no es un tipo de dato valido"
             if principal.matrix.get(tokens[i+1][1]) == None:
                 principal.matrix[tokens[i+1][1]] = [data_type,[],rows,columns]
                 i += 3

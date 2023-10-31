@@ -13,7 +13,7 @@ def traverse_structure_principal(self,principal,i,tokens,variables):
     from functions.executable_code.verify_Mientras import verify_MIENTRAS
     from functions.executable_code.verify_FUNCION import verify_FUNCION
     from functions.executable_code.verify_PROCEDIMIENTO import verify_PROCEDIMIENTO
-    from functions.utils.utils import is_declared_variable
+    from functions.utils.utils import error_message, is_declared_variable
     parameters_input = []
     while not tokens[i][0] == 'FIN':
         if is_assignment(tokens,i):
@@ -86,5 +86,5 @@ def traverse_structure_principal(self,principal,i,tokens,variables):
                 verify_PROCEDIMIENTO(self,principal,init_function,tokens,function_procedures_name)
             i += 2
         else:
-            return f"Error semantico en {tokens[i][1]}"
+            return f"Error semantico en {error_message(tokens, i )}"
     return str(i+1)

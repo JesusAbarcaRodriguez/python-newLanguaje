@@ -5,6 +5,7 @@ class LexicalAnalysisObj:
         self.message = message
         self.tokens = tokens if tokens is not None else []
 patterns = [
+    (r'\n', 'SALTO_DE_LINEA'),  
     (r'FUNCION', 'FUNCION'),
     (r'PROCEDIMIENTO', 'PROCEDIMIENTO'),
     (r'INICIO', 'INICIO'),
@@ -42,7 +43,7 @@ patterns = [
 def lexical_analysis(code):
     while code:
         for pattern, token_type in patterns:
-            match = re.match(pattern, code)
+            match = re.match(pattern, code ,re.DOTALL)
             if match:
                 if callable(token_type):
                     syntax_analysis_obj.tokens.append(token_type(match))
@@ -52,12 +53,16 @@ def lexical_analysis(code):
                         token = int(token)  # Convertir a entero
                     elif token_type == 'NUMERO_FLOTANTE':
                         token = float(token)
-                    syntax_analysis_obj.tokens.append((token_type, token))
+                    
+                    elif token_type == 'SALTO_DE_LINEA':
+                        code = code[len(match.group()):].lstrip()
+                        break
+                syntax_analysis_obj.tokens.append((token_type, token))
                 code = code[len(match.group()):].lstrip()
                 break
         else:
             syntax_analysis_obj.isError = True
-            syntax_analysis_obj.message += (f"No se pudo analizar el token en: {pattern}")
+            syntax_analysis_obj.message += (f"No se pudo analizar el token en: {code[:10]}")
             break
     return syntax_analysis_obj
 def handle_error(index_value):

@@ -6,7 +6,7 @@ def verify_assigments(self,principal,variables,i,tokens):
     from functions.utils.utils import is_read
     from functions.executable_code.verify_FUNCION import verify_FUNCION
     from functions.semantic_analysis.semantic_call_function_procedure import semantic_call_function_procedure
-    from functions.utils.utils import is_called_fuction_procedure, is_declared_variable, is_same_type
+    from functions.utils.utils import error_message,is_called_fuction_procedure, is_declared_variable, is_same_type, error_message
     if is_declared_variable(tokens,i,variables):
         variable_to_assign = variables[tokens[i][1]]
         index_variable_to_assign = i
@@ -81,7 +81,7 @@ def verify_assigments(self,principal,variables,i,tokens):
                         variable_to_assign[1] = tokens[i][1]
                     i += 1
                 else:
-                    return f"Error semantico en {tokens[i][1]}"
+                    return f"Error semantico en {error_message(tokens, i )}"
             elif tokens[i][0] == 'NUMERO_ENTERO':
                 if variable_to_assign[0] == 'ENTERO' or variable_to_assign[0] == 'FLOTANTE':
                     total_nums_to_assign.append(tokens[i][1])
@@ -115,7 +115,7 @@ def verify_assigments(self,principal,variables,i,tokens):
             result = assign_string_operation(total_operators,total_strings_to_assign)
             variables[tokens[index_variable_to_assign][1]][1] = result
     else:
-        return f"{tokens[i][1]} no ha sido declarada "
+        return f"{error_message(tokens, i )} no ha sido declarada "
     return str(i+1)
 def assign_string_operation(total_operators,total_strings_to_assign):
     result = total_strings_to_assign[0]

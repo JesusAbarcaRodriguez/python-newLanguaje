@@ -4,7 +4,7 @@
 logic_operations = {"OPERADOR_LOGICO_AND","OPERADOR_LOGICO_OR","OPERADOR_COMPARACION"}
 def semantic_analysis_MIENTRAS(principal,variables,i,tokens):
     from functions.utils.traverse_structure import traverse_structure
-    from functions.utils.utils import  is_declared_variable
+    from functions.utils.utils import error_message,  is_declared_variable
     from functions.utils.analysis_conditions import evaluate_type_expression
     logic_operators = []
     logic_variables = []
@@ -15,7 +15,7 @@ def semantic_analysis_MIENTRAS(principal,variables,i,tokens):
             if is_declared_variable(tokens,i,variables):
                 logic_variables.append(variables[tokens[i][1]][0])
             else:
-                return f"Error semantico en {tokens[i][1]}"
+                return f"Error semantico en {error_message(tokens, i )}"
         elif tokens[i][0] in logic_operations :
             logic_operators.append(tokens[i][1])
         i += 1

@@ -1,7 +1,7 @@
 from functions.executable_code.verify_FUNCION import verify_FUNCION
 from PyQt5.QtCore import QEventLoop
 from functions.semantic_analysis.semantic_call_function_procedure import semantic_call_function_procedure
-from functions.utils.utils import is_called_fuction_procedure, is_declarate_array, is_declared_variable, is_read, is_same_type
+from functions.utils.utils import is_called_fuction_procedure, is_declarate_array, is_declared_variable, is_read, is_same_type, error_message
 def assignments_arrays(self,principal,arrays,variables,i,tokens):
     if is_declarate_array(tokens,i,arrays):
         array_to_assign = arrays[tokens[i][1]]
@@ -23,7 +23,7 @@ def assignments_arrays(self,principal,arrays,variables,i,tokens):
             if int(tokens[i][1]) >= int(array_to_assign[2]):
                 return f"Error semantico en {valor} no es un indice valido"
         else:
-            return f"Error semantico en {tokens[i][1]} no es un indice valido"
+            return f"Error semantico en {error_message(tokens, i )} no es un indice valido"
         i += 2
         while tokens[i][0] != 'FIN_DE_INSTRUCCION':
             if is_called_fuction_procedure(tokens,i):
@@ -89,7 +89,7 @@ def assignments_arrays(self,principal,arrays,variables,i,tokens):
                         array_to_assign[1] = tokens[i][1]
                     i += 1
                 else:
-                    return f"Error semantico en {tokens[i][1]}"
+                    return f"Error semantico en {error_message(tokens, i )}"
             elif tokens[i][0] == 'NUMERO_ENTERO':
                 if array_to_assign[0] == 'ENTERO' or array_to_assign[0] == 'FLOTANTE':
                     total_nums_to_assign.append(int(tokens[i][1]))
@@ -123,7 +123,7 @@ def assignments_arrays(self,principal,arrays,variables,i,tokens):
             result = assign_string_operation(total_operators,total_strings_to_assign)
             arrays[tokens[index_array_to_assign][1]][1][index_to_assign]  = result
     else:
-        return f"{tokens[i][1]} no ha sido declarada "
+        return f"{error_message(tokens, i )} no ha sido declarada "
     return str(i+1)
 def assign_string_operation(total_operators,total_strings_to_assign):
     result = total_strings_to_assign[0]

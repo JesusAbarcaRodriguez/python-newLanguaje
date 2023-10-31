@@ -11,5 +11,3 @@ if __name__ == '__main__':
     main = MainView()
     main.show()
     sys.exit(app.exec_())
-
-

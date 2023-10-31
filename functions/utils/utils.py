@@ -112,10 +112,12 @@ def is_declarate_matrix(tokens,i,matrix):
 def error_message(tokens, i ):
     init_error = 0
     end_error = 0
-    if i > 3:
-        init_error = i-3
-    if i < len(tokens)-4:
+    if i > 2:
+        init_error = i-1
+    if i < len(tokens)-3:
         end_error = i+3
     slide_error = tokens[init_error:end_error]
-    return slide_error
+
+    error_message_str = " ".join(str(token[1]) for token in slide_error)
+    return error_message_str
 

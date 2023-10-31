@@ -10,13 +10,16 @@ class LexicalHighlighter(QSyntaxHighlighter):
         red_color = QColor(255, 62, 0)
         comments_color = QColor(128, 128, 128)
         blue_color = QColor(0, 166, 255)
+
         keyword_formatBlue = QTextCharFormat()
         keyword_formatOrange = QTextCharFormat()
         keyword_formatRed = QTextCharFormat()
         keyword_formatGreen = QTextCharFormat()
         keyword_formatPurple = QTextCharFormat()
+        keyword_formatLightBlue = QTextCharFormat()
         string_format = QTextCharFormat()
         comments_format = QTextCharFormat()
+        keyword_formatLightBlue.setForeground(Qt.cyan)
         keyword_formatGreen.setForeground(Qt.green)
         keyword_formatRed.setForeground(red_color)
         keyword_formatBlue.setForeground(blue_color)
@@ -49,6 +52,12 @@ class LexicalHighlighter(QSyntaxHighlighter):
         for keyword in keywords:
             pattern = "\\b" + keyword + "\\b"
             rule = (QRegExp(pattern), keyword_formatPurple)
+            self.highlighting_rules.append(rule)
+
+        keywords = ["VERDADERO", "FALSO"]
+        for keyword in keywords:
+            pattern = "\\b" + keyword + "\\b"
+            rule = (QRegExp(pattern), keyword_formatLightBlue)
             self.highlighting_rules.append(rule)
             
         pattern = r'"[^"]*"' # Reconoce cadenas entre comillas
