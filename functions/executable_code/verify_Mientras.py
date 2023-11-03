@@ -28,6 +28,4 @@ def verify_MIENTRAS(self,principal,i,tokens, variables):
             return message
         i = int(message)
         result = evaluate_logic_expression(logic_variables, logic_operators,variables)
-    while not tokens[i][0] == 'FIN':
-        i += 1
     return str(i)

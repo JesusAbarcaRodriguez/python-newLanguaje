@@ -53,11 +53,10 @@ def lexical_analysis(code):
                         token = int(token)  # Convertir a entero
                     elif token_type == 'NUMERO_FLOTANTE':
                         token = float(token)
-                    
                     elif token_type == 'SALTO_DE_LINEA':
                         code = code[len(match.group()):].lstrip()
                         break
-                syntax_analysis_obj.tokens.append((token_type, token))
+                    syntax_analysis_obj.tokens.append((token_type, token))
                 code = code[len(match.group()):].lstrip()
                 break
         else:

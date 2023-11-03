@@ -63,6 +63,8 @@ def semantic_analysis(tokens,principal):
             if not message.isdigit():
                 return message
             i = int(message)
+        else:
+            return f"Error semantico en {error_message(tokens, i )} no es una declaracion valida"
     return "Analisis semantico exitoso"
 
 
