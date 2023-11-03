@@ -10,13 +10,13 @@ def verify_CUANDO(self,principal,i,tokens, variables):
             logic_variables.append(tokens[i][1])
         if tokens[i][0] == 'IDENTIFICADOR':
             if is_declared_variable(tokens,i,variables):
-                logic_variables.append(variables[tokens[i][1]][1])
+                logic_variables.append(tokens[i][1])
             else:
                 return f"Error semantico en {error_message(tokens, i )}"
         elif tokens[i][0] in logic_operations :
             logic_operators.append(tokens[i][1])
         i += 1
-    result = evaluate_logic_expression(logic_variables, logic_operators)
+    result = evaluate_logic_expression(logic_variables, logic_operators,variables)
     if not result==True and not result==False:
         return result
     if  result == True:

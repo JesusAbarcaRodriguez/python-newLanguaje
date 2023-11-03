@@ -9,7 +9,7 @@ def semantic_analysis_MIENTRAS(principal,variables,i,tokens):
     logic_operators = []
     logic_variables = []
     while not tokens[i][0] == 'INICIO':
-        if tokens[i][0] == 'ENTERO' or tokens[i][0] == 'FLOTANTE' or tokens[i][0] == 'CADENA_LITERAL' or tokens[i][0] == 'CARACTER' :
+        if tokens[i][0] == 'NUMERO_ENTERO' or tokens[i][0] == 'NUMERO_FLOTANTE' or tokens[i][0] == 'CADENA_LITERAL' or tokens[i][0] == 'VALOR_CARACTER' :
             logic_variables.append(tokens[i][0])
         if tokens[i][0] == 'IDENTIFICADOR':
             if is_declared_variable(tokens,i,variables):
