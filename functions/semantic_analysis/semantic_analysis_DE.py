@@ -18,7 +18,7 @@ def semantic_analysis_DE(principal,variables,i,tokens):
         variable_fin = tokens[i][0]
     else:
         return f"Error semantico en {error_message(tokens, i )} No se puede recorrer un rango con un tipo de dato {tokens[i][0]}"
-    if is_same_expression_type(variable_init, variable_fin):
+    if is_same_expression_type(variable_init, variable_fin) or variable_init == 'NUMERO_ENTERO' or variable_fin == 'ENTERO' or variable_init == 'ENTERO' or variable_fin == 'NUMERO_ENTERO' :
         i+=2
         message = traverse_structure(principal,variables,i,tokens)
         if not message.isdigit():
