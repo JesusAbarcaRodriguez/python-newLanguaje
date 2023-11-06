@@ -14,7 +14,7 @@ def verify_DE(self,principal,i,tokens, variables):
         end = int(tokens[i][1])
     elif tokens[i][0] == "IDENTIFICADOR":
         if is_declared_variable(tokens,i,variables):
-            end = variables[tokens[i][1]]
+            end = tokens[i][1]
     i += 2
     auxi = i
     if init in variables:
