@@ -9,7 +9,9 @@ def semantic_analysis_FUNCION(principal,i,tokens):
     from functions.semantic_analysis.semantic_analysis_assignments import semantic_analysis_assigments
     from functions.utils.utils import error_message, is_assignment, is_for, is_if, is_parameters_declaration, is_while
     init_funtion = i
-    function = Function(tokens[i][1],tokens[i+2][1])
+    function = Function()
+    function.data_type = tokens[i][1]
+    function.identifier = tokens[i+2][1]
     i = i + 4
     while tokens[i][0] != 'PARENTESIS_DER':
         if is_parameters_declaration(tokens,i):
@@ -78,6 +80,6 @@ def semantic_analysis_FUNCION(principal,i,tokens):
                 return f"Error semantico en {error_message(tokens, i )}"
             i += 2
     end_function = i
-    function.end_functio = end_function
+    function.end_function = end_function
     principal.functions[function.identifier] = function
     return str(i+1)

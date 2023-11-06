@@ -22,10 +22,13 @@ class Function:
     init_function = 0
     end_function = 0
     return_data = None
-    def __init__(self,data_type,identifier):
-        self.data_type = data_type
-        self.identifier = identifier
-
+    def __init__(self):
+        self.parameters = {}
+        self.data_type = ""
+        self.identifier = ""
+        self.init_function = 0
+        self.end_function = 0
+        self.return_data = None
 class Procedimento:
     parameters = []
     identifier = ""

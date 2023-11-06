@@ -1,10 +1,8 @@
-
-from functions.executable_code.assignments_arrays import assignments_arrays
-from functions.executable_code.assignments_matrix import assignments_matrix
-from functions.executable_code.verify_write import verify_write
-from functions.utils.utils import is_array_assignment, is_matrix_assignment, is_return, is_write
-
 def traverse_structure_principal(self,principal,i,tokens,variables):
+    from functions.executable_code.assignments_arrays import assignments_arrays
+    from functions.executable_code.assignments_matrix import assignments_matrix
+    from functions.executable_code.verify_write import verify_write
+    from functions.utils.utils import is_array_assignment, is_matrix_assignment, is_return, is_write
     from functions.semantic_analysis.semantic_call_function_procedure import semantic_call_function_procedure
     from functions.executable_code.verify_DE import verify_DE
     from functions.executable_code.assignments_variables import verify_assigments

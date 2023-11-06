@@ -22,7 +22,7 @@ patterns = [
     (r'FIN', 'FIN'),
     (r'(ENTERO|BOOLEANO|FLOTANTE|CADENA|CARACTER)\[(\d+)\]\[(\d+)\]', 'TIPO_DATO_MATRIZ'),
     (r'(ENTERO|BOOLEANO|FLOTANTE|CADENA|CARACTER)\[(\d+)\]', 'TIPO_DATO_VECTOR'),
-    (r'\[(\d+)\]', lambda match: ('INDICE', int(match.group(1)) if int(match.group(1)) > 0 else handle_error(match.group(1)))),
+    (r'\[(\d+|[a-zA-Z_]\w*)\]', lambda match: ('INDICE', match.group(1) if match.group(1).isdigit() and int(match.group(1)) > 0 or re.match(r'[a-zA-Z_]\w*', match.group(1)) else handle_error(match.group(1)))),
     (r'ENTERO|BOOLEANO|FLOTANTE|CADENA|CARACTER', 'TIPO_DATO'),
     (r'VERDADERO|FALSO','VALOR_BOOLEANO'),
     (r'[=!<>]', 'OPERADOR_COMPARACION'),

@@ -67,18 +67,14 @@ class MainView(QMainWindow):
         options_menu = QMenu(self)
         reserved_words_action = QAction("Palabras reservadas", self)
         syntax_menu = QMenu("Sintaxis", self)
-        control_action = QAction("Control", self)
         functions_action = QAction("Funciones", self)
         operations_action = QAction("Operaciones", self)
-        semantic_action = QAction("Semántica", self)
         data_types_action = QAction("Tipos de datos", self)
         load_file_action = QAction("Cargar archivo", self)
-        syntax_menu.addAction(control_action)
         syntax_menu.addAction(functions_action)
         syntax_menu.addAction(operations_action)
         options_menu.addAction(reserved_words_action)
         options_menu.addMenu(syntax_menu)
-        options_menu.addAction(semantic_action)
         options_menu.addAction(data_types_action)
         options_menu.addAction(load_file_action)
         selected_action = options_menu.exec_(self.btn_options.mapToGlobal(self.btn_options.rect().bottomLeft()))
@@ -86,8 +82,6 @@ class MainView(QMainWindow):
             self.generate_code_for_reserved_words()
         elif selected_action == operations_action:
             self.generate_code_for_operations()
-        elif selected_action == control_action:
-            self.generate_code_for_control_syntax()
         elif selected_action == load_file_action:
             self.open_file_dialog()
         elif selected_action == data_types_action:
