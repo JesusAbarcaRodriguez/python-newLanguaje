@@ -131,9 +131,10 @@ def assign_string_operation(total_operators,total_strings_to_assign):
 
 
 def assign_nums_operation(total_operators, total_nums_to_assign):
+    if not total_operators:
+        return total_nums_to_assign[0] if total_nums_to_assign else 0
+
     # Realizar primero las multiplicaciones y divisiones
-    if len(total_nums_to_assign) == 1 and len(total_operators) == 0:
-        return total_nums_to_assign[0]
     i = 0
     while i < len(total_operators):
         if total_operators[i] == '*':
@@ -146,19 +147,19 @@ def assign_nums_operation(total_operators, total_nums_to_assign):
             del total_nums_to_assign[i + 1]
         else:
             i += 1
-    
+
     # Realizar luego las sumas y restas
-    if i == 1 and total_operators == []: # Solo hay un numero
-        return total_nums_to_assign[0] 
+    if not total_operators:  # Solo hay multiplicaciones y divisiones
+        return total_nums_to_assign[0]
+
     if len(total_nums_to_assign) == 1 and total_operators[0] == '-':
         return -total_nums_to_assign[0]
 
-    
     result = total_nums_to_assign[0]
     for i in range(len(total_operators)):
         if total_operators[i] == '+':
             result += total_nums_to_assign[i + 1]
         elif total_operators[i] == '-':
             result -= total_nums_to_assign[i + 1]
-    
+
     return result
