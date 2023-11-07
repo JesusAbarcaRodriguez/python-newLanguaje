@@ -80,7 +80,7 @@ def traverse_structure_principal(self,principal,i,tokens,variables):
                 init_function = principal.functions[function_procedures_name].init_function
                 verify_FUNCION(self,principal,init_function,tokens,function_procedures_name)
             if function_procedures_name in keys_procedures:
-                init_function = principal.procedure[function_procedures_name].init_function
+                init_function = principal.procedures[function_procedures_name].init_function
                 verify_PROCEDIMIENTO(self,principal,init_function,tokens,function_procedures_name)
             i += 2
         else:

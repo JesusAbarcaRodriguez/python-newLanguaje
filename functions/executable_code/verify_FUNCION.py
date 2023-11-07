@@ -24,7 +24,7 @@ def verify_FUNCION(self,principal,init_function,tokens,function_name):
         elif is_read(tokens,i):
             i += 4
         elif is_write(tokens,i):
-            message = verify_write(self,variables,i,tokens)
+            message = verify_write(self,variables,principal.arrays,principal.matrix,i,tokens)
             if not message.isdigit():
                 return message
             i = int(message)
@@ -82,10 +82,10 @@ def verify_FUNCION(self,principal,init_function,tokens,function_name):
             keys_procedures = principal.procedures.keys()
             if function_name2 in keys_functions:
                 init_function = principal.functions[function_name2].init_function
-                verify_FUNCION(principal,init_function,tokens,function_name2, variables)
+                verify_FUNCION(self,principal,init_function,tokens,function_name2)
             if function_name2 in keys_procedures:
                 init_function = principal.functions[function_name2].init_function
-                verify_PROCEDIMIENTO(principal,init_function,tokens,function_name2, variables)
+                verify_PROCEDIMIENTO(self,principal,init_function,tokens,function_name2)
             i += 2
 
     return str(i+1)

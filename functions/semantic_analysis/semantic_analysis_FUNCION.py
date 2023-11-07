@@ -8,7 +8,6 @@ def semantic_analysis_FUNCION(principal,i,tokens):
     from functions.semantic_analysis.semantic_analysis_DE import semantic_analysis_DE
     from functions.semantic_analysis.semantic_analysis_assignments import semantic_analysis_assigments
     from functions.utils.utils import error_message, is_assignment, is_for, is_if, is_parameters_declaration, is_while
-    init_funtion = i
     function = Function()
     function.data_type = tokens[i][1]
     function.identifier = tokens[i+2][1]

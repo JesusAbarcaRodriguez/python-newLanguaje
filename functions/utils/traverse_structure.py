@@ -1,8 +1,6 @@
-from functions.semantic_analysis.sementic_analysis_matrix_assignments import sementic_analysis_matrix_assignments
-from functions.utils.utils import is_matrix_assignment
-
-
 def traverse_structure(principal,variables,i,tokens):
+    from functions.semantic_analysis.sementic_analysis_matrix_assignments import sementic_analysis_matrix_assignments
+    from functions.utils.utils import error_message, is_called_fuction_procedure, is_declared_variable, is_matrix_assignment
     from functions.semantic_analysis.sementic_analysis_array_assignments import sementic_analysis_array_assignments
     from functions.utils.utils import is_array_assignment, is_return
     from functions.semantic_analysis.semantic_analysis_write import semantic_analysis_write
@@ -53,4 +51,14 @@ def traverse_structure(principal,variables,i,tokens):
             i = int(message)
         elif is_return(tokens,i):
             i += 3
+        elif is_called_fuction_procedure(tokens,i):
+            i += 2
+            while tokens[i][0] != 'PARENTESIS_DER':
+                if tokens[i][0] == 'IDENTIFICADOR':
+                    if not is_declared_variable(tokens,i,principal.variables):
+                        return f"Error semantico la variable {tokens[i][1]} no esta declarada"
+                    i += 1
+            i += 1
+        else:
+            return f"Error semantico en {error_message(tokens, i )}"
     return str(i+1)

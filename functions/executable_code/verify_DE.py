@@ -31,4 +31,6 @@ def verify_DE(self,principal,i,tokens, variables):
         if not message.isdigit():
             return message
         i = int(message)
+    if i >= len(tokens):
+        return str(i-1)
     return str(i)

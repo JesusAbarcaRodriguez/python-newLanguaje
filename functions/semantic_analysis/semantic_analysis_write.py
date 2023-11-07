@@ -1,4 +1,5 @@
 def semantic_analysis_write(variables,arrays,matrix,i,tokens):
+    from functions.utils.utils import error_message
     i+=2
     text = ""
     while tokens[i][0] != 'PARENTESIS_DER':
