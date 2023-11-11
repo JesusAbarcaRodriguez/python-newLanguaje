@@ -48,6 +48,7 @@ def assignments_arrays(self,principal,arrays,variables,i,tokens):
                         verify_FUNCION(self,principal,init_function,tokens,function_name)
                         arrays[tokens[index_array_to_assign][1]][1][index_to_assign] = principal.functions[function_name].return_data
                         i += 1
+                        parameters_input = []
                     else:
                         return f"Error: La variable: '{array_to_assign[1]}' no es del mismo tipo que la funcion {function_name} "
             elif is_read(tokens,i):

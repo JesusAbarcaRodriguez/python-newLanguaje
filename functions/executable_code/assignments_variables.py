@@ -40,6 +40,7 @@ def verify_assigments(self,principal,variables,i,tokens):
                         verify_FUNCION(self,principal,init_function,tokens,function_name)
                         variables[tokens[index_variable_to_assign][1]][1] = principal.functions[function_name].return_data
                         i += 1
+                        parameters_input = []
                     else:
                         return f"Error: La variable: '{variable_to_assign[1]}' no es del mismo tipo que la funcion {function_name} "
             elif is_read(tokens,i):

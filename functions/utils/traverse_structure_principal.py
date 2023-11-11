@@ -64,8 +64,8 @@ def traverse_structure_principal(self,principal,i,tokens,variables):
             i += 2
             while tokens[i][0] != 'PARENTESIS_DER':
                 if tokens[i][0] == 'IDENTIFICADOR':
-                    if is_declared_variable(tokens,i,principal.variables):
-                        parameters_input.append(principal.variables.get(tokens[i][1]))
+                    if is_declared_variable(tokens,i,variables):
+                        parameters_input.append(variables.get(tokens[i][1]))
                     i += 1
                 else:
                     parameters_input = tokens[i]
@@ -83,6 +83,7 @@ def traverse_structure_principal(self,principal,i,tokens,variables):
                 init_function = principal.procedures[function_procedures_name].init_function
                 verify_PROCEDIMIENTO(self,principal,init_function,tokens,function_procedures_name)
             i += 2
+            parameters_input = []
         else:
             return f"Error semantico en {error_message(tokens, i )}"
     return str(i+1)

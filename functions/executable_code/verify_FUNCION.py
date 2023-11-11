@@ -87,5 +87,5 @@ def verify_FUNCION(self,principal,init_function,tokens,function_name):
                 init_function = principal.functions[function_name2].init_function
                 verify_PROCEDIMIENTO(self,principal,init_function,tokens,function_name2)
             i += 2
-
+            parameters_input = []
     return str(i+1)

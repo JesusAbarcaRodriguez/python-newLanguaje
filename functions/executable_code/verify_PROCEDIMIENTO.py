@@ -9,7 +9,7 @@ def verify_PROCEDIMIENTO(self,principal,init_function,tokens,function_procedures
     from functions.executable_code.verify_DE import verify_DE
     from functions.executable_code.verify_Mientras import verify_MIENTRAS
     from functions.utils.utils import is_assignment, is_for, is_if, is_while
-
+    parameters_input = []
     function = principal.procedures[function_procedures_name]
     i = init_function
     variablesAux = function.parameters.copy()
@@ -55,8 +55,8 @@ def verify_PROCEDIMIENTO(self,principal,init_function,tokens,function_procedures
             i += 2
             while tokens[i][0] != 'PARENTESIS_DER':
                 if tokens[i][0] == 'IDENTIFICADOR':
-                    if is_declared_variable(tokens,i,principal.variables):
-                        parameters_input.append(principal.variables.get(tokens[i][1]))
+                    if is_declared_variable(tokens,i,variables):
+                        parameters_input.append(variables.get(tokens[i][1]))
                     i += 1
                 else:
                     parameters_input = tokens[i]
@@ -71,8 +71,9 @@ def verify_PROCEDIMIENTO(self,principal,init_function,tokens,function_procedures
                 init_function = principal.functions[function_name2].init_function
                 verify_FUNCION(self,principal,init_function,tokens,function_name2)
             if function_name2 in keys_procedures:
-                init_function = principal.functions[function_name2].init_function
+                init_function = principal.procedures[function_name2].init_function
                 verify_PROCEDIMIENTO(self,principal,init_function,tokens,function_name2)
             i += 2
+            parameters_input = []
 
     return str(i+1)

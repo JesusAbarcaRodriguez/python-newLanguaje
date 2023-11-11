@@ -1,0 +1,31 @@
+ENTERO a;
+ENTERO resultado_duplicar;
+ENTERO resultado_sumar;
+ENTERO resultado;
+PROCEDIMIENTO imprimir(ENTERO x) INICIO
+    ESCRIBIR(x);
+FIN
+
+ENTERO FUNCION duplicar(ENTERO y) INICIO
+    y: y * 2;
+    RETORNO y;
+FIN
+
+ENTERO FUNCION sumar(ENTERO m ENTERO n) INICIO
+	resultado: m + n;
+    RETORNO resultado;
+FIN
+
+PROCEDIMIENTO PRINCIPAL INICIO
+    a: 5;
+    ESCRIBIR("RESULTADO ACTUAL: ");
+    imprimir(a);
+	ESCRIBIR("//");
+    ESCRIBIR("RESULTADO DUPLICADO: ");
+    resultado_duplicar: duplicar(a);
+    imprimir(resultado_duplicar);
+	ESCRIBIR("//");
+    ESCRIBIR("RESULTADO DE SUMA : ");
+    resultado_sumar: sumar(a resultado_duplicar);
+    imprimir(resultado_sumar);
+FIN

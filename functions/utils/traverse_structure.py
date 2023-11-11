@@ -55,10 +55,10 @@ def traverse_structure(principal,variables,i,tokens):
             i += 2
             while tokens[i][0] != 'PARENTESIS_DER':
                 if tokens[i][0] == 'IDENTIFICADOR':
-                    if not is_declared_variable(tokens,i,principal.variables):
+                    if not is_declared_variable(tokens,i,variables):
                         return f"Error semantico la variable {tokens[i][1]} no esta declarada"
                     i += 1
-            i += 1
+            i += 2
         else:
             return f"Error semantico en {error_message(tokens, i )}"
     return str(i+1)
