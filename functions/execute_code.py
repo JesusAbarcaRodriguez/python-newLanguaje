@@ -6,7 +6,7 @@ from functions.utils.global_state import Principal
 from functions.utils.utils import is_main_procedure
 
 def execute_code(self,code):
-    syntax_analysis_obj =  LexicalAnalysisObj(False,"",[])
+    syntax_analysis_obj =  LexicalAnalysisObj()
     syntax_analysis_obj = lexical_analysis(code)
     message = ""
     principal = Principal()

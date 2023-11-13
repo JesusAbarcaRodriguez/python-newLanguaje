@@ -4,7 +4,7 @@ from functions.semantic_analysis.semantic_analysis import semantic_analysis
 from functions.syntactic_analysis.syntactic_analysis import syntactic_analysis
 from functions.utils.global_state import Principal
 def compile_code(code):
-    syntax_analysis_obj =  LexicalAnalysisObj(False,"",[])
+    syntax_analysis_obj =  LexicalAnalysisObj()
     syntax_analysis_obj = lexical_analysis(code)
     if syntax_analysis_obj.isError:
         return syntax_analysis_obj.message

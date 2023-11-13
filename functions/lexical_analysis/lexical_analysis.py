@@ -1,9 +1,10 @@
 import re
 class LexicalAnalysisObj:
-    def __init__(self, isError, message,tokens):
-        self.isError = isError
-        self.message = message
-        self.tokens = tokens if tokens is not None else []
+    def __init__(self):
+        self.isError = False
+        self.message = ""
+        self.tokens =  []
+
 patterns = [
     (r'\n', 'SALTO_DE_LINEA'),  
     (r'FUNCION', 'FUNCION'),
@@ -41,6 +42,7 @@ patterns = [
 ]
 
 def lexical_analysis(code):
+    syntax_analysis_obj = LexicalAnalysisObj()
     while code:
         for pattern, token_type in patterns:
             match = re.match(pattern, code ,re.DOTALL)
@@ -69,4 +71,4 @@ def handle_error(index_value):
     syntax_analysis_obj.message += f"No se puede acceder a un índice 0 o menor:  {index_value} \n"
     return 'ERROR_INDICE'
 
-syntax_analysis_obj = LexicalAnalysisObj(False, "", [])
+syntax_analysis_obj = LexicalAnalysisObj()
