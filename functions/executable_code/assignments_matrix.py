@@ -61,7 +61,7 @@ def assignments_matrix(self,principal,matrix,variables,i,tokens):
                                     return message
                         init_function = principal.functions[function_name].init_function
                         verify_FUNCION(self,principal,init_function,tokens,function_name)
-                        matrix[tokens[index_matrix_to_assign][1]][1] = [principal.functions[function_name].return_data,row,column]
+                        matrix[tokens[index_matrix_to_assign][1]][1] = [(principal.functions[function_name].return_data,row,column)]
                         i += 1
                         parameters_input = []
                     else:

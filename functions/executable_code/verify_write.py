@@ -8,7 +8,6 @@ def verify_write(self,variables,arrays,matrix,i,tokens):
                 matrix_to_write = matrix[tokens[i][1]]
                 matrix_row_size = matrix_to_write[2]
                 matrix_column_size = matrix_to_write[3]
-                is_num_index = False
                 row:0
                 column:0
                 if tokens[i+1][1] in variables:
@@ -20,7 +19,6 @@ def verify_write(self,variables,arrays,matrix,i,tokens):
                 elif tokens[i+1][1].isdigit():
                     if int(tokens[i+1][1]) <= int(matrix_row_size):
                         row = tokens[i+1][1]
-                        is_num_index = True
                         i+=1
                     else:
                         return f"Error semantico el indice {tokens[i+1][1]} o {tokens[i+2][1]} es mayor al tamaño de la matriz"
@@ -33,14 +31,10 @@ def verify_write(self,variables,arrays,matrix,i,tokens):
                 elif tokens[i+1][1].isdigit():
                     if int(tokens[i+1][1]) <= int(matrix_column_size):
                         column = tokens[i+1][1]
-                        is_num_index = True
                         i+=2
                     else:
                         return f"Error semantico el indice {tokens[i+1][1]} o {tokens[i+2][1]} es mayor al tamaño de la matriz"
-                if is_num_index:
-                    value = matrix_to_write[1][0][0]
-                else:
-                    value = matrix_to_write[1][0]
+                value = matrix_to_write[1][0][0]
                 if isinstance(value, (int, float)):
                     text = text + str(value)
                 elif value == "VERDADERO":
@@ -49,6 +43,7 @@ def verify_write(self,variables,arrays,matrix,i,tokens):
                     text = text + "FALSO"
                 else:
                     text = text + value
+                
             else:
                 return f"Error semantico la variable {error_message(tokens, i )} no esta declarada"
         elif tokens[i][0] == "IDENTIFICADOR" and tokens[i+1][0] == "INDICE":
