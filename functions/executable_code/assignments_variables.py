@@ -4,7 +4,7 @@ from PyQt5.QtCore import QEventLoop
 
 from functions.utils.utils import is_array_call
 
-def verify_assigments(self,principal,variables,i,tokens):
+def verify_assigments(self,principal,variables,arrays,i,tokens):
     from functions.utils.utils import is_read
     from functions.executable_code.verify_FUNCION import verify_FUNCION
     from functions.semantic_analysis.semantic_call_function_procedure import semantic_call_function_procedure
@@ -28,8 +28,8 @@ def verify_assigments(self,principal,variables,i,tokens):
                         i += 2
                         while tokens[i][0] != 'PARENTESIS_DER':
                             if tokens[i][0] == 'IDENTIFICADOR':
-                                if is_declared_variable(tokens,i,principal.variables):
-                                    parameters_input.append(principal.variables.get(tokens[i][1]))
+                                if is_declared_variable(tokens,i,variables):
+                                    parameters_input.append(variables.get(tokens[i][1]))
                                 i += 1
                             else:
                                 parameters_input.append(tokens[i])
@@ -74,17 +74,29 @@ def verify_assigments(self,principal,variables,i,tokens):
                 else:
                     return f"Error: La variable: '{variable_to_assign[1]}' no es del mismo tipo que la funcion que {result} "
                 i += 1
-            # elif is_array_call(tokens,i):
-            #     if tokens[i][1] in principal.arrays:
-            #         if variable_to_assign[0] == 'ENTERO' or variable_to_assign[0] == 'FLOTANTE':
-            #             if variable_to_assign[0] == 'ENTERO' and principal.arrays[tokens[i][1]] == 'FLOTANTE':
-            #                 total_nums_to_assign.append(principal.arrays[tokens[i][1]].data[tokens[i+1][1]])
-            #                 is_int_assignments = True
-            #             elif variable_to_assign[0] == 'CADENA':
-            #                 total_strings_to_assign.append(principal.arrays[tokens[i][1]].data[tokens[i+1][1]])
-            #                 is_string_assignments = True
-            #         else:
-                        # return f"Error: La variable: '{variable_to_assign[1]}' no es del mismo tipo que el array {tokens[i][1]} "
+            elif is_array_call(tokens,i):
+                if tokens[i][1] in arrays:
+                    array_size = arrays[tokens[i][1]]
+                    if tokens[i+1][1] in variables:
+                        variable_value = variables[tokens[i+1][1]]
+                        if variable_value[1] <= int(array_size[2]):
+                            value = arrays[tokens[i][1]][1][tokens[i+1][1]]
+                        else:
+                            return f"Error semantico el indice {tokens[i+1][1]} es mayor al tamaño del arreglo"
+                    elif tokens[i+1][1].isdigit():
+                        if int(tokens[i+1][1]) <= int(array_size[2]):
+                            value = arrays[tokens[i][1]][1][tokens[i+1][1]]
+                        else:
+                            return f"Error semantico el indice {tokens[i+1][1]} es mayor al tamaño del arreglo"
+                if variable_to_assign[0] == 'ENTERO' or variable_to_assign[0] == 'FLOTANTE':
+                    total_nums_to_assign.append(value)
+                    is_int_assignments = True
+                elif variable_to_assign[0] == 'CADENA':
+                    total_strings_to_assign.append(value)
+                    is_string_assignments = True
+                else:
+                    variable_to_assign[1] = value
+                i+=2
             elif tokens[i][0] == 'IDENTIFICADOR':
                 if tokens[i][1] in variables and not variables[tokens[i][1]][1] == None  and (is_same_type(variable_to_assign,tokens,i,variables) or variable_to_assign[0] == 'FLOTANTE' and  variables[tokens[i][1]][0] == 'ENTERO'):
                     if variable_to_assign[0] == 'ENTERO' or variable_to_assign[0] == 'FLOTANTE':

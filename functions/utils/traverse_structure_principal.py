@@ -15,7 +15,7 @@ def traverse_structure_principal(self,principal,i,tokens,variables):
     parameters_input = []
     while not tokens[i][0] == 'FIN':
         if is_assignment(tokens,i):
-            message = verify_assigments(self,principal,variables,i,tokens)
+            message = verify_assigments(self,principal,variables,principal.arrays,i,tokens)
             if not message.isdigit():
                 return message
             i = int(message)

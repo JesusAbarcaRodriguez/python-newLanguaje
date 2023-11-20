@@ -1,5 +1,3 @@
-from functions.executable_code.verify_write import verify_write
-from functions.utils.utils import is_read, is_return, is_write
 def verify_FUNCION(self,principal,init_function,tokens,function_name):
     from functions.executable_code.verify_PROCEDIMIENTO import verify_PROCEDIMIENTO
     from functions.semantic_analysis.semantic_call_function_procedure import semantic_call_function_procedure
@@ -9,7 +7,10 @@ def verify_FUNCION(self,principal,init_function,tokens,function_name):
     from functions.executable_code.verify_DE import verify_DE
     from functions.executable_code.verify_Mientras import verify_MIENTRAS
     from functions.utils.utils import error_message, is_assignment, is_for, is_if, is_while
-
+    from functions.executable_code.assignments_arrays import assignments_arrays
+    from functions.executable_code.assignments_matrix import assignments_matrix
+    from functions.executable_code.verify_write import verify_write
+    from functions.utils.utils import is_array_assignment, is_matrix_assignment, is_read, is_return, is_write
     function = principal.functions[function_name]
     i = init_function
     variablesAux = function.parameters.copy()
@@ -17,7 +18,17 @@ def verify_FUNCION(self,principal,init_function,tokens,function_name):
     variables.update(variablesAux)
     while not tokens[i][0] == 'FIN':
         if is_assignment(tokens,i):
-            message = verify_assigments(self,principal,variables,i,tokens)
+            message = verify_assigments(self,principal,variables,principal.arrays,i,tokens)
+            if not message.isdigit():
+                return message
+            i = int(message)
+        elif is_array_assignment(tokens,i):
+            message = assignments_arrays(self,principal,principal.arrays,variables,i,tokens)
+            if not message.isdigit():
+                return message
+            i = int(message)
+        elif is_matrix_assignment(tokens,i):
+            message = assignments_matrix(self,principal,principal.matrix,variables,i,tokens)
             if not message.isdigit():
                 return message
             i = int(message)

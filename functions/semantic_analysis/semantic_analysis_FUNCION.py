@@ -1,6 +1,3 @@
-from functions.semantic_analysis.semantic_analysis_write import semantic_analysis_write
-from functions.semantic_analysis.sementic_analysis_array_assignments import sementic_analysis_array_assignments
-from functions.utils.utils import is_array_assignment, is_return, is_write
 def semantic_analysis_FUNCION(principal,i,tokens):
     from functions.semantic_analysis.semantic_analysis_MIENTRAS import semantic_analysis_MIENTRAS
     from functions.utils.global_state import Function
@@ -8,6 +5,10 @@ def semantic_analysis_FUNCION(principal,i,tokens):
     from functions.semantic_analysis.semantic_analysis_DE import semantic_analysis_DE
     from functions.semantic_analysis.semantic_analysis_assignments import semantic_analysis_assigments
     from functions.utils.utils import error_message, is_assignment, is_for, is_if, is_parameters_declaration, is_while
+    from functions.semantic_analysis.semantic_analysis_write import semantic_analysis_write
+    from functions.semantic_analysis.sementic_analysis_array_assignments import sementic_analysis_array_assignments
+    from functions.semantic_analysis.sementic_analysis_matrix_assignments import sementic_analysis_matrix_assignments
+    from functions.utils.utils import is_array_assignment, is_matrix_assignment, is_return, is_write
     function = Function()
     function.data_type = tokens[i][1]
     function.identifier = tokens[i+2][1]
@@ -33,8 +34,13 @@ def semantic_analysis_FUNCION(principal,i,tokens):
             if not message.isdigit():
                 return message
             i = int(message)
+        elif is_matrix_assignment(tokens,i):
+            message = sementic_analysis_matrix_assignments(principal,principal.matrix,variables,i,tokens)
+            if not message.isdigit():
+                return message
+            i = int(message)
         elif is_write(tokens,i):
-            message = semantic_analysis_write(variables,i,tokens)
+            message = semantic_analysis_write(variables,principal.arrays,principal.matrix,i,tokens)
             if not message.isdigit():
                 return message
             i = int(message)

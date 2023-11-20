@@ -43,7 +43,6 @@ def verify_write(self,variables,arrays,matrix,i,tokens):
                     text = text + "FALSO"
                 else:
                     text = text + value
-                
             else:
                 return f"Error semantico la variable {error_message(tokens, i )} no esta declarada"
         elif tokens[i][0] == "IDENTIFICADOR" and tokens[i+1][0] == "INDICE":

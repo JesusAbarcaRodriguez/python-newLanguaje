@@ -5,7 +5,6 @@ def semantic_analysis(tokens,principal):
     from functions.utils.utils import is_procedure_decalaration
     from functions.semantic_analysis.semantic_analysis_PRINCIPAL import semantic_analysis_PRINCIPAL
     from functions.semantic_analysis.semantic_analysis_FUNCION import semantic_analysis_FUNCION
-    
     from functions.semantic_analysis.semantic_analysis_PROCEDIMIENTO import semantic_analysis_PROCEDIMENTO
     from functions.utils.utils import  error_message, is_array_declaration,is_main_procedure, is_function_declaration, is_variable_declaration
 

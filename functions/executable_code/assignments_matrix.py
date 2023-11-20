@@ -1,4 +1,4 @@
-from functions.utils.utils import is_read
+from functions.utils.utils import is_array_call, is_read
 
 
 def assignments_matrix(self,principal,matrix,variables,i,tokens):
@@ -95,7 +95,29 @@ def assignments_matrix(self,principal,matrix,variables,i,tokens):
                 else:
                     return f"Error: La variable: '{matrix_to_assign[1]}' no es del mismo tipo que la funcion que {result} "
                 i += 1
-
+            elif is_array_call(tokens,i):
+                if tokens[i][1] in principal.arrays:
+                    array_size = principal.arrays[tokens[i][1]]
+                    if tokens[i+1][1] in variables:
+                        variable_value = variables[tokens[i+1][1]]
+                        if variable_value[1] <= int(array_size[2]):
+                            value = principal.arrays[tokens[i][1]][1][tokens[i+1][1]]
+                        else:
+                            return f"Error semantico el indice {tokens[i+1][1]} es mayor al tamaño del arreglo"
+                    elif tokens[i+1][1].isdigit():
+                        if int(tokens[i+1][1]) <= int(array_size[2]):
+                            value = principal.arrays[tokens[i][1]][1][tokens[i+1][1]]
+                        else:
+                            return f"Error semantico el indice {tokens[i+1][1]} es mayor al tamaño del arreglo"
+                    if matrix_to_assign[0] == 'ENTERO' or matrix_to_assign[0] == 'FLOTANTE':
+                        total_nums_to_assign.append(value)
+                        is_int_assignments = True
+                    elif matrix_to_assign[0] == 'CADENA':
+                        total_strings_to_assign.append(value)
+                        is_string_assignments = True
+                    else:
+                        matrix_to_assign[1] = value
+                    i+=2
             elif tokens[i][0] == 'IDENTIFICADOR':
                 if tokens[i][1] in variables and not variables[tokens[i][1]][1] == None  and (is_same_type(matrix_to_assign,tokens,i,variables) or matrix_to_assign[0] == 'FLOTANTE' and  variables[tokens[i][1]][0] == 'ENTERO'):
                     if matrix_to_assign[0] == 'ENTERO' or matrix_to_assign[0] == 'FLOTANTE':

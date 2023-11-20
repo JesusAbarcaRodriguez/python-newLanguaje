@@ -1,5 +1,5 @@
 from functions.semantic_analysis.semantic_call_function_procedure import semantic_call_function_procedure
-from functions.utils.utils import  error_message,is_called_fuction_procedure, is_declared_variable, is_read, is_same_type
+from functions.utils.utils import  error_message, is_array_call,is_called_fuction_procedure, is_declared_variable, is_read, is_same_type
 def semantic_analysis_assigments(principal,variables,i,tokens):
     if is_declared_variable(tokens,i,variables):
         variable_to_assign = variables[tokens[i][1]]
@@ -30,6 +30,8 @@ def semantic_analysis_assigments(principal,variables,i,tokens):
                         return f"Error la asignación es de tipos diferentes, la variable '{variable_name}' no es de tipo {principal.functions[function_name].data_type}"
                 else:
                     return f"Error la asignación es de tipos diferentes, la variable '{variable_name}' no es de tipo {tokens[i][0]}"
+            elif is_array_call(tokens,i):
+                i+=2
             elif tokens[i][0] == 'IDENTIFICADOR':
                 if not (tokens[i][1] in variables  and (is_same_type(variable_to_assign,tokens,i,variables) or variable_to_assign[0] == 'FLOTANTE' and  variables[tokens[i][1]][0] == 'ENTERO')):
                     return f"Error semantico en {error_message(tokens, i )}"
