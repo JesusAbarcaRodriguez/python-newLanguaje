@@ -1,7 +1,5 @@
-from functions.utils.utils import is_array_call, is_read
-
-
 def assignments_matrix(self,principal,matrix,variables,i,tokens):
+    from functions.utils.utils import is_array_call, is_matrix_call, is_read
     from pprint import isreadable
     from functions.executable_code.verify_FUNCION import verify_FUNCION
     from functions.semantic_analysis.semantic_call_function_procedure import semantic_call_function_procedure
@@ -95,6 +93,47 @@ def assignments_matrix(self,principal,matrix,variables,i,tokens):
                 else:
                     return f"Error: La variable: '{matrix_to_assign[1]}' no es del mismo tipo que la funcion que {result} "
                 i += 1
+            elif is_matrix_call(tokens,i):
+                if tokens[i][1] in principal.matrix:
+                    matrix_to_write = principal.matrix[tokens[i][1]]
+                    matrix_row_size = matrix_to_write[2]
+                    matrix_column_size = matrix_to_write[3]
+                    row:0
+                    column:0
+                    if tokens[i+1][1] in variables:
+                        row = variables[tokens[i+1][1]]
+                        if row[1] <= int(matrix_row_size):
+                            i+=1
+                        else:
+                            return f"Error semantico el indice {tokens[i+1][1]} o {tokens[i+2][1]} es mayor al tamaño de la matriz"
+                    elif tokens[i+1][1].isdigit():
+                        if int(tokens[i+1][1]) <= int(matrix_row_size):
+                            row = tokens[i+1][1]
+                            i+=1
+                        else:
+                            return f"Error semantico el indice {tokens[i+1][1]} o {tokens[i+2][1]} es mayor al tamaño de la matriz"
+                    if tokens[i+1][1] in variables:
+                        column = variables[tokens[i+1][1]]
+                        if column[1] <= int(matrix_column_size):
+                            i+=1
+                        else:
+                            return f"Error semantico el indice {tokens[i+1][1]} o {tokens[i+2][1]} es mayor al tamaño de la matriz"
+                    elif tokens[i+1][1].isdigit():
+                        if int(tokens[i+1][1]) <= int(matrix_column_size):
+                            column = tokens[i+1][1]
+                            i+=1
+                        else:
+                            return f"Error semantico el indice {tokens[i+1][1]} o {tokens[i+2][1]} es mayor al tamaño de la matriz"
+                    value = matrix_to_write[1][0][0]
+                    i+=1
+                    if matrix_to_assign[0] == 'ENTERO' or matrix_to_assign[0] == 'FLOTANTE':
+                        total_nums_to_assign.append(value)
+                        is_int_assignments = True
+                    elif matrix_to_assign[0] == 'CADENA':
+                        total_strings_to_assign.append(value)
+                        is_string_assignments = True
+                    else:
+                        matrix_to_assign[1] = value
             elif is_array_call(tokens,i):
                 if tokens[i][1] in principal.arrays:
                     array_size = principal.arrays[tokens[i][1]]

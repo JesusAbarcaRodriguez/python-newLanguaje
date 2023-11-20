@@ -1,5 +1,5 @@
 from functions.semantic_analysis.semantic_call_function_procedure import semantic_call_function_procedure
-from functions.utils.utils import error_message, is_array_call, is_called_fuction_procedure, is_declarate_matrix, is_declared_variable, is_read, is_same_type
+from functions.utils.utils import error_message, is_array_call, is_called_fuction_procedure, is_declarate_matrix, is_declared_variable, is_matrix_call, is_read, is_same_type
 def sementic_analysis_matrix_assignments(principal,matrix,variables,i,tokens):
     if is_declarate_matrix(tokens,i,matrix):
         matrix_to_assign = matrix[tokens[i][1]]
@@ -50,6 +50,8 @@ def sementic_analysis_matrix_assignments(principal,matrix,variables,i,tokens):
                         return f"Error la asignación es de tipos diferentes, la variable '{variable_name}' no es de tipo {principal.functions[function_name].data_type}"
                 else:
                     return f"Error la asignación es de tipos diferentes, la variable '{variable_name}' no es de tipo {tokens[i][0]}"
+            elif is_matrix_call(tokens,i):
+                i+=3
             elif is_array_call(tokens,i):
                 i+=2
             elif tokens[i][0] == 'IDENTIFICADOR':

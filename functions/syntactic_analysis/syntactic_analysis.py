@@ -109,7 +109,7 @@ def syntactic_analysis(tokens):
             else:
                 return f"Error sintactico en {token[1]}"
         elif token[0] == 'OPERADOR_ARITMETICO':
-            if(top(pila_data_type)[0] in tokens_num_entero_flotante or top(pila_data_type)[0] == "CADENA_LITERAL") or top(pila_data_type)[0] == "ASIGNACION" :
+            if(top(pila_data_type)[0] in tokens_num_entero_flotante or top(pila_data_type)[0] == "CADENA_LITERAL") or top(pila_data_type)[0] == "ASIGNACION" or top(pila_data_type)[0] == "INDICE":
                 pila_data_type.append(token)
             else:
                 return f"Error sintactico en {token[1]}"
