@@ -2,6 +2,8 @@
 from numbers import Number
 from PyQt5.QtCore import QEventLoop
 
+from functions.utils.utils import is_array_call
+
 def verify_assigments(self,principal,variables,i,tokens):
     from functions.utils.utils import is_read
     from functions.executable_code.verify_FUNCION import verify_FUNCION
@@ -72,7 +74,17 @@ def verify_assigments(self,principal,variables,i,tokens):
                 else:
                     return f"Error: La variable: '{variable_to_assign[1]}' no es del mismo tipo que la funcion que {result} "
                 i += 1
-
+            # elif is_array_call(tokens,i):
+            #     if tokens[i][1] in principal.arrays:
+            #         if variable_to_assign[0] == 'ENTERO' or variable_to_assign[0] == 'FLOTANTE':
+            #             if variable_to_assign[0] == 'ENTERO' and principal.arrays[tokens[i][1]] == 'FLOTANTE':
+            #                 total_nums_to_assign.append(principal.arrays[tokens[i][1]].data[tokens[i+1][1]])
+            #                 is_int_assignments = True
+            #             elif variable_to_assign[0] == 'CADENA':
+            #                 total_strings_to_assign.append(principal.arrays[tokens[i][1]].data[tokens[i+1][1]])
+            #                 is_string_assignments = True
+            #         else:
+                        # return f"Error: La variable: '{variable_to_assign[1]}' no es del mismo tipo que el array {tokens[i][1]} "
             elif tokens[i][0] == 'IDENTIFICADOR':
                 if tokens[i][1] in variables and not variables[tokens[i][1]][1] == None  and (is_same_type(variable_to_assign,tokens,i,variables) or variable_to_assign[0] == 'FLOTANTE' and  variables[tokens[i][1]][0] == 'ENTERO'):
                     if variable_to_assign[0] == 'ENTERO' or variable_to_assign[0] == 'FLOTANTE':

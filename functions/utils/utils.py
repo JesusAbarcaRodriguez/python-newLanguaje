@@ -59,11 +59,18 @@ def is_return(tokens,i):
         return True
     else:
         return False
+
 def is_assignment(tokens,i):
     if tokens[i][0] == 'IDENTIFICADOR' and (tokens[i+1][0] == 'ASIGNACION' ):
         return True
     else:
         return False
+def is_array_call(tokens,i):
+    if tokens[i][0] == 'IDENTIFICADOR' and tokens[i+1][0] =='INDICE' :
+        return True
+    else:
+        return False
+
 def is_array_assignment(tokens,i):
     if tokens[i][0] == 'IDENTIFICADOR' and tokens[i+1][0] =='INDICE' and tokens[i+2][0] == 'ASIGNACION':
         return True
