@@ -16,8 +16,9 @@ def assignments_arrays(self,principal,arrays,variables,i,tokens):
         i+=1
         index_to_assign = tokens[i][1]
         if  tokens[i][1] in variables:
-            valor = variables[tokens[i][1]]
-            if valor[1] >= int(array_to_assign[2]):
+            valor = variables[tokens[i][1]][1]
+            index_to_assign = valor
+            if valor >= int(array_to_assign[2]):
                 return f"Error semantico en {valor} no es un indice valido"
         elif tokens[i][1].isdigit():
             if int(tokens[i][1]) >= int(array_to_assign[2]):

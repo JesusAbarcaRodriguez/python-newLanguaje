@@ -1,3 +1,6 @@
+from calendar import c
+
+
 def assignments_matrix(self,principal,matrix,variables,i,tokens):
     from functions.utils.utils import is_array_call, is_matrix_call, is_read
     from pprint import isreadable
@@ -19,6 +22,7 @@ def assignments_matrix(self,principal,matrix,variables,i,tokens):
         row = tokens[i][1]
         if  tokens[i][1] in variables:
             valor = variables[tokens[i][1]]
+            row = valor[1]
             if not valor[0] == 'ENTERO':
                 return f"Error semantico en {valor} no es un indice valido"
         elif tokens[i][1].isdigit():
@@ -30,6 +34,7 @@ def assignments_matrix(self,principal,matrix,variables,i,tokens):
         column = tokens[i][1]
         if  tokens[i][1] in variables:
             valor = variables[tokens[i][1]]
+            column = valor[1]
             if not valor[0] == 'ENTERO':
                 return f"Error semantico en {valor} no es un indice valido"
         elif tokens[i][1].isdigit():
@@ -138,9 +143,12 @@ def assignments_matrix(self,principal,matrix,variables,i,tokens):
                 if tokens[i][1] in principal.arrays:
                     array_size = principal.arrays[tokens[i][1]]
                     if tokens[i+1][1] in variables:
-                        variable_value = variables[tokens[i+1][1]]
-                        if variable_value[1] <= int(array_size[2]):
-                            value = principal.arrays[tokens[i][1]][1][tokens[i+1][1]]
+                        variable_value = variables[tokens[i+1][1]][1]
+                        if variable_value <= int(array_size[2]):
+                            if tokens[i+1][1].isdigit():
+                                value = principal.arrays[tokens[i][1]][1][tokens[i+1][1]]
+                            else:
+                                value = principal.arrays[tokens[i][1]][1][variables[tokens[i+1][1]][1]]
                         else:
                             return f"Error semantico el indice {tokens[i+1][1]} es mayor al tamaño del arreglo"
                     elif tokens[i+1][1].isdigit():

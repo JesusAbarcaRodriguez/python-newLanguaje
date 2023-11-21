@@ -11,6 +11,7 @@ def verify_write(self,variables,arrays,matrix,i,tokens):
                 row:0
                 column:0
                 if tokens[i+1][1] in variables:
+                    
                     row = variables[tokens[i+1][1]]
                     if row[1] <= int(matrix_row_size):
                         i+=1
@@ -51,7 +52,10 @@ def verify_write(self,variables,arrays,matrix,i,tokens):
                 if tokens[i+1][1] in variables:
                     variable_value = variables[tokens[i+1][1]]
                     if variable_value[1] <= int(array_size[2]):
-                        value = arrays[tokens[i][1]][1][tokens[i+1][1]]
+                        if tokens[i+1][1].isdigit():
+                            value = arrays[tokens[i][1]][1][tokens[i+1][1]]
+                        else:
+                            value = arrays[tokens[i][1]][1][variables[tokens[i+1][1]][1]]
                         if not value == None:
                             if isinstance(value, (int, float)):
                                 text = text + str(value)
