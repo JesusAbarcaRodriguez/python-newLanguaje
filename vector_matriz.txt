@@ -1,0 +1,40 @@
+ENTERO d;
+ENTERO c;
+ENTERO b;
+ENTERO a;
+ENTERO[5][5] matriz;
+ENTERO[5] matriz2;
+ENTERO aux;
+ENTERO FUNCION cinco(ENTERO q) INICIO
+q:q+5;
+RETORNO q; 
+FIN
+PROCEDIMIENTO PRINCIPAL INICIO
+a:1;
+d:1;
+b:1;
+aux:1;
+DE 1...6 INICIO
+	DE 1...6 INICIO
+		matriz[a][d]:cinco(b);
+		ESCRIBIR(matriz[a][d]);
+		ESCRIBIR(" ");
+		d:d+1;
+		b:b+1;
+	FIN
+ESCRIBIR("//");
+	d:1;	
+	a:a+1;
+FIN
+a:4;
+d:1;
+b:1;
+aux:1;
+	DE 1...6 INICIO
+		matriz2[a]:matriz[d][5];
+		ESCRIBIR(matriz2[a]);
+		ESCRIBIR("//");
+		d:d+1;
+		b:b+1;
+	FIN
+FIN

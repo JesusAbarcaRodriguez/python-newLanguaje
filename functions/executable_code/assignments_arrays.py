@@ -1,3 +1,6 @@
+from functions.executable_code.assignments_matrix import filtrar_por_fila_columna
+
+
 def assignments_arrays(self,principal,arrays,variables,i,tokens):
     from functions.executable_code.verify_FUNCION import verify_FUNCION
     from PyQt5.QtCore import QEventLoop
@@ -84,35 +87,36 @@ def assignments_arrays(self,principal,arrays,variables,i,tokens):
             elif is_matrix_call(tokens,i):
                 if tokens[i][1] in principal.matrix:
                     matrix_to_write = principal.matrix[tokens[i][1]]
+                    matrix_list = matrix_to_write[1]
                     matrix_row_size = matrix_to_write[2]
                     matrix_column_size = matrix_to_write[3]
                     row:0
                     column:0
                     if tokens[i+1][1] in variables:
-                        row = variables[tokens[i+1][1]]
-                        if row[1] <= int(matrix_row_size):
+                        row = variables[tokens[i+1][1]][1]
+                        if row <= int(matrix_row_size):
                             i+=1
                         else:
                             return f"Error semantico el indice {tokens[i+1][1]} o {tokens[i+2][1]} es mayor al tamaño de la matriz"
                     elif tokens[i+1][1].isdigit():
                         if int(tokens[i+1][1]) <= int(matrix_row_size):
-                            row = tokens[i+1][1]
+                            row = int(tokens[i+1][1])
                             i+=1
                         else:
                             return f"Error semantico el indice {tokens[i+1][1]} o {tokens[i+2][1]} es mayor al tamaño de la matriz"
                     if tokens[i+1][1] in variables:
-                        column = variables[tokens[i+1][1]]
-                        if column[1] <= int(matrix_column_size):
+                        column = variables[tokens[i+1][1]][1]
+                        if column <= int(matrix_column_size):
                             i+=1
                         else:
                             return f"Error semantico el indice {tokens[i+1][1]} o {tokens[i+2][1]} es mayor al tamaño de la matriz"
                     elif tokens[i+1][1].isdigit():
                         if int(tokens[i+1][1]) <= int(matrix_column_size):
-                            column = tokens[i+1][1]
+                            column = int(tokens[i+1][1])
                             i+=1
                         else:
                             return f"Error semantico el indice {tokens[i+1][1]} o {tokens[i+2][1]} es mayor al tamaño de la matriz"
-                    value = matrix_to_write[1][0][0]
+                    value = filtrar_por_fila_columna(matrix_list,row,column)
                     i+=1
                     if array_to_assign[0] == 'ENTERO' or array_to_assign[0] == 'FLOTANTE':
                         total_nums_to_assign.append(value)

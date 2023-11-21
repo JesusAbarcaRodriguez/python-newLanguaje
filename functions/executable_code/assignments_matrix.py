@@ -64,7 +64,7 @@ def assignments_matrix(self,principal,matrix,variables,i,tokens):
                                     return message
                         init_function = principal.functions[function_name].init_function
                         verify_FUNCION(self,principal,init_function,tokens,function_name)
-                        matrix[tokens[index_matrix_to_assign][1]][1] = [(principal.functions[function_name].return_data,row,column)]
+                        matrix[tokens[index_matrix_to_assign][1]][1].append((principal.functions[function_name].return_data,row,column))
                         i += 1
                         parameters_input = []
                     else:
@@ -101,35 +101,36 @@ def assignments_matrix(self,principal,matrix,variables,i,tokens):
             elif is_matrix_call(tokens,i):
                 if tokens[i][1] in principal.matrix:
                     matrix_to_write = principal.matrix[tokens[i][1]]
+                    matrix_list = matrix_to_write[1]
                     matrix_row_size = matrix_to_write[2]
                     matrix_column_size = matrix_to_write[3]
-                    row:0
-                    column:0
+                    row2:0
+                    column2:0
                     if tokens[i+1][1] in variables:
-                        row = variables[tokens[i+1][1]]
-                        if row[1] <= int(matrix_row_size):
+                        row2 = variables[tokens[i+1][1]][1]
+                        if row2 <= int(matrix_row_size):
                             i+=1
                         else:
                             return f"Error semantico el indice {tokens[i+1][1]} o {tokens[i+2][1]} es mayor al tamaño de la matriz"
                     elif tokens[i+1][1].isdigit():
                         if int(tokens[i+1][1]) <= int(matrix_row_size):
-                            row = tokens[i+1][1]
+                            row2 = tokens[i+1][1][1]
                             i+=1
                         else:
                             return f"Error semantico el indice {tokens[i+1][1]} o {tokens[i+2][1]} es mayor al tamaño de la matriz"
                     if tokens[i+1][1] in variables:
-                        column = variables[tokens[i+1][1]]
-                        if column[1] <= int(matrix_column_size):
+                        column2 = variables[tokens[i+1][1]][1]
+                        if column2 <= int(matrix_column_size):
                             i+=1
                         else:
                             return f"Error semantico el indice {tokens[i+1][1]} o {tokens[i+2][1]} es mayor al tamaño de la matriz"
                     elif tokens[i+1][1].isdigit():
                         if int(tokens[i+1][1]) <= int(matrix_column_size):
-                            column = tokens[i+1][1]
+                            column2 = tokens[i+1][1][1]
                             i+=1
                         else:
                             return f"Error semantico el indice {tokens[i+1][1]} o {tokens[i+2][1]} es mayor al tamaño de la matriz"
-                    value = matrix_to_write[1][0][0]
+                    value = filtrar_por_fila_columna(matrix_list,row2,column2)
                     i+=1
                     if matrix_to_assign[0] == 'ENTERO' or matrix_to_assign[0] == 'FLOTANTE':
                         total_nums_to_assign.append(value)
@@ -171,7 +172,7 @@ def assignments_matrix(self,principal,matrix,variables,i,tokens):
                         total_nums_to_assign.append(variables[tokens[i][1]][1])
                         is_int_assignments = True
                     else:
-                        matrix[tokens[index_matrix_to_assign][1]][1] = [(result, row, column)]
+                        matrix[tokens[index_matrix_to_assign][1]][1].append((result, row, column))
                     i += 1
                 else:
                     return f"Error semantico en {error_message(tokens, i )}"
@@ -187,14 +188,14 @@ def assignments_matrix(self,principal,matrix,variables,i,tokens):
                     i += 1
             elif tokens[i][0] == 'VALOR_BOOLEANO':
                 if matrix_to_assign[0] == 'BOOLEANO':
-                    matrix[tokens[index_matrix_to_assign][1]][1] = [(result, row, column)]
+                    matrix[tokens[index_matrix_to_assign][1]][1].append((result, row, column))
                     i += 1
             elif tokens[i][0] == "OPERADOR_ARITMETICO" or tokens[i][0] == "PARENTESIS_IZQ" or tokens[i][0] == "PARENTESIS_DER":
                 total_operators.append(tokens[i][1])
                 i += 1
             elif tokens[i][0] == "CARACTER":
                 if matrix_to_assign[0] == 'CARACTER':
-                    matrix[tokens[index_matrix_to_assign][1]][1] = [(result, row, column)]
+                    matrix[tokens[index_matrix_to_assign][1]][1].append((result, row, column))
                     i += 1
             elif tokens[i][0] == "CADENA_LITERAL":
                 if matrix_to_assign[0] == 'CADENA':
@@ -203,10 +204,10 @@ def assignments_matrix(self,principal,matrix,variables,i,tokens):
                     i += 1
         if is_int_assignments:
             result = assign_nums_operation(total_operators,total_nums_to_assign)
-            matrix[tokens[index_matrix_to_assign][1]][1]  = [(result, row, column)]
+            matrix[tokens[index_matrix_to_assign][1]][1].append((result, row, column))
         if is_string_assignments:
             result = assign_string_operation(total_operators,total_strings_to_assign)
-            matrix[tokens[index_matrix_to_assign][1]][1]  = [(result, row, column)]
+            matrix[tokens[index_matrix_to_assign][1]][1].append((result, row, column))
     else:
         return f"{error_message(tokens, i )} no ha sido declarada "
     return str(i+1)
@@ -238,3 +239,6 @@ def assign_nums_operation(total_operators,total_nums_to_assign):
     else:
         return result
     return result
+def filtrar_por_fila_columna(lista, fila_buscar, columna_buscar):
+    resultado_filtrado = [(valor, fila, columna) for valor, fila, columna in lista if fila == fila_buscar and columna == columna_buscar]
+    return resultado_filtrado[0][0]
