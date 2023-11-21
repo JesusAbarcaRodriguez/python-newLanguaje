@@ -121,7 +121,10 @@ def verify_assigments(self,principal,variables,arrays,i,tokens):
                     if tokens[i+1][1] in variables:
                         variable_value = variables[tokens[i+1][1]]
                         if variable_value[1] <= int(array_size[2]):
-                            value = arrays[tokens[i][1]][1][tokens[i+1][1]]
+                            if tokens[i+1][1].isdigit():
+                                value = arrays[tokens[i][1]][1][tokens[i+1][1]]
+                            else:
+                                value = arrays[tokens[i][1]][1][variables[tokens[i+1][1]][1]]
                         else:
                             return f"Error semantico el indice {tokens[i+1][1]} es mayor al tamaño del arreglo"
                     elif tokens[i+1][1].isdigit():

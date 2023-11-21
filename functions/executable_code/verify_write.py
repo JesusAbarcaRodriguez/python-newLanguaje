@@ -11,7 +11,6 @@ def verify_write(self,variables,arrays,matrix,i,tokens):
                 row:0
                 column:0
                 if tokens[i+1][1] in variables:
-                    
                     row = variables[tokens[i+1][1]]
                     if row[1] <= int(matrix_row_size):
                         i+=1
