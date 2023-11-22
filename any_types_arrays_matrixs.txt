@@ -1,0 +1,18 @@
+BOOLEANO[5] vectorB;
+CARACTER[4] vecC;
+BOOLEANO[5][5] matrix;
+CARACTER[4][4] matrix2;
+PROCEDIMIENTO PRINCIPAL INICIO
+vectorB[1]:VERDADERO;
+ESCRIBIR(vectorB[1]);
+ESCRIBIR("//");
+vecC[1]: 'C';
+ESCRIBIR(vecC[1]);
+ESCRIBIR("//");
+matrix[1][1]:VERDADERO;
+ESCRIBIR(matrix[1][1]);
+ESCRIBIR("//");
+matrix2[1][1]:'D';
+ESCRIBIR(matrix2[1][1]);
+
+FIN

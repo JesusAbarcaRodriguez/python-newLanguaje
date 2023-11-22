@@ -32,7 +32,7 @@ patterns = [
     (r'\(', 'PARENTESIS_IZQ'),
     (r'\)', 'PARENTESIS_DER'),
     (r'\"(.*?)\"', lambda match: ('CADENA_LITERAL', match.group(1))),
-    (r"\'(.)'", 'VALOR_CARACTER'),
+    (r"\'(.)'", lambda match: ('VALOR_CARACTER', match.group(1))),
     (r'\:', 'ASIGNACION'),
     (r'[a-zA-Z_]\w*', 'IDENTIFICADOR'),
     (r'\d+\.\d+', 'NUMERO_FLOTANTE'),

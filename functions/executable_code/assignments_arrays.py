@@ -174,14 +174,14 @@ def assignments_arrays(self,principal,arrays,variables,i,tokens):
                     i += 1
             elif tokens[i][0] == 'VALOR_BOOLEANO':
                 if array_to_assign[0] == 'BOOLEANO':
-                    arrays[tokens[index_array_to_assign][1]][1] = tokens[i][1]
+                    arrays[tokens[index_array_to_assign][1]][1][index_to_assign] = tokens[i][1]
                     i += 1
             elif tokens[i][0] == "OPERADOR_ARITMETICO" or tokens[i][0] == "PARENTESIS_IZQ" or tokens[i][0] == "PARENTESIS_DER":
                 total_operators.append(tokens[i][1])
                 i += 1
-            elif tokens[i][0] == "CARACTER":
+            elif tokens[i][0] == "VALOR_CARACTER":
                 if array_to_assign[0] == 'CARACTER':
-                    arrays[tokens[index_array_to_assign][1]][1] = tokens[i][1]
+                    arrays[tokens[index_array_to_assign][1]][1][index_to_assign] = tokens[i][1]
                     i += 1
             elif tokens[i][0] == "CADENA_LITERAL":
                 if array_to_assign[0] == 'CADENA':

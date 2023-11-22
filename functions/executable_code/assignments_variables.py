@@ -170,7 +170,7 @@ def verify_assigments(self,principal,variables,arrays,i,tokens):
             elif tokens[i][0] == "OPERADOR_ARITMETICO" or tokens[i][0] == "PARENTESIS_IZQ" or tokens[i][0] == "PARENTESIS_DER":
                 total_operators.append(tokens[i][1])
                 i += 1
-            elif tokens[i][0] == "CARACTER":
+            elif tokens[i][0] == "VALOR_CARACTER":
                 if variable_to_assign[0] == 'CARACTER':
                     variables[tokens[index_variable_to_assign][1]][1] = tokens[i][1]
                     i += 1

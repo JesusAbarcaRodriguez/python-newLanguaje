@@ -28,6 +28,7 @@ def assignments_matrix(self,principal,matrix,variables,i,tokens):
         elif tokens[i][1].isdigit():
             if int(tokens[i][1]) >= int(matrix_to_assign[2]):
                 return f"Error semantico en {valor} no es un indice valido"
+            row = int(tokens[i][1])
         else:
             return f"Error semantico en {error_message(tokens, i )} no es un indice valido"
         i+=1
@@ -40,6 +41,7 @@ def assignments_matrix(self,principal,matrix,variables,i,tokens):
         elif tokens[i][1].isdigit():
             if int(tokens[i][1]) >= int(matrix_to_assign[3]):
                 return f"Error semantico en {valor} no es un indice valido"
+            column = int(tokens[i][1])
         else:
             return f"Error semantico en {error_message(tokens, i )} no es un indice valido"
         i += 2
@@ -188,14 +190,14 @@ def assignments_matrix(self,principal,matrix,variables,i,tokens):
                     i += 1
             elif tokens[i][0] == 'VALOR_BOOLEANO':
                 if matrix_to_assign[0] == 'BOOLEANO':
-                    matrix[tokens[index_matrix_to_assign][1]][1].append((result, row, column))
+                    matrix[tokens[index_matrix_to_assign][1]][1].append((tokens[i][1], row, column))
                     i += 1
             elif tokens[i][0] == "OPERADOR_ARITMETICO" or tokens[i][0] == "PARENTESIS_IZQ" or tokens[i][0] == "PARENTESIS_DER":
                 total_operators.append(tokens[i][1])
                 i += 1
-            elif tokens[i][0] == "CARACTER":
+            elif tokens[i][0] == "VALOR_CARACTER":
                 if matrix_to_assign[0] == 'CARACTER':
-                    matrix[tokens[index_matrix_to_assign][1]][1].append((result, row, column))
+                    matrix[tokens[index_matrix_to_assign][1]][1].append((tokens[i][1], row, column))
                     i += 1
             elif tokens[i][0] == "CADENA_LITERAL":
                 if matrix_to_assign[0] == 'CADENA':
