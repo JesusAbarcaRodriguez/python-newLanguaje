@@ -16,8 +16,9 @@ Este proyecto es un intento de crear un nuevo lenguaje de programación utilizan
   ```bash
   pip install PyQt5
  ## Cómo Ejecutar el Proyecto
--Clona este repositorio en tu máquina local.
--Abre una terminal y navega al directorio del proyecto.
--Ejecuta el siguiente comando para iniciar la interfaz de usuario:
-  --python main.py
+- Clona este repositorio en tu máquina local.
+- Abre una terminal y navega al directorio del proyecto.
+- Ejecuta el siguiente comando para iniciar la interfaz de usuario:
+  ```bash
+  python main.py
 
